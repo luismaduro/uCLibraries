@@ -249,45 +249,31 @@
 #define ABS(x)				((x>0)?(x):(-x))
 
 
-void MRF24J40_Reset(void);
-void MRF24J40_Init(unsigned char channel, unsigned char power, unsigned int pan, unsigned int address16);
-
-unsigned char read_short(unsigned char address);
-unsigned char read_long(unsigned int address);
-
-void write_short(unsigned char address, unsigned char data);
-void write_long(unsigned int address, unsigned char data);
-
-unsigned int MRF24J40_Get_Pan(void);
-void MRF24J40_Set_Pan(unsigned int panid);
-
-void MRF24J40_Short_Address_Write(unsigned int address);
-unsigned int MRF24J40_Short_Address_Read(void);
-
-void MRF24J40_Long_Address_Write(unsigned char * address);
-void MRF24J40_Long_Address_Read(unsigned char * address);
-
-
-void MRF24J40_Set_Interrupts(void);
-unsigned char MRF24J40_Get_Interrupts(void);
-
-void MRF24J40_Set_Promiscuous(bool enabled);
-
-void MRF24J40_Set_Power(unsigned char power);
-
+void MRF24J40Reset(void);
+void MRF24J40Init(unsigned char channel,
+                  unsigned char power,
+                  unsigned int pan,
+                  unsigned int address16);
+unsigned int MRF24J40GetPanID(void);
+void MRF24J40SetPanID(unsigned int panid);
+void MRF24J40ShortAddressWrite(unsigned int address);
+unsigned int MRF24J40ShortAddressRead(void);
+void MRF24J40LongAddressWrite(unsigned char * address);
+void MRF24J40LongAddressRead(unsigned char * address);
+void MRF24J40SetInterrupts(void);
+unsigned char MRF24J40GetInterrupts(void);
+void MRF24J40SetPromiscuous(bool enabled);
+void MRF24J40SetPower(unsigned char power);
 /**
  * Set the channel, using 802.15.4 channel numbers (11..26)
  */
-void MRF24J40_Set_Channel(unsigned char channel);
-unsigned char MRF24J40_Get_Channel(void);
-
-void MRF24J40_RX_Enable(void);
-void MRF24J40_RX_Disable(void);
-
+void MRF24J40SetChannel(unsigned char channel);
+unsigned char MRF24J40GetChannel(void);
+void MRF24J40RXEnable(void);
+void MRF24J40RXDisable(void);
 /** If you want to throw away rx data */
-void MRF24J40_RX_Flush(void);
-
-void MRF24J40_Packet_Send(unsigned int dest, unsigned int len, char* packet);
-unsigned char MRF24J40_Packet_Receive(char* packet);
+void MRF24J40RXFlush(void);
+void MRF24J40PacketSend(unsigned int dest, unsigned int len, char* packet);
+unsigned char MRF24J40PacketReceive(char* packet);
 
 #endif  /* LIB_MRF24J_H */
