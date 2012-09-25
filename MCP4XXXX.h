@@ -9,6 +9,8 @@
 #ifndef _MCP41XXXX_H_
 #define _MCP41XXXX_H_
 
+#include "SPIDevice.h"
+
 #define MCP4XXXX_WRITE_DATA_POT_0           0b00010001
 #define MCP4XXXX_WRITE_DATA_POT_1           0b00010010
 #define MCP4XXXX_WRITE_DATA_BOTH_POTS       0b00010011
@@ -17,7 +19,7 @@
 #define MCP4XXXX_SHUTDOWN_POT_1             0b00100010
 #define MCP4XXXX_SHUTDOWN_BOTH_POTS         0b00100011
 
-#endif /* _SPIDEV_H_ */
+
 
 
 void MCP4XXXXShutdownPotenciometer0(volatile unsigned char *port,
@@ -35,3 +37,4 @@ void MCP4XXXXSetPotenciometer1Value(volatile unsigned char *port,
 void MCP4XXXXSetPotenciometersValue(volatile unsigned char *port,
                                     unsigned char portBit,
                                     unsigned char resistance);
+#endif /* _SPIDEV_H_ */
