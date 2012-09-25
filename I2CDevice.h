@@ -7,8 +7,7 @@
  *  @version   1.0
  *  @date      June 2012
  *  @copyright MIT License.
- */
-/*
+ * 
  * I2Cdev device library code is placed under the MIT license
  * Copyright (c) 2011 Jeff Rowberg
  * Copyright (c) 2012 Luis Maduro
@@ -35,8 +34,6 @@
 
 #ifndef _I2CDEV_H_
 #define _I2CDEV_H_
-
-#include "stdbool.h"
 
 unsigned char I2CDeviceReadBit(unsigned char deviceAddress,
                                unsigned char address,

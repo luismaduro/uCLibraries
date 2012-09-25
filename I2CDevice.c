@@ -1,5 +1,143 @@
-#include <i2c.h>
-#include "IMUDevice.h"
+/**
+ *  @file       I2CDevice.h
+ *  @brief      Main I2C device functions
+ *  @details    Abstracts bit and byte I2C R/W functions
+ *  @author     Jeff Rowberg
+ *  @author     Luis Maduro (Port from C++ to C and adapted to PIC18)
+ *  @version    1.0
+ *  @date       June 2012
+ *  @copyright  MIT License.
+ *
+ * I2Cdev device library code is placed under the MIT license
+ * Copyright (c) 2011 Jeff Rowberg
+ * Copyright (c) 2012 Luis Maduro
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+#include <p18cxxx.h>
+#include "I2CDevice.h"
+
+/**
+ * Sends a start condition to the I2C bus.
+ * @warning Hardware specific!
+ */
+void I2CStart(void)
+{
+    SSP1CON2bits.SEN = 1;
+    while (SSP1CON2bits.SEN);
+}
+
+/**
+ * Sends a restart condition to the I2C bus.
+ * @warning Hardware specific!
+ */
+void I2CRestart(void)
+{
+    SSP1CON2bits.RSEN = 1;
+    while (SSP1CON2bits.RSEN);
+}
+
+/**
+ * Sends a stop condition to the I2C bus.
+ * @warning Hardware specific!
+ */
+void I2CStop(void)
+{
+    SSP1CON2bits.PEN = 1;
+    while (SSP1CON2bits.PEN);
+}
+
+/**
+ * Sends an ack to the slave.
+ * @warning Hardware specific!
+ */
+void I2CAck(void)
+{
+    SSP1CON2bits.ACKDT = 0;
+    SSP1CON2bits.ACKEN = 1;
+    while (SSP1CON2bits.ACKEN);
+}
+
+/**
+ * Sends a not ack to the slave.
+ * @warning Hardware specific!
+ */
+void I2CNotAck(void)
+{
+    SSP1CON2bits.ACKDT = 1;
+    SSP1CON2bits.ACKEN = 1;
+    while (SSP1CON2bits.ACKEN);
+}
+
+/**
+ * Sends a byte througth the I2C bus.
+ * @param data_out Data byte to be sent.
+ * @return 0 if all went well !=0 if not.
+ */
+unsigned char I2CWrite(unsigned char data_out)
+{
+    SSP1BUF = data_out;
+
+    if (SSP1CON1bits.WCOL)
+        return ( -1);
+
+    else
+    {
+        if (((SSP1CON1 & 0x0F) != 0x08) && ((SSP1CON1 & 0x0F) != 0x0B))
+        {
+            SSP1CON1bits.CKP = 1;
+
+            while (!PIR1bits.SSP1IF);
+
+            if ((!SSP1STATbits.R_W) && (!SSP1STATbits.BF))
+                return (-2);
+            else
+                return (0);
+
+        }
+        else if (((SSP1CON1 & 0x0F) == 0x08) || ((SSP1CON1 & 0x0F) == 0x0B))
+        {
+            while (SSP1STATbits.BF);
+
+            while ((SSP1CON2 & 0x1F) | (SSP1STATbits.R_W));
+
+            if (SSP1CON2bits.ACKSTAT)
+                return ( -2);
+            else
+                return ( 0);
+        }
+    }
+}
+
+/**
+ * Reads a byte from the I2C bus.
+ * @return The bytes retrieved.
+ */
+unsigned char I2CRead(void)
+{
+    if (((SSP1CON1 & 0x0F) == 0x08) || ((SSP1CON1 & 0x0F) == 0x0B))
+        SSP1CON2bits.RCEN = 1;
+    while (!SSP1STATbits.BF);
+    return ( SSP1BUF);
+}
 
 /**
  * Read multiple bytes from a device register.
@@ -15,28 +153,28 @@ void I2CDeviceReadBytes(unsigned char deviceAddress,
 {
     unsigned char i = 0;
 
-    StartI2C1();
-    WriteI2C1(deviceAddress & 0xFE);
-    WriteI2C1(address);
-    RestartI2C1();
+    I2CStart();
+    I2CWrite(deviceAddress & 0xFE);
+    I2CWrite(address);
+    I2CRestart();
 
-    WriteI2C1(deviceAddress | 0x01);
+    I2CWrite(deviceAddress | 0x01);
 
     for (i = 0; i < length; i++)
     {
-        data[i] = ReadI2C1();
+        data[i] = I2CRead();
 
         if (i == (length - 1))
         {
-            NotAckI2C1();
+            I2CNotAck();
         }
         else
         {
-            AckI2C1();
+            I2CAck();
         }
     }
 
-    StopI2C1();
+    I2CStop();
 }
 
 /**
@@ -53,17 +191,16 @@ void I2CDeviceWriteBytes(unsigned char deviceAddress,
 {
     unsigned char i;
 
-    StartI2C1();
-    WriteI2C1(deviceAddress  & 0xFE);
-    WriteI2C1(address);
+    I2CStart();
+    I2CWrite(deviceAddress & 0xFE);
+    I2CWrite(address);
 
     for (i = 0; i < length; i++)
     {
-        WriteI2C1(data[i]);
+        I2CWrite(data[i]);
     }
-    StopI2C1();
+    I2CStop();
 }
-
 
 /**
  * Read a single bit from a device register.
