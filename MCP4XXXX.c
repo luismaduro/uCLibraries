@@ -4,10 +4,13 @@
  *  @author    Luis Maduro
  *  @version   1.0
  *  @date      September 2012
+ *
+ *
+ * 1.0 - Initial Release - Luis Maduro
+ * 
  */
 
 #include <xc.h>
-#include "MCP4XXXX.h"
 #include "MCP4XXXX.h"
 
 void SPIWrite(unsigned char data);
