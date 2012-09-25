@@ -66,6 +66,6 @@ void I2CDeviceWriteByte(unsigned char deviceAddress,
 void I2CDeviceWriteBytes(unsigned char deviceAddress,
                          unsigned char address,
                          unsigned char length,
-                         unsigned char* data);
+                         unsigned char *data);
 
 #endif /* _I2CDEV_H_ */

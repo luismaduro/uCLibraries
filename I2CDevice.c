@@ -1,5 +1,69 @@
 #include <i2c.h>
-#include "imu/IMUDevice.h"
+#include "IMUDevice.h"
+
+/**
+ * Read multiple bytes from a device register.
+ * @param deviceAddress Address of the device in I2C bus
+ * @param address First register address to read from
+ * @param length Number of bytes to read
+ * @param data Buffer to store read data in
+ */
+void I2CDeviceReadBytes(unsigned char deviceAddress,
+                        unsigned char address,
+                        unsigned char length,
+                        unsigned char *data)
+{
+    unsigned char i = 0;
+
+    StartI2C1();
+    WriteI2C1(deviceAddress & 0xFE);
+    WriteI2C1(address);
+    RestartI2C1();
+
+    WriteI2C1(deviceAddress | 0x01);
+
+    for (i = 0; i < length; i++)
+    {
+        data[i] = ReadI2C1();
+
+        if (i == (length - 1))
+        {
+            NotAckI2C1();
+        }
+        else
+        {
+            AckI2C1();
+        }
+    }
+
+    StopI2C1();
+}
+
+/**
+ * Write multiple bytes to a device register.
+ * @param deviceAddress Address of the device in I2C bus
+ * @param address First register address to write to
+ * @param length Number of bytes to write
+ * @param data Buffer to copy new data from
+ */
+void I2CDeviceWriteBytes(unsigned char deviceAddress,
+                         unsigned char address,
+                         unsigned char length,
+                         unsigned char *data)
+{
+    unsigned char i;
+
+    StartI2C1();
+    WriteI2C1(deviceAddress  & 0xFE);
+    WriteI2C1(address);
+
+    for (i = 0; i < length; i++)
+    {
+        WriteI2C1(data[i]);
+    }
+    StopI2C1();
+}
+
 
 /**
  * Read a single bit from a device register.
@@ -61,44 +125,6 @@ unsigned char I2CDeviceReadByte(unsigned char deviceAddress,
     unsigned char b = 0;
     I2CDeviceReadBytes(deviceAddress, address, 1, &b);
     return b;
-}
-
-/**
- * Read multiple bytes from a device register.
- * @param deviceAddress Address of the device in I2C bus
- * @param address First register address to read from
- * @param length Number of bytes to read
- * @param data Buffer to store read data in
- */
-void I2CDeviceReadBytes(unsigned char deviceAddress,
-                        unsigned char address,
-                        unsigned char length,
-                        unsigned char *data)
-{
-    unsigned char i = 0;
-
-    StartI2C1();
-    WriteI2C1(deviceAddress & 0xFE);
-    WriteI2C1(address);
-    RestartI2C1();
-
-    WriteI2C1(deviceAddress | 0x01);
-
-    for (i = 0; i < length; i++)
-    {
-        data[i] = ReadI2C1();
-
-        if (i == (length - 1))
-        {
-            NotAckI2C1();
-        }
-        else
-        {
-            AckI2C1();
-        }
-    }
-
-    StopI2C1();
 }
 
 /**
@@ -175,29 +201,4 @@ void I2CDeviceWriteByte(unsigned char deviceAddress,
                         unsigned char value)
 {
     I2CDeviceWriteBytes(deviceAddress, address, 1, &value);
-}
-
-/**
- * Write multiple bytes to a device register.
- * @param deviceAddress Address of the device in I2C bus
- * @param address First register address to write to
- * @param length Number of bytes to write
- * @param data Buffer to copy new data from
- */
-void I2CDeviceWriteBytes(unsigned char deviceAddress,
-                         unsigned char address,
-                         unsigned char length,
-                         unsigned char* data)
-{
-    unsigned char i;
-
-    StartI2C1();
-    WriteI2C1(deviceAddress  & 0xFE);
-    WriteI2C1(address);
-
-    for (i = 0; i < length; i++)
-    {
-        WriteI2C1(data[i]);
-    }
-    StopI2C1();
 }
