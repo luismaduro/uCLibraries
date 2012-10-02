@@ -35,33 +35,26 @@
 #ifndef _I2CDEV_H_
 #define _I2CDEV_H_
 
-unsigned char I2CDeviceReadBit(unsigned char deviceAddress,
-                               unsigned char address,
+void I2CDeviceSetDeviceAddress(unsigned char address);
+unsigned char I2CDeviceReadBit(unsigned char address,
                                unsigned char _bit);
-unsigned char I2CDeviceReadBits(unsigned char deviceAddress,
-                                unsigned char address,
+unsigned char I2CDeviceReadBits(unsigned char address,
                                 unsigned char bitStart,
                                 unsigned char length);
-unsigned char I2CDeviceReadByte(unsigned char deviceAddress,
-                                unsigned char address);
-void I2CDeviceReadBytes(unsigned char deviceAddress,
-                        unsigned char address,
+unsigned char I2CDeviceReadByte(unsigned char address);
+void I2CDeviceReadBytes(unsigned char address,
                         unsigned char length,
                         unsigned char *data);
-void I2CDeviceWriteBit(unsigned char deviceAddress,
-                       unsigned char address,
+void I2CDeviceWriteBit(unsigned char address,
                        unsigned char _bit,
                        unsigned char value);
-void I2CDeviceWriteBits(unsigned char deviceAddress,
-                        unsigned char address,
+void I2CDeviceWriteBits(unsigned char address,
                         unsigned char bitStart,
                         unsigned char length,
                         unsigned char value);
-void I2CDeviceWriteByte(unsigned char deviceAddress,
-                        unsigned char address,
+void I2CDeviceWriteByte(unsigned char address,
                         unsigned char value);
-void I2CDeviceWriteBytes(unsigned char deviceAddress,
-                         unsigned char address,
+void I2CDeviceWriteBytes(unsigned char address,
                          unsigned char length,
                          unsigned char *data);
 

@@ -35,14 +35,17 @@
 #include <p18cxxx.h>
 #include "I2CDevice.h"
 
+unsigned char deviceAddressRead;
+unsigned char deviceAddressWrite;
+
 /**
  * Sends a start condition to the I2C bus.
  * @warning Hardware specific!
  */
 void I2CStart(void)
 {
-    SSP1CON2bits.SEN = 1;
-    while (SSP1CON2bits.SEN);
+    SSPCON2bits.SEN = 1;
+    while (SSPCON2bits.SEN);
 }
 
 /**
@@ -51,8 +54,8 @@ void I2CStart(void)
  */
 void I2CRestart(void)
 {
-    SSP1CON2bits.RSEN = 1;
-    while (SSP1CON2bits.RSEN);
+    SSPCON2bits.RSEN = 1;
+    while (SSPCON2bits.RSEN);
 }
 
 /**
@@ -61,8 +64,8 @@ void I2CRestart(void)
  */
 void I2CStop(void)
 {
-    SSP1CON2bits.PEN = 1;
-    while (SSP1CON2bits.PEN);
+    SSPCON2bits.PEN = 1;
+    while (SSPCON2bits.PEN);
 }
 
 /**
@@ -71,9 +74,9 @@ void I2CStop(void)
  */
 void I2CAck(void)
 {
-    SSP1CON2bits.ACKDT = 0;
-    SSP1CON2bits.ACKEN = 1;
-    while (SSP1CON2bits.ACKEN);
+    SSPCON2bits.ACKDT = 0;
+    SSPCON2bits.ACKEN = 1;
+    while (SSPCON2bits.ACKEN);
 }
 
 /**
@@ -82,9 +85,9 @@ void I2CAck(void)
  */
 void I2CNotAck(void)
 {
-    SSP1CON2bits.ACKDT = 1;
-    SSP1CON2bits.ACKEN = 1;
-    while (SSP1CON2bits.ACKEN);
+    SSPCON2bits.ACKDT = 1;
+    SSPCON2bits.ACKEN = 1;
+    while (SSPCON2bits.ACKEN);
 }
 
 /**
@@ -94,32 +97,32 @@ void I2CNotAck(void)
  */
 unsigned char I2CWrite(unsigned char data_out)
 {
-    SSP1BUF = data_out;
+    SSPBUF = data_out;
 
-    if (SSP1CON1bits.WCOL)
+    if (SSPCON1bits.WCOL)
         return ( -1);
 
     else
     {
-        if (((SSP1CON1 & 0x0F) != 0x08) && ((SSP1CON1 & 0x0F) != 0x0B))
+        if (((SSPCON1 & 0x0F) != 0x08) && ((SSPCON1 & 0x0F) != 0x0B))
         {
-            SSP1CON1bits.CKP = 1;
+            SSPCON1bits.CKP = 1;
 
-            while (!PIR1bits.SSP1IF);
+            while (!PIR1bits.SSPIF);
 
-            if ((!SSP1STATbits.R_W) && (!SSP1STATbits.BF))
+            if ((!SSPSTATbits.R_W) && (!SSPSTATbits.BF))
                 return (-2);
             else
                 return (0);
 
         }
-        else if (((SSP1CON1 & 0x0F) == 0x08) || ((SSP1CON1 & 0x0F) == 0x0B))
+        else if (((SSPCON1 & 0x0F) == 0x08) || ((SSPCON1 & 0x0F) == 0x0B))
         {
-            while (SSP1STATbits.BF);
+            while (SSPSTATbits.BF);
 
-            while ((SSP1CON2 & 0x1F) | (SSP1STATbits.R_W));
+            while ((SSPCON2 & 0x1F) | (SSPSTATbits.R_W));
 
-            if (SSP1CON2bits.ACKSTAT)
+            if (SSPCON2bits.ACKSTAT)
                 return ( -2);
             else
                 return ( 0);
@@ -133,32 +136,41 @@ unsigned char I2CWrite(unsigned char data_out)
  */
 unsigned char I2CRead(void)
 {
-    if (((SSP1CON1 & 0x0F) == 0x08) || ((SSP1CON1 & 0x0F) == 0x0B))
-        SSP1CON2bits.RCEN = 1;
-    while (!SSP1STATbits.BF);
-    return ( SSP1BUF);
+    if (((SSPCON1 & 0x0F) == 0x08) || ((SSPCON1 & 0x0F) == 0x0B))
+        SSPCON2bits.RCEN = 1;
+    while (!SSPSTATbits.BF);
+    return ( SSPBUF);
+}
+
+/**
+ * Sets the device address to the library. Change every time that slave changes.
+ * @param address   Address of the slave NOT SHIFTED. DO NOT INCLUDE THE
+ *                  READ/WRITE bit.
+ */
+void I2CDeviceSetDeviceAddress(unsigned char address)
+{
+    deviceAddressRead = (address << 1) | 0x01;
+    deviceAddressWrite = (address << 1) & 0xFE;
 }
 
 /**
  * Read multiple bytes from a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address First register address to read from
  * @param length Number of bytes to read
  * @param data Buffer to store read data in
  */
-void I2CDeviceReadBytes(unsigned char deviceAddress,
-                        unsigned char address,
+void I2CDeviceReadBytes(unsigned char address,
                         unsigned char length,
                         unsigned char *data)
 {
     unsigned char i = 0;
 
     I2CStart();
-    I2CWrite(deviceAddress & 0xFE);
+    I2CWrite(deviceAddressWrite);
     I2CWrite(address);
     I2CRestart();
 
-    I2CWrite(deviceAddress | 0x01);
+    I2CWrite(deviceAddressRead);
 
     for (i = 0; i < length; i++)
     {
@@ -179,20 +191,18 @@ void I2CDeviceReadBytes(unsigned char deviceAddress,
 
 /**
  * Write multiple bytes to a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address First register address to write to
  * @param length Number of bytes to write
  * @param data Buffer to copy new data from
  */
-void I2CDeviceWriteBytes(unsigned char deviceAddress,
-                         unsigned char address,
+void I2CDeviceWriteBytes(unsigned char address,
                          unsigned char length,
                          unsigned char *data)
 {
     unsigned char i;
 
     I2CStart();
-    I2CWrite(deviceAddress & 0xFE);
+    I2CWrite(deviceAddressWrite);
     I2CWrite(address);
 
     for (i = 0; i < length; i++)
@@ -204,29 +214,25 @@ void I2CDeviceWriteBytes(unsigned char deviceAddress,
 
 /**
  * Read a single bit from a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to read from
  * @param _bit Bit in register position to read (0-7)
  * @return Single bit value
  */
-unsigned char I2CDeviceReadBit(unsigned char deviceAddress,
-                               unsigned char address,
+unsigned char I2CDeviceReadBit(unsigned char address,
                                unsigned char _bit)
 {
-    return (I2CDeviceReadByte(deviceAddress, address) & (1 << _bit));
+    return (I2CDeviceReadByte(address) & (1 << _bit));
 }
 
 /**
  * Read multiple bits from a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to read from
  * @param bitStart First bit position to read (0-7)
  * @param length Number of bits to read (not more than 8)
  * @return Right-aligned value (i.e. '101' read from any bitStart position will
  *                              equal 0x05)
  */
-unsigned char I2CDeviceReadBits(unsigned char deviceAddress,
-                                unsigned char address,
+unsigned char I2CDeviceReadBits(unsigned char address,
                                 unsigned char bitStart,
                                 unsigned char length)
 {
@@ -239,7 +245,7 @@ unsigned char I2CDeviceReadBits(unsigned char deviceAddress,
     unsigned char b;
     unsigned char r = 0;
 
-    b = I2CDeviceReadByte(deviceAddress, address);
+    b = I2CDeviceReadByte(address);
 
     for (i = bitStart; i > bitStart - length; i--)
     {
@@ -252,49 +258,43 @@ unsigned char I2CDeviceReadBits(unsigned char deviceAddress,
 
 /**
  * Read single byte from a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to read from
  * @return Byte value read from device
  */
-unsigned char I2CDeviceReadByte(unsigned char deviceAddress,
-                                unsigned char address)
+unsigned char I2CDeviceReadByte(unsigned char address)
 {
     unsigned char b = 0;
-    I2CDeviceReadBytes(deviceAddress, address, 1, &b);
+    I2CDeviceReadBytes(address, 1, &b);
     return b;
 }
 
 /**
  * Write a single bit to a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to write to
  * @param _bit Bit position to write (0-7)
  * @param value New bit value to write
  */
-void I2CDeviceWriteBit(unsigned char deviceAddress,
-                       unsigned char address,
+void I2CDeviceWriteBit(unsigned char address,
                        unsigned char _bit,
                        unsigned char value)
 {
     unsigned char b;
 
-    b = I2CDeviceReadByte(deviceAddress, address);
+    b = I2CDeviceReadByte(address);
 
     b = value ? (b | (1 << _bit)) : (b & ~(1 << _bit));
 
-    I2CDeviceWriteByte(deviceAddress, address, b);
+    I2CDeviceWriteByte(address, b);
 }
 
 /**
  * Write multiple bits to a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to write to
  * @param bitStart First bit position to write (0-7)
  * @param length Number of bits to write (not more than 8)
  * @param value Right-aligned value to write
  */
-void I2CDeviceWriteBits(unsigned char deviceAddress,
-                        unsigned char address,
+void I2CDeviceWriteBits(unsigned char address,
                         unsigned char bitStart,
                         unsigned char length,
                         unsigned char value)
@@ -312,7 +312,7 @@ void I2CDeviceWriteBits(unsigned char deviceAddress,
     unsigned char b;
     unsigned char mask;
 
-    b = I2CDeviceReadByte(deviceAddress, address);
+    b = I2CDeviceReadByte(address);
 
     mask = (0xFF << (8 - length)) | (0xFF >> (bitStart + length - 1));
 
@@ -324,18 +324,16 @@ void I2CDeviceWriteBits(unsigned char deviceAddress,
 
     b |= value;
 
-    I2CDeviceWriteByte(deviceAddress, address, b);
+    I2CDeviceWriteByte(address, b);
 }
 
 /**
  * Write single byte to a device register.
- * @param deviceAddress Address of the device in I2C bus
  * @param address Register address to write to
  * @param value New byte value write
  */
-void I2CDeviceWriteByte(unsigned char deviceAddress,
-                        unsigned char address,
+void I2CDeviceWriteByte(unsigned char address,
                         unsigned char value)
 {
-    I2CDeviceWriteBytes(deviceAddress, address, 1, &value);
+    I2CDeviceWriteBytes(address, 1, &value);
 }
