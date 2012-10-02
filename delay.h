@@ -14,8 +14,7 @@
 
 #include <delays.h>
 
-#define GetSystemClock()	(48000000ul)	// Hz
-#define GetInstructionClock()	(GetSystemClock()/4)
+#define GetInstructionClock()	(SYSTEM_CLOCK/4)
 
 #define Delay10us(us)   Delay10TCYx(((GetInstructionClock()/1000000)*(us)))
 #define DelayMs(ms)                                                 \
