@@ -7,8 +7,8 @@
  * @date        2011
  * @copyright   GNU Public License.
  */
-#include "imu/IMUDevice.h"
-#include "imu/ADXL345.h"
+#include "I2CDevice.h"
+#include "ADXL345.h"
 
 unsigned char ADXL345Buffer[6];
 

@@ -1,5 +1,13 @@
-
-#include "imu/HMC5883L.h"
+/**
+ * @file        HMC5883L.c
+ * @author      Luis Maduro
+ * @author      Jeff Rowberg
+ * @version     1.0
+ * @date        2011
+ * @copyright 	MIT license
+ */
+#include "I2CDevice.h"
+#include "HMC5883L.h"
 
 unsigned char HMC5883LBuffer[6];
 unsigned char mode;

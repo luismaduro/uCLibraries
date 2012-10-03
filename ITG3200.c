@@ -1,5 +1,12 @@
-
-#include "imu/ITG3200.h"
+/**
+ * @file        ITG3200.c
+ * @author      Luis Maduro
+ * @author      Jeff Rowberg
+ * @version     1.0
+ * @date        2011
+ * @copyright	MIT license
+ */
+#include "ITG3200.h"
 
 unsigned char ITG3200Buffer[6];
 

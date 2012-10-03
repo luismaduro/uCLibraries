@@ -11,7 +11,7 @@
 #ifndef _ADXL345_H_
 #define _ADXL345_H_
 
-#include "imu/IMUDevice.h"
+#include "I2CDevice.h"
 
 #define ADXL345_ADDRESS_WRITE       0xA6
 #define ADXL345_ADDRESS_READ        0xA7
