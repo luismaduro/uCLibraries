@@ -530,7 +530,7 @@ bool ITG3200GetStandbyXEnabled(void)
 
 /**
  * Set X-axis standby enabled status.
- * @param New X-axis standby enabled status
+ * @param enabled X-axis standby enabled status
  * @see ITG3200GetStandbyXEnabled()
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_XG_BIT
@@ -560,7 +560,7 @@ bool ITG3200GetStandbyYEnabled(void)
 
 /**
  * Set Y-axis standby enabled status.
- * @param New Y-axis standby enabled status
+ * @param enabled Y-axis standby enabled status
  * @see ITG3200GetStandbyYEnabled()
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_YG_BIT
@@ -590,7 +590,7 @@ bool ITG3200GetStandbyZEnabled(void)
 
 /**
  * Set Z-axis standby enabled status.
- * @param New Z-axis standby enabled status
+ * @param enabled Z-axis standby enabled status
  * @see ITG3200GetStandbyZEnabled()
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_ZG_BIT

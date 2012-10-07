@@ -46,7 +46,7 @@ void MCP6S2XShutdown(volatile unsigned char *port,
 /**
  * Sets the gain for the PGA. The gain value are defined in the include file.
  *
- * @condition Must select the correct define in the MCP6S2X.h file to select the
+ * @warning Must select the correct define in the MCP6S2X.h file to select the
  * device used. The value of several registers change.
  *
  * @param port      PORT address of the CS pin.
@@ -74,13 +74,15 @@ void MCP6S2XSetGain(volatile unsigned char *port,
  * Selects the channel to perform the convertions. Channel values are defined in
  * the include file.
  *
- * @condition Must select the correct define in the MCP6S2X.h file to select the
+ * @warning Must select the correct define in the MCP6S2X.h file to select the
  * device used. The value of several registers change.
  *
  * @param port      PORT address of the CS pin.
  *                  E.g. &PORTA to PORTA, &PORTB to PORTB, etc.
  *
  * @param portBit   PORT bit value of the CS pin. E.g. 0 to RB0, 1 to RB1, etc.
+ *
+ * @param channel 	Selects the channel of the chip.
  *
  * @see MCP6S2X.h
  */

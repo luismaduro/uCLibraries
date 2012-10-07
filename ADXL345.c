@@ -644,7 +644,7 @@ unsigned char ADXL345GetFreefallTime(void)
 }
 
 /** Set freefall time value.
- * @param threshold Freefall time value (scaled at 5 ms/LSB)
+ * @param time Freefall time value (scaled at 5 ms/LSB)
  * @see ADXL345GetFreefallTime()
  * @see ADXL345_RA_TIME_FF
  */
@@ -1111,7 +1111,7 @@ bool ADXL345GetSleepEnabled(void)
 
 /**
  * Set sleep mode enabled status.
- * @param Sleep mode enabled status
+ * @param enabled Sleep mode enabled status
  * @see ADXL345GetSleepEnabled()
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_SLEEP_BIT
@@ -1191,7 +1191,7 @@ void ADXL345SetIntDataReadyEnabled(bool enabled)
 
 /**
  * Set SINGLE_TAP interrupt enabled status.
- * @param enabled New interrupt enabled status
+ * @return Interrupt enabled status
  * @see ADXL345SetIntSingleTapEnabled()
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_SINGLE_TAP_BIT
@@ -2035,7 +2035,7 @@ unsigned char ADXL345GetFIFOTriggerInterruptPin(void)
 
 /**
  * Set FIFO trigger interrupt pin setting.
- * @param interrupt New FIFO trigger interrupt pin setting
+ * @param _interrupt New FIFO trigger interrupt pin setting
  * @see ADXL345GetFIFOTriggerInterruptPin()
  * @see ADXL345_RA_FIFO_CTL
  * @see ADXL345_FIFO_TRIGGER_BIT

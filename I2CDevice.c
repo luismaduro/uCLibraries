@@ -1,5 +1,5 @@
 /**
- *  @file       I2CDevice.h
+ *  @file       I2CDevice.c
  *  @brief      Main I2C device functions
  *  @details    Abstracts bit and byte I2C R/W functions
  *  @author     Jeff Rowberg
