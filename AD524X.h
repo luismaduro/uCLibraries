@@ -26,14 +26,18 @@
 
 #include "I2CDevice.h"
 
-#ifdef	__cplusplus
-extern "C"
-{
-#endif
+/**Device as the AD0 pin to GND and AD1 pin to GND*/
+#define AD524X_DEVICE_A0        0b00000000
+/**Device as the AD0 pin to VDD and AD1 pin to GND*/
+#define AD524X_DEVICE_A1        0b00000001
+/**Device as the AD0 pin to GND and AD1 pin to VDD*/
+#define AD524X_DEVICE_A2        0b00000010
+/**Device as the AD0 pin to VDD and AD1 pin to VDD*/
+#define AD524X_DEVICE_A3        0b00000011
+/**Standard device address*/
+#define AD524X_DEVICE_ADDRESS   0b00101100
 
-#define AD5241_DEVICE_ADDRESS   0b00101100
-
-
+void AD524XSetDeviceAddress(unsigned char address);
 void AD524XSetRDAC1Value(unsigned char value);
 void AD524XSetRDAC2Value(unsigned char value);
 void AD524XSetOutput1(void);
@@ -42,10 +46,6 @@ void AD524XClearOutput1(void);
 void AD524XClearOutput2(void);
 void AD524XSetRDAC1Midscale(void);
 void AD524XSetRDAC2Midscale(void);
-
-#ifdef	__cplusplus
-}
-#endif
 
 #endif	/* AD5241_H */
 

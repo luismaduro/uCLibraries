@@ -22,7 +22,55 @@
  */
 #include "AD524X.h"
 
-unsigned char instructionByte;
+unsigned char *instructionByte;
+unsigned char instructionByteA0;
+unsigned char instructionByteA1;
+unsigned char instructionByteA2;
+unsigned char instructionByteA3;
+unsigned char ad524xAddress;
+
+/**
+ * Set the device address that we want to communicate. It should be called every
+ * time that we want to change the device to communicate.
+ * @param address
+ * @warning One of the following must be selected:
+ * #AD524X_DEVICE_A0,
+ * #AD524X_DEVICE_A1,
+ * #AD524X_DEVICE_A2 and
+ * #AD524X_DEVICE_A3
+ * @see AD524X.h
+ */
+void AD524XSetDeviceAddress(unsigned char address)
+{
+    switch (address)
+    {
+    case AD524X_DEVICE_A0:
+        instructionByte = &instructionByteA0;
+        ad524xAddress = AD524X_DEVICE_ADDRESS | AD524X_DEVICE_A0;
+        break;
+
+    case AD524X_DEVICE_A1:
+        instructionByte = &instructionByteA1;
+        ad524xAddress = AD524X_DEVICE_ADDRESS | AD524X_DEVICE_A1;
+        break;
+
+    case AD524X_DEVICE_A2:
+        instructionByte = &instructionByteA2;
+        ad524xAddress = AD524X_DEVICE_ADDRESS | AD524X_DEVICE_A2;
+        break;
+
+    case AD524X_DEVICE_A3:
+        instructionByte = &instructionByteA3;
+        ad524xAddress = AD524X_DEVICE_ADDRESS | AD524X_DEVICE_A3;
+        break;
+
+    default:
+        instructionByte = &instructionByteA0;
+        ad524xAddress = AD524X_DEVICE_ADDRESS | AD524X_DEVICE_A0;
+        break;
+    }
+
+}
 
 /**
  * Set the value of the RDAC 1 of the chip.
@@ -30,10 +78,10 @@ unsigned char instructionByte;
  */
 void AD524XSetRDAC1Value(unsigned char value)
 {
-    instructionByte &= 0b01111111;
+    *instructionByte &= 0b01111111;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteByte(instructionByte, value);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteByte(*instructionByte, value);
 }
 
 /**
@@ -44,10 +92,10 @@ void AD524XSetRDAC1Value(unsigned char value)
  */
 void AD524XSetRDAC2Value(unsigned char value)
 {
-    instructionByte |= 0b10000000;
+    *instructionByte |= 0b10000000;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteByte(instructionByte, value);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteByte(*instructionByte, value);
 }
 
 /**
@@ -55,10 +103,10 @@ void AD524XSetRDAC2Value(unsigned char value)
  */
 void AD524XSetOutput1(void)
 {
-    instructionByte |= 0b00010000;
+    *instructionByte |= 0b00010000;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 }
 
 /**
@@ -66,10 +114,10 @@ void AD524XSetOutput1(void)
  */
 void AD524XSetOutput2(void)
 {
-    instructionByte |= 0b00001000;
+    *instructionByte |= 0b00001000;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 }
 
 /**
@@ -77,10 +125,10 @@ void AD524XSetOutput2(void)
  */
 void AD524XClearOutput1(void)
 {
-    instructionByte &= 0b11101111;
+    *instructionByte &= 0b11101111;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 }
 
 /**
@@ -88,10 +136,10 @@ void AD524XClearOutput1(void)
  */
 void AD524XClearOutput2(void)
 {
-    instructionByte &= 0b11110111;
+    *instructionByte &= 0b11110111;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 }
 
 /**
@@ -99,12 +147,12 @@ void AD524XClearOutput2(void)
  */
 void AD524XSetRDAC1Midscale(void)
 {
-    instructionByte |= 0b01000000;
+    *instructionByte |= 0b01000000;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 
-    instructionByte &= 0b10111111;
+    *instructionByte &= 0b10111111;
 }
 
 /**
@@ -112,10 +160,10 @@ void AD524XSetRDAC1Midscale(void)
  */
 void AD524XSetRDAC2Midscale(void)
 {
-    instructionByte |= 0b11000000;
+    *instructionByte |= 0b11000000;
 
-    I2CDeviceSetDeviceAddress(AD5241_DEVICE_ADDRESS);
-    I2CDeviceWriteBytes(instructionByte, 0, 0x00);
+    I2CDeviceSetDeviceAddress(ad524xAddress);
+    I2CDeviceWriteBytes(*instructionByte, 0, 0x00);
 
-    instructionByte &= 0b10111111;
+    *instructionByte &= 0b10111111;
 }
