@@ -24,6 +24,8 @@
 #include "MCP3421.h"
 
 
+float lsb = MCP3421_LSB_12BITS;
+char gain = MCP3421_GAIN_1_VALUE;
 MCP3421ConfigurationRegister configuration;
 
 /**
@@ -74,6 +76,29 @@ void MCP3421SetConvertionRate(unsigned char value)
     configuration.SampleRateSelectionBits = value;
     I2CDeviceSetDeviceAddress(MCP3421_DEVICE_ADDRESS);
     I2CDeviceWriteBytes(configuration.byte, 0, 0x00);
+
+    switch (value)
+    {
+    case MCP3421_SAMPLE_RATE_240_SPS:
+        lsb = MCP3421_LSB_12BITS;
+        break;
+
+    case MCP3421_SAMPLE_RATE_60_SPS:
+        lsb = MCP3421_LSB_14BITS;
+        break;
+
+    case MCP3421_SAMPLE_RATE_15_SPS:
+        lsb = MCP3421_LSB_16BITS;
+        break;
+
+    case MCP3421_SAMPLE_RATE_3_75_SPS:
+        lsb = MCP3421_LSB_18BITS;
+        break;
+
+    default:
+        lsb = MCP3421_LSB_12BITS;
+        break;
+    }
 }
 
 /**
@@ -90,8 +115,37 @@ void MCP3421SetPGAGain(unsigned char value)
     configuration.PGAGainSelectionBits = value;
     I2CDeviceSetDeviceAddress(MCP3421_DEVICE_ADDRESS);
     I2CDeviceWriteBytes(configuration.byte, 0, 0x00);
+
+    switch (value)
+    {
+    case MCP3421_GAIN_1:
+        gain = MCP3421_GAIN_1_VALUE;
+        break;
+
+    case MCP3421_GAIN_2:
+        gain = MCP3421_GAIN_2_VALUE;
+        break;
+
+    case MCP3421_GAIN_4:
+        gain = MCP3421_GAIN_4_VALUE;
+        break;
+
+    case MCP3421_GAIN_8:
+        gain = MCP3421_GAIN_8_VALUE;
+        break;
+
+    default:
+        gain = MCP3421_GAIN_1_VALUE;
+        break;
+    }
 }
 
+/**
+ * This funtion gets the value from the ADC. The funtion as blocking properties,
+ *  if the convertion is not completed the device is continuous asked if the
+ * convertion is completed. When is completed the value in volts is returned.
+ * @return The voltage on the terminals of the ADC.
+ */
 float MCP3421GetValue(void)
 {
     float voltage = 0.0;
@@ -115,7 +169,7 @@ float MCP3421GetValue(void)
     }
     while (configuration.ReadyBit == MCP3421_VALUE_IS_NOT_UPDATED);
 
-    voltage = data.value * 15.625E-6;
-    
+    voltage = data.value * (lsb / gain);
+
     return voltage;
 }

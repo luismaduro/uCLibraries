@@ -69,6 +69,24 @@
 /**Identifies that output register is not updated with the lastest convertion.*/
 #define MCP3421_VALUE_IS_NOT_UPDATED    1
 
+/**Value of the LSB for 12 bits of resolution.*/
+#define MCP3421_LSB_12BITS              (1E-3)
+/**Value of the LSB for 14 bits of resolution.*/
+#define MCP3421_LSB_14BITS              (250E-6)
+/**Value of the LSB for 16 bits of resolution.*/
+#define MCP3421_LSB_16BITS              (62.5E-6)
+/**Value of the LSB for 18 bits of resolution.*/
+#define MCP3421_LSB_18BITS              (15.625E-6)
+
+/**Decimal absolute value of the gain selected for formula use, this case 1*/
+#define MCP3421_GAIN_1_VALUE            1
+/**Decimal absolute value of the gain selected for formula use, this case 2*/
+#define MCP3421_GAIN_2_VALUE            2
+/**Decimal absolute value of the gain selected for formula use, this case 4*/
+#define MCP3421_GAIN_4_VALUE            4
+/**Decimal absolute value of the gain selected for formula use, this case 8*/
+#define MCP3421_GAIN_8_VALUE            8
+
 /**Structure of the internal configuration register.*/
 typedef union
 {
