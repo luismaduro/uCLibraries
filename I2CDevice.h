@@ -35,6 +35,17 @@
 #ifndef _I2CDEV_H_
 #define _I2CDEV_H_
 
+extern unsigned char deviceAddressRead;
+extern unsigned char deviceAddressWrite;
+
+
+void I2CStart(void);
+void I2CRestart(void);
+void I2CStop(void);
+void I2CAck(void);
+void I2CNotAck(void);
+unsigned char I2CWrite(unsigned char data_out);
+unsigned char I2CRead(void);
 void I2CDeviceSetDeviceAddress(unsigned char address);
 unsigned char I2CDeviceReadBit(unsigned char address,
                                unsigned char _bit);
