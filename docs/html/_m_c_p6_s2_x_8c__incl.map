@@ -1,4 +1,4 @@
 <map id="MCP6S2X.c" name="MCP6S2X.c">
-<area shape="rect" id="node5" href="$_m_c_p6_s2_x_8h.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="113,80,204,107"/>
-<area shape="rect" id="node7" href="$_s_p_i_device_8h.html" title="Main SPI device functions header." alt="" coords="113,155,204,181"/>
+<area shape="rect" id="node5" href="$_m_c_p6_s2_x_8h.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="47,80,139,107"/>
+<area shape="rect" id="node7" href="$_s_p_i_device_8h.html" title="SPI device library." alt="" coords="47,155,139,181"/>
 </map>

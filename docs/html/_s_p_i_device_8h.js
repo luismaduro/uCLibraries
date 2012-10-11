@@ -1,5 +1,27 @@
 var _s_p_i_device_8h =
 [
+    [ "SPI_CLOCK", "_s_p_i_device_8h.html#a2088ee4b3ab36cfe1ad2c379fcbf871a", null ],
+    [ "SPI_CLOCK_FOSC_4", "_s_p_i_device_8h.html#af6615193ce00df51304d2204725030bf", null ],
+    [ "SPIBUF", "_s_p_i_device_8h.html#a3819917ebf65619cc08363b994124216", null ],
+    [ "SPICON1bits", "_s_p_i_device_8h.html#a22ce667651c27934c7b5284c0fbbcbb0", null ],
+    [ "SPICON2bits", "_s_p_i_device_8h.html#a4040386318f8c772eb923a3b3d186e91", null ],
+    [ "SPIINTFLAG", "_s_p_i_device_8h.html#a1018deeeeaa6a1f438161312cd3deaaa", null ],
+    [ "SPISCKPIN", "_s_p_i_device_8h.html#aa81780d75cfd1c9a35c520cb6532bab6", null ],
+    [ "SPISDIPIN", "_s_p_i_device_8h.html#ad5d8aaa1d3ba02b9d59420d816bfa58b", null ],
+    [ "SPISDOPIN", "_s_p_i_device_8h.html#a5032ea2da081034a760715421bca3f9f", null ],
+    [ "SPISTATbits", "_s_p_i_device_8h.html#abfca60765f0509fe985d1e7830b5d389", null ],
+    [ "SPIDeviceDeselect", "_s_p_i_device_8h.html#ababebda01a3a748872f563984d2cccdc", null ],
+    [ "SPIDeviceReadBit", "_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf", null ],
+    [ "SPIDeviceReadBits", "_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1", null ],
+    [ "SPIDeviceReadByte", "_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879", null ],
+    [ "SPIDeviceReadBytes", "_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5", null ],
+    [ "SPIDeviceSelect", "_s_p_i_device_8h.html#af76a8e433cf692fedcfffb4a73f1243f", null ],
+    [ "SPIDeviceWriteBit", "_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756", null ],
+    [ "SPIDeviceWriteBits", "_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800", null ],
+    [ "SPIDeviceWriteByte", "_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55", null ],
+    [ "SPIDeviceWriteBytes", "_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e", null ],
+    [ "SPIInit", "_s_p_i_device_8h.html#a4cf771411e1ca360aa9fee90b25abd70", null ],
     [ "SPIRead", "_s_p_i_device_8h.html#a27306a6685bff7e007c936742d3d4186", null ],
-    [ "SPIWrite", "_s_p_i_device_8h.html#a846b40038cb3b495eddcd293f0496df7", null ]
+    [ "SPISetDeviceChipSelectPin", "_s_p_i_device_8h.html#aca5bcad6f2f93440bc0a6584e91831ed", null ],
+    [ "SPIWrite", "_s_p_i_device_8h.html#a95d29607d8ceb456af13395161d2221e", null ]
 ];

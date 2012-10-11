@@ -1,0 +1,10 @@
+<map id="SPIDeviceDeselect" name="SPIDeviceDeselect">
+<area shape="rect" id="node3" href="$_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="187,81,333,108"/>
+<area shape="rect" id="node15" href="$_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="187,132,333,159"/>
+<area shape="rect" id="node5" href="$_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="381,81,520,108"/>
+<area shape="rect" id="node7" href="$_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="573,5,699,32"/>
+<area shape="rect" id="node9" href="$_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="569,56,703,83"/>
+<area shape="rect" id="node11" href="$_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="572,107,700,133"/>
+<area shape="rect" id="node13" href="$_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="569,157,703,184"/>
+<area shape="rect" id="node17" href="$_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="381,132,520,159"/>
+</map>

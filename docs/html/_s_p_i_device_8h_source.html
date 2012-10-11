@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('_s_p_i_device_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,52 +104,80 @@ $(document).ready(function(){initNavTree('_s_p_i_device_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="_s_p_i_device_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifndef _SPIDEV_H_</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define _SPIDEV_H_</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> SPIWrite(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> SPIRead(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//#include &quot;stdbool.h&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//unsigned char SPIDeviceReadBit(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//                               unsigned char address,</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//                               unsigned char _bit);</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//unsigned char SPIDeviceReadBits(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//                                unsigned char address,</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//                                unsigned char bitStart,</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//                                unsigned char length);</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//unsigned char SPIDeviceReadByte(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//                                unsigned char address);</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//void SPIDeviceReadBytes(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//                        unsigned char address,</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//                        unsigned char length,</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//                        unsigned char *data);</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//void SPIDeviceWriteBit(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//                       unsigned char address,</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//                       unsigned char _bit,</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//                       unsigned char value);</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//void SPIDeviceWriteBits(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">//                        unsigned char address,</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//                        unsigned char bitStart,</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//                        unsigned char length,</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//                        unsigned char value);</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//void SPIDeviceWriteByte(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//                        unsigned char address,</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//                        unsigned char value);</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//void SPIDeviceWriteBytes(unsigned char deviceAddress,</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//                         unsigned char address,</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//                         unsigned char length,</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">//                         unsigned char *data);</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _SPIDEV_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#ifndef _SPIDEV_H_</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define _SPIDEV_H_</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;p18cxxx.h&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//------------MUST UNCOMENT ONE OF THE FOLLOWING--------//</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//#define SPI_CLOCK_FOSC_64</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//#define SPI_CLOCK_FOSC_16</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#af6615193ce00df51304d2204725030bf">   37</a></span>&#160;<span class="preprocessor">#define SPI_CLOCK_FOSC_4</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span><span class="comment">//------------------------------------------------------//</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifdef SPI_CLOCK_FOSC_64</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SPI_CLOCK 0b0010</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif defined SPI_CLOCK_FOSC_16</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SPI_CLOCK 0b0001</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif defined SPI_CLOCK_FOSC_4</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SPI_CLOCK 0b0000</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#aa81780d75cfd1c9a35c520cb6532bab6">   49</a></span>&#160;<span class="preprocessor">#define SPISCKPIN           TRISCbits.TRISC3</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#ad5d8aaa1d3ba02b9d59420d816bfa58b">   51</a></span>&#160;<span class="preprocessor">#define SPISDIPIN           TRISCbits.TRISC4</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#a5032ea2da081034a760715421bca3f9f">   53</a></span>&#160;<span class="preprocessor">#define SPISDOPIN           TRISCbits.TRISC5</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#a22ce667651c27934c7b5284c0fbbcbb0">   55</a></span>&#160;<span class="preprocessor">#define SPICON1bits         SSPCON1bits</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#a4040386318f8c772eb923a3b3d186e91">   57</a></span>&#160;<span class="preprocessor">#define SPICON2bits         SSPCON2bits</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#abfca60765f0509fe985d1e7830b5d389">   59</a></span>&#160;<span class="preprocessor">#define SPISTATbits         SSPSTATbits</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="_s_p_i_device_8h.html#a3819917ebf65619cc08363b994124216">   61</a></span>&#160;<span class="preprocessor">#define SPIBUF              SSPBUF</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define SPIINTFLAG          PIR1bits.SSPIF</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#a4cf771411e1ca360aa9fee90b25abd70">SPIInit</a>(<span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cs_port, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> pin);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#aca5bcad6f2f93440bc0a6584e91831ed">SPISetDeviceChipSelectPin</a>(<span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *cs_port, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> pin);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f">SPIDeviceSelect</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc">SPIDeviceDeselect</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e">SPIWrite</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> data);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186">SPIRead</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="_s_p_i_device_8c.html#ae8d513596df2aa722916c4d22ac83adf">SPIDeviceReadBit</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                               <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> _bit);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="_s_p_i_device_8c.html#af7fd6276d4b56e1b2908118889a3add1">SPIDeviceReadBits</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bitStart,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> length);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="_s_p_i_device_8c.html#a85fc5b2a0f00c68cf2c4997d0cab6879">SPIDeviceReadByte</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5">SPIDeviceReadBytes</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> length,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#ada8e5732de242edaf9b18338fd72e756">SPIDeviceWriteBit</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                       <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> _bit,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                       <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#a4af4494816445eb1d7acab5f60a4e800">SPIDeviceWriteBits</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> bitStart,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> length,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#a5639c87905c2f1fdbfe3e8c98ca8dc55">SPIDeviceWriteByte</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> value);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_s_p_i_device_8c.html#ace0fb1dedb28f6d1869fec40ea1b826e">SPIDeviceWriteBytes</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> address,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> length,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                         <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *data);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _SPIDEV_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_s_p_i_device_8h.html">SPIDevice.h</a></li>
-    <li class="footer">Generated on Thu Oct 11 2012 02:12:30 for PIC18 Libraries by
+    <li class="footer">Generated on Thu Oct 11 2012 19:54:11 for PIC18 Libraries by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

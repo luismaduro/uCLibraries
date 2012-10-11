@@ -1,0 +1,6 @@
+<map id="SPIDeviceReadBytes" name="SPIDeviceReadBytes">
+<area shape="rect" id="node3" href="$_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="207,5,326,32"/>
+<area shape="rect" id="node5" href="$_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="229,56,304,83"/>
+<area shape="rect" id="node7" href="$_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="230,107,303,133"/>
+<area shape="rect" id="node9" href="$_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="201,157,333,184"/>
+</map>

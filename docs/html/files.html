@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('files.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -123,9 +124,12 @@ $(document).ready(function(){initNavTree('files.html','');});
 <tr id="row_16_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_m_c_p6_s2_x_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_m_c_p6_s2_x_8h.html" target="_self">MCP6S2X.h</a></td><td class="desc">Library to interface with the MCP6S2X Programable Gain Amplifier</td></tr>
 <tr id="row_17_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_m_r_f24_j_8c_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>MRF24J.c</b></td><td class="desc"></td></tr>
 <tr id="row_18_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_m_r_f24_j_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>MRF24J.h</b></td><td class="desc"></td></tr>
-<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_p_i_device_8c_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>SPIDevice.c</b></td><td class="desc"></td></tr>
-<tr id="row_20_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_p_i_device_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_p_i_device_8h.html" target="_self">SPIDevice.h</a></td><td class="desc">Main SPI device functions header</td></tr>
-<tr id="row_21_"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="stdbool_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>stdbool.h</b></td><td class="desc"></td></tr>
+<tr id="row_19_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_d_card_raw_8c_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_d_card_raw_8c.html" target="_self">SDCardRaw.c</a></td><td class="desc"></td></tr>
+<tr id="row_20_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_d_card_raw_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_d_card_raw_8h.html" target="_self">SDCardRaw.h</a></td><td class="desc"></td></tr>
+<tr id="row_21_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_d_card_raw_config_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_d_card_raw_config_8h.html" target="_self">SDCardRawConfig.h</a></td><td class="desc"></td></tr>
+<tr id="row_22_" class="even"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_p_i_device_8c_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_p_i_device_8c.html" target="_self">SPIDevice.c</a></td><td class="desc">SPI device library</td></tr>
+<tr id="row_23_"><td class="entry"><img src="ftv2node.png" alt="o" width="16" height="22" /><a href="_s_p_i_device_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><a class="el" href="_s_p_i_device_8h.html" target="_self">SPIDevice.h</a></td><td class="desc">SPI device library</td></tr>
+<tr id="row_24_" class="even"><td class="entry"><img src="ftv2lastnode.png" alt="\" width="16" height="22" /><a href="stdbool_8h_source.html"><img src="ftv2doc.png" alt="*" width="24" height="22" /></a><b>stdbool.h</b></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
@@ -133,7 +137,7 @@ $(document).ready(function(){initNavTree('files.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Oct 11 2012 02:12:32 for PIC18 Libraries by
+    <li class="footer">Generated on Thu Oct 11 2012 19:54:15 for PIC18 Libraries by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

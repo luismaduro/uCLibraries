@@ -1,0 +1,19 @@
+<map id="SPIWrite" name="SPIWrite">
+<area shape="rect" id="node3" href="$_m_c_p4_x_x_x_x_8h.html#ac6357c73fa495be314e3dec98d27784d" title="MCP4XXXXShutdownPotenciometer0" alt="" coords="141,5,376,32"/>
+<area shape="rect" id="node5" href="$_m_c_p4_x_x_x_x_8h.html#a9e058403c6741a46edb551ea532f2b19" title="MCP4XXXXShutdownPotenciometer1" alt="" coords="141,56,376,83"/>
+<area shape="rect" id="node7" href="$_m_c_p4_x_x_x_x_8h.html#afed157c5c0596e1aeb355335b46a10a1" title="MCP4XXXXShutdownBothPotenciometers" alt="" coords="128,107,389,133"/>
+<area shape="rect" id="node9" href="$_m_c_p4_x_x_x_x_8h.html#ab1c7ad824a02d52f7a02d5065cc9d826" title="MCP4XXXXSetPotenciometer0\lValue" alt="" coords="160,158,357,199"/>
+<area shape="rect" id="node11" href="$_m_c_p4_x_x_x_x_8h.html#a647245adb283637e9f15975bd4aa42af" title="MCP4XXXXSetPotenciometer1\lValue" alt="" coords="160,223,357,265"/>
+<area shape="rect" id="node13" href="$_m_c_p4_x_x_x_x_8h.html#a50d54008c904dd84ed0fa18110946f2b" title="MCP4XXXXSetPotenciometers\lValue" alt="" coords="160,289,357,330"/>
+<area shape="rect" id="node15" href="$_m_c_p6_s2_x_8h.html#ad0f3815bf51328c92b9c903eabc8d75f" title="MCP6S2XShutdown" alt="" coords="189,355,328,381"/>
+<area shape="rect" id="node17" href="$_m_c_p6_s2_x_8h.html#a2622489dce43491732be4d0ea2982117" title="MCP6S2XSetGain" alt="" coords="195,405,323,432"/>
+<area shape="rect" id="node19" href="$_m_c_p6_s2_x_8h.html#a19aff6e330f31730c3a97dbb32921ada" title="MCP6S2XSelectChannel" alt="" coords="176,456,341,483"/>
+<area shape="rect" id="node21" href="$_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="186,507,331,533"/>
+<area shape="rect" id="node33" href="$_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="185,557,332,584"/>
+<area shape="rect" id="node23" href="$_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="437,507,576,533"/>
+<area shape="rect" id="node25" href="$_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="629,431,755,457"/>
+<area shape="rect" id="node27" href="$_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="625,481,759,508"/>
+<area shape="rect" id="node29" href="$_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="628,532,756,559"/>
+<area shape="rect" id="node31" href="$_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="625,583,759,609"/>
+<area shape="rect" id="node35" href="$_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="437,557,576,584"/>
+</map>

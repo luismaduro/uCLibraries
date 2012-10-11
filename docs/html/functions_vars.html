@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -95,7 +96,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,23 +110,59 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>byte
 : <a class="el" href="union_m_c_p3421_configuration_register.html#add45a0cee2ef512340d62ab55d33c5a0">MCP3421ConfigurationRegister</a>
 </li>
+<li>capacity
+: <a class="el" href="struct_s_d_card_info.html#a8ec4b86e59b2a8c62e02fbb2305dd24c">SDCardInfo</a>
+</li>
 <li>ConvertionModeBit
 : <a class="el" href="union_m_c_p3421_configuration_register.html#a4a393f22d1763b940eed499416c7c956">MCP3421ConfigurationRegister</a>
+</li>
+<li>flag_copy
+: <a class="el" href="struct_s_d_card_info.html#ab8950c53d8b40a8fe561c04ba732cdc5">SDCardInfo</a>
+</li>
+<li>flag_write_protect
+: <a class="el" href="struct_s_d_card_info.html#a00d4239706eadebad6c06b666a74e05e">SDCardInfo</a>
+</li>
+<li>flag_write_protect_temp
+: <a class="el" href="struct_s_d_card_info.html#a46499e99d869910fe5d2b8ab437e58f3">SDCardInfo</a>
+</li>
+<li>format
+: <a class="el" href="struct_s_d_card_info.html#a1de67262df2d8fd880e061ca5b2694ee">SDCardInfo</a>
 </li>
 <li>lower
 : <a class="el" href="union_m_c_p3421_data.html#ad05387a155b199921772089967cd5b3c">MCP3421Data</a>
 </li>
+<li>manufacturer
+: <a class="el" href="struct_s_d_card_info.html#a8274934d1855b16cbacba65ef62dd862">SDCardInfo</a>
+</li>
+<li>manufacturing_month
+: <a class="el" href="struct_s_d_card_info.html#ac756a02814e7dd06dbb19b7af66cd1cd">SDCardInfo</a>
+</li>
+<li>manufacturing_year
+: <a class="el" href="struct_s_d_card_info.html#affcf4fc267b81831c8fa936905e07716">SDCardInfo</a>
+</li>
 <li>middle
 : <a class="el" href="union_m_c_p3421_data.html#a94627e20808df9ae9cd91967654f2d7a">MCP3421Data</a>
+</li>
+<li>oem
+: <a class="el" href="struct_s_d_card_info.html#a5c5fbaf611aabf9e2d8911a7e239e2a5">SDCardInfo</a>
 </li>
 <li>PGAGainSelectionBits
 : <a class="el" href="union_m_c_p3421_configuration_register.html#a216cccdca1031373b4cd768fc95af0f1">MCP3421ConfigurationRegister</a>
 </li>
+<li>product
+: <a class="el" href="struct_s_d_card_info.html#ae4227f54f595f414b7f8b13d9eb8822b">SDCardInfo</a>
+</li>
 <li>ReadyBit
 : <a class="el" href="union_m_c_p3421_configuration_register.html#a8dfd11d7af4ca94013442320848c6728">MCP3421ConfigurationRegister</a>
 </li>
+<li>revision
+: <a class="el" href="struct_s_d_card_info.html#a24f2f5398a23a2b869d404f11188937f">SDCardInfo</a>
+</li>
 <li>SampleRateSelectionBits
 : <a class="el" href="union_m_c_p3421_configuration_register.html#a907645c25855da6bb5b184a119faa799">MCP3421ConfigurationRegister</a>
+</li>
+<li>serial
+: <a class="el" href="struct_s_d_card_info.html#ad0ebe6a405f36fe2c4d4be5e3e0fc7de">SDCardInfo</a>
 </li>
 <li>upper
 : <a class="el" href="union_m_c_p3421_data.html#ae5150947c6505cc475e11f5e6962bbbe">MCP3421Data</a>
@@ -139,7 +176,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Oct 11 2012 02:12:32 for PIC18 Libraries by
+    <li class="footer">Generated on Thu Oct 11 2012 19:54:15 for PIC18 Libraries by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

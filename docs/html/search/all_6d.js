@@ -1,5 +1,8 @@
 var searchData=
 [
+  ['manufacturer',['manufacturer',['../struct_s_d_card_info.html#a8274934d1855b16cbacba65ef62dd862',1,'SDCardInfo']]],
+  ['manufacturing_5fmonth',['manufacturing_month',['../struct_s_d_card_info.html#ac756a02814e7dd06dbb19b7af66cd1cd',1,'SDCardInfo']]],
+  ['manufacturing_5fyear',['manufacturing_year',['../struct_s_d_card_info.html#affcf4fc267b81831c8fa936905e07716',1,'SDCardInfo']]],
   ['mcp3421_2ec',['MCP3421.c',['../_m_c_p3421_8c.html',1,'']]],
   ['mcp3421_2eh',['MCP3421.h',['../_m_c_p3421_8h.html',1,'']]],
   ['mcp3421_5fconvertion_5fmode',['MCP3421_CONVERTION_MODE',['../_m_c_p3421_8h.html#a31b18c4295d0a83b153a981597d636db',1,'MCP3421.h']]],
@@ -51,5 +54,7 @@ var searchData=
   ['mcp6s2xselectchannel',['MCP6S2XSelectChannel',['../_m_c_p6_s2_x_8c.html#a19aff6e330f31730c3a97dbb32921ada',1,'MCP6S2XSelectChannel(volatile unsigned char *port, unsigned char portBit, unsigned char channel):&#160;MCP6S2X.c'],['../_m_c_p6_s2_x_8h.html#a19aff6e330f31730c3a97dbb32921ada',1,'MCP6S2XSelectChannel(volatile unsigned char *port, unsigned char portBit, unsigned char channel):&#160;MCP6S2X.c']]],
   ['mcp6s2xsetgain',['MCP6S2XSetGain',['../_m_c_p6_s2_x_8c.html#a2622489dce43491732be4d0ea2982117',1,'MCP6S2XSetGain(volatile unsigned char *port, unsigned char portBit, unsigned char gainValue):&#160;MCP6S2X.c'],['../_m_c_p6_s2_x_8h.html#a2622489dce43491732be4d0ea2982117',1,'MCP6S2XSetGain(volatile unsigned char *port, unsigned char portBit, unsigned char gainValue):&#160;MCP6S2X.c']]],
   ['mcp6s2xshutdown',['MCP6S2XShutdown',['../_m_c_p6_s2_x_8c.html#ad0f3815bf51328c92b9c903eabc8d75f',1,'MCP6S2XShutdown(volatile unsigned char *port, unsigned char portBit):&#160;MCP6S2X.c'],['../_m_c_p6_s2_x_8h.html#ad0f3815bf51328c92b9c903eabc8d75f',1,'MCP6S2XShutdown(volatile unsigned char *port, unsigned char portBit):&#160;MCP6S2X.c']]],
-  ['middle',['middle',['../union_m_c_p3421_data.html#a94627e20808df9ae9cd91967654f2d7a',1,'MCP3421Data']]]
+  ['middle',['middle',['../union_m_c_p3421_data.html#a94627e20808df9ae9cd91967654f2d7a',1,'MCP3421Data']]],
+  ['mmc_2fsd_2fsdhc_20card_20raw_20access',['MMC/SD/SDHC card raw access',['../group__sd__raw.html',1,'']]],
+  ['mmc_2fsd_20configuration',['MMC/SD configuration',['../group__sd__raw__config.html',1,'']]]
 ];

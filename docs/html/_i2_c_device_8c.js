@@ -10,6 +10,7 @@ var _i2_c_device_8c =
     [ "I2CDeviceWriteBits", "_i2_c_device_8c.html#a8f2a2d2bfef6f0508b608c195174e734", null ],
     [ "I2CDeviceWriteByte", "_i2_c_device_8c.html#a9995a4d3ad8855572fb5b16b975ca353", null ],
     [ "I2CDeviceWriteBytes", "_i2_c_device_8c.html#a91cb6812eac002d34850bab223e933f0", null ],
+    [ "I2CInit", "_i2_c_device_8c.html#a7d23473bd5eb72909c1a3588a70bb237", null ],
     [ "I2CNotAck", "_i2_c_device_8c.html#a2465951f6f92b3586c4d1d71f2f77340", null ],
     [ "I2CRead", "_i2_c_device_8c.html#a9e31139271518c9e780981e77809147b", null ],
     [ "I2CRestart", "_i2_c_device_8c.html#a5aebf22432a181bee4f17860326797b2", null ],

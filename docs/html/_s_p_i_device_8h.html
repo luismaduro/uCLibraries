@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('_s_p_i_device_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,40 +100,736 @@ $(document).ready(function(){initNavTree('_s_p_i_device_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">SPIDevice.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Main SPI device functions header.  
+<p>SPI device library.  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &lt;p18cxxx.h&gt;</code><br/>
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for SPIDevice.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h__incl.png" border="0" usemap="#_s_p_i_device_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_s_p_i_device_8h__dep__incl.png" border="0" usemap="#_s_p_i_device_8hdep" alt=""/></div>
 <map name="_s_p_i_device_8hdep" id="_s_p_i_device_8hdep">
-<area shape="rect" id="node3" href="_m_c_p4_x_x_x_x_8h.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="5,80,101,107"/><area shape="rect" id="node7" href="_m_c_p6_s2_x_8h.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="126,80,217,107"/><area shape="rect" id="node11" href="_s_p_i_device_8c_source.html" title="SPIDevice.c" alt="" coords="242,80,333,107"/><area shape="rect" id="node5" href="_m_c_p4_x_x_x_x_8c.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="5,155,101,181"/><area shape="rect" id="node9" href="_m_c_p6_s2_x_8c.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="126,155,217,181"/></map>
+<area shape="rect" id="node3" href="_m_c_p4_x_x_x_x_8h.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="5,80,101,107"/><area shape="rect" id="node7" href="_m_c_p6_s2_x_8h.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="126,80,217,107"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html" title="SPI device library." alt="" coords="242,80,333,107"/><area shape="rect" id="node5" href="_m_c_p4_x_x_x_x_8c.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="5,155,101,181"/><area shape="rect" id="node9" href="_m_c_p6_s2_x_8c.html" title="Library to interface with the MCP6S2X Programable Gain Amplifier." alt="" coords="126,155,217,181"/></map>
 </div>
 </div>
 <p><a href="_s_p_i_device_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:af6615193ce00df51304d2204725030bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#af6615193ce00df51304d2204725030bf">SPI_CLOCK_FOSC_4</a></td></tr>
+<tr class="separator:af6615193ce00df51304d2204725030bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa81780d75cfd1c9a35c520cb6532bab6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#aa81780d75cfd1c9a35c520cb6532bab6">SPISCKPIN</a>&#160;&#160;&#160;TRISCbits.TRISC3</td></tr>
+<tr class="separator:aa81780d75cfd1c9a35c520cb6532bab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5d8aaa1d3ba02b9d59420d816bfa58b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#ad5d8aaa1d3ba02b9d59420d816bfa58b">SPISDIPIN</a>&#160;&#160;&#160;TRISCbits.TRISC4</td></tr>
+<tr class="separator:ad5d8aaa1d3ba02b9d59420d816bfa58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5032ea2da081034a760715421bca3f9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a5032ea2da081034a760715421bca3f9f">SPISDOPIN</a>&#160;&#160;&#160;TRISCbits.TRISC5</td></tr>
+<tr class="separator:a5032ea2da081034a760715421bca3f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22ce667651c27934c7b5284c0fbbcbb0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a22ce667651c27934c7b5284c0fbbcbb0">SPICON1bits</a>&#160;&#160;&#160;SSPCON1bits</td></tr>
+<tr class="separator:a22ce667651c27934c7b5284c0fbbcbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4040386318f8c772eb923a3b3d186e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a4040386318f8c772eb923a3b3d186e91">SPICON2bits</a>&#160;&#160;&#160;SSPCON2bits</td></tr>
+<tr class="separator:a4040386318f8c772eb923a3b3d186e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfca60765f0509fe985d1e7830b5d389"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#abfca60765f0509fe985d1e7830b5d389">SPISTATbits</a>&#160;&#160;&#160;SSPSTATbits</td></tr>
+<tr class="separator:abfca60765f0509fe985d1e7830b5d389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3819917ebf65619cc08363b994124216"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a3819917ebf65619cc08363b994124216">SPIBUF</a>&#160;&#160;&#160;SSPBUF</td></tr>
+<tr class="separator:a3819917ebf65619cc08363b994124216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a846b40038cb3b495eddcd293f0496df7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a846b40038cb3b495eddcd293f0496df7">SPIWrite</a> (unsigned char data)</td></tr>
-<tr class="separator:a846b40038cb3b495eddcd293f0496df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf771411e1ca360aa9fee90b25abd70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a4cf771411e1ca360aa9fee90b25abd70">SPIInit</a> (volatile unsigned char *cs_port, unsigned char pin)</td></tr>
+<tr class="separator:a4cf771411e1ca360aa9fee90b25abd70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca5bcad6f2f93440bc0a6584e91831ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#aca5bcad6f2f93440bc0a6584e91831ed">SPISetDeviceChipSelectPin</a> (volatile unsigned char *cs_port, unsigned char pin)</td></tr>
+<tr class="separator:aca5bcad6f2f93440bc0a6584e91831ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76a8e433cf692fedcfffb4a73f1243f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#af76a8e433cf692fedcfffb4a73f1243f">SPIDeviceSelect</a> (void)</td></tr>
+<tr class="separator:af76a8e433cf692fedcfffb4a73f1243f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ababebda01a3a748872f563984d2cccdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#ababebda01a3a748872f563984d2cccdc">SPIDeviceDeselect</a> (void)</td></tr>
+<tr class="separator:ababebda01a3a748872f563984d2cccdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95d29607d8ceb456af13395161d2221e"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a95d29607d8ceb456af13395161d2221e">SPIWrite</a> (unsigned char data)</td></tr>
+<tr class="separator:a95d29607d8ceb456af13395161d2221e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27306a6685bff7e007c936742d3d4186"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a27306a6685bff7e007c936742d3d4186">SPIRead</a> (void)</td></tr>
 <tr class="separator:a27306a6685bff7e007c936742d3d4186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8d513596df2aa722916c4d22ac83adf"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf">SPIDeviceReadBit</a> (unsigned char address, unsigned char _bit)</td></tr>
+<tr class="separator:ae8d513596df2aa722916c4d22ac83adf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7fd6276d4b56e1b2908118889a3add1"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1">SPIDeviceReadBits</a> (unsigned char address, unsigned char bitStart, unsigned char length)</td></tr>
+<tr class="separator:af7fd6276d4b56e1b2908118889a3add1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85fc5b2a0f00c68cf2c4997d0cab6879"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879">SPIDeviceReadByte</a> (unsigned char address)</td></tr>
+<tr class="separator:a85fc5b2a0f00c68cf2c4997d0cab6879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7f2f1db6bd5c5080d44d2335c853c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5">SPIDeviceReadBytes</a> (unsigned char address, unsigned char length, unsigned char *data)</td></tr>
+<tr class="separator:acc7f2f1db6bd5c5080d44d2335c853c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada8e5732de242edaf9b18338fd72e756"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756">SPIDeviceWriteBit</a> (unsigned char address, unsigned char _bit, unsigned char value)</td></tr>
+<tr class="separator:ada8e5732de242edaf9b18338fd72e756"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af4494816445eb1d7acab5f60a4e800"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800">SPIDeviceWriteBits</a> (unsigned char address, unsigned char bitStart, unsigned char length, unsigned char value)</td></tr>
+<tr class="separator:a4af4494816445eb1d7acab5f60a4e800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5639c87905c2f1fdbfe3e8c98ca8dc55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55">SPIDeviceWriteByte</a> (unsigned char address, unsigned char value)</td></tr>
+<tr class="separator:a5639c87905c2f1fdbfe3e8c98ca8dc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0fb1dedb28f6d1869fec40ea1b826e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e">SPIDeviceWriteBytes</a> (unsigned char address, unsigned char length, unsigned char *data)</td></tr>
+<tr class="separator:ace0fb1dedb28f6d1869fec40ea1b826e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main SPI device functions header. </p>
-<p>Abstracts bit and byte SPI R/W functions </p>
+<div class="textblock"><p>SPI device library. </p>
 <dl class="section author"><dt>Author</dt><dd>Luis Maduro </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>September 2012 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.00 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>9 de Outubro de 2012, 15:10</dd></dl>
+<p>Copyright (C) 2012 Luis Maduro</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>. </p>
 
 <p>Definition in file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="af6615193ce00df51304d2204725030bf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPI_CLOCK_FOSC_4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Defines the SPI clock speed to Fosc/64. Defines the SPI clock speed to Fosc/16 Defines the SPI clock speed to Fosc/4 </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00037">37</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3819917ebf65619cc08363b994124216"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPIBUF&#160;&#160;&#160;SSPBUF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The buffer of the I2C module </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00061">61</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a22ce667651c27934c7b5284c0fbbcbb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPICON1bits&#160;&#160;&#160;SSPCON1bits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C control register 1 (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00055">55</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4040386318f8c772eb923a3b3d186e91"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPICON2bits&#160;&#160;&#160;SSPCON2bits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C control register 2 (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00057">57</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa81780d75cfd1c9a35c520cb6532bab6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPISCKPIN&#160;&#160;&#160;TRISCbits.TRISC3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configure the clock pin associated with the SPI </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00049">49</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad5d8aaa1d3ba02b9d59420d816bfa58b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPISDIPIN&#160;&#160;&#160;TRISCbits.TRISC4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configure the data input pin associated with the SPI </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00051">51</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5032ea2da081034a760715421bca3f9f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPISDOPIN&#160;&#160;&#160;TRISCbits.TRISC5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configure the data output pin associated with the SPI </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00053">53</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abfca60765f0509fe985d1e7830b5d389"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SPISTATbits&#160;&#160;&#160;SSPSTATbits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C status register (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8h_source.html#l00059">59</a> of file <a class="el" href="_s_p_i_device_8h_source.html">SPIDevice.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ababebda01a3a748872f563984d2cccdc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceDeselect </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Deselect the device to comunicate to by pulling the pin high. </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00075">75</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_ababebda01a3a748872f563984d2cccdc_icgraph.png" border="0" usemap="#_s_p_i_device_8h_ababebda01a3a748872f563984d2cccdc_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_ababebda01a3a748872f563984d2cccdc_icgraph" id="_s_p_i_device_8h_ababebda01a3a748872f563984d2cccdc_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="187,81,333,108"/><area shape="rect" id="node15" href="_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="187,132,333,159"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="381,81,520,108"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="573,5,699,32"/><area shape="rect" id="node9" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="569,56,703,83"/><area shape="rect" id="node11" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="572,107,700,133"/><area shape="rect" id="node13" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="569,157,703,184"/><area shape="rect" id="node17" href="_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="381,132,520,159"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ae8d513596df2aa722916c4d22ac83adf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char SPIDeviceReadBit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>_bit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read a single bit from a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to read from </td></tr>
+    <tr><td class="paramname">_bit</td><td>Bit in register position to read (0-7) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Single bit value </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00180">180</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_ae8d513596df2aa722916c4d22ac83adf_cgraph.png" border="0" usemap="#_s_p_i_device_8h_ae8d513596df2aa722916c4d22ac83adf_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_ae8d513596df2aa722916c4d22ac83adf_cgraph" id="_s_p_i_device_8h_ae8d513596df2aa722916c4d22ac83adf_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="181,81,320,108"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="369,81,514,108"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="570,5,689,32"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="592,56,667,83"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="593,107,666,133"/><area shape="rect" id="node13" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="563,157,695,184"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="af7fd6276d4b56e1b2908118889a3add1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char SPIDeviceReadBits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>bitStart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read multiple bits from a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to read from </td></tr>
+    <tr><td class="paramname">bitStart</td><td>First bit position to read (0-7) </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bits to read (not more than 8) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Right-aligned value (i.e. '101' read from any bitStart position will equal 0x05) </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00194">194</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_af7fd6276d4b56e1b2908118889a3add1_cgraph.png" border="0" usemap="#_s_p_i_device_8h_af7fd6276d4b56e1b2908118889a3add1_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_af7fd6276d4b56e1b2908118889a3add1_cgraph" id="_s_p_i_device_8h_af7fd6276d4b56e1b2908118889a3add1_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="189,81,328,108"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="377,81,522,108"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="578,5,697,32"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="600,56,675,83"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="601,107,674,133"/><area shape="rect" id="node13" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="571,157,703,184"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a85fc5b2a0f00c68cf2c4997d0cab6879"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char SPIDeviceReadByte </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read single byte from a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to read from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Byte value read from device </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00223">223</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_cgraph.png" border="0" usemap="#_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_cgraph" id="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="193,81,338,108"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="394,5,513,32"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="416,56,491,83"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="417,107,490,133"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="387,157,519,184"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_icgraph.png" border="0" usemap="#_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_icgraph" id="_s_p_i_device_8h_a85fc5b2a0f00c68cf2c4997d0cab6879_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="197,5,323,32"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="193,56,327,83"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="196,107,324,133"/><area shape="rect" id="node9" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="193,157,327,184"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="acc7f2f1db6bd5c5080d44d2335c853c5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceReadBytes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read multiple bytes from a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>First register address to read from </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bytes to read </td></tr>
+    <tr><td class="paramname">data</td><td>Buffer to store read data in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00132">132</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_cgraph.png" border="0" usemap="#_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_cgraph" id="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="207,5,326,32"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="229,56,304,83"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="230,107,303,133"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="201,157,333,184"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_icgraph.png" border="0" usemap="#_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_icgraph" id="_s_p_i_device_8h_acc7f2f1db6bd5c5080d44d2335c853c5_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="200,81,339,108"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="391,5,518,32"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="387,56,522,83"/><area shape="rect" id="node9" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="391,107,519,133"/><area shape="rect" id="node11" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="387,157,522,184"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="af76a8e433cf692fedcfffb4a73f1243f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceSelect </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Select the device to comunicate to by pulling the pin low. </p>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00067">67</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_af76a8e433cf692fedcfffb4a73f1243f_icgraph.png" border="0" usemap="#_s_p_i_device_8h_af76a8e433cf692fedcfffb4a73f1243f_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_af76a8e433cf692fedcfffb4a73f1243f_icgraph" id="_s_p_i_device_8h_af76a8e433cf692fedcfffb4a73f1243f_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="174,81,319,108"/><area shape="rect" id="node15" href="_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="173,132,320,159"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="368,81,507,108"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="559,5,686,32"/><area shape="rect" id="node9" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="555,56,690,83"/><area shape="rect" id="node11" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="559,107,687,133"/><area shape="rect" id="node13" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="555,157,690,184"/><area shape="rect" id="node17" href="_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="368,132,507,159"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ada8e5732de242edaf9b18338fd72e756"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceWriteBit </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>_bit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Write a single bit to a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to write to </td></tr>
+    <tr><td class="paramname">_bit</td><td>Bit position to write (0-7) </td></tr>
+    <tr><td class="paramname">value</td><td>New bit value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00236">236</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_ada8e5732de242edaf9b18338fd72e756_cgraph.png" border="0" usemap="#_s_p_i_device_8h_ada8e5732de242edaf9b18338fd72e756_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_ada8e5732de242edaf9b18338fd72e756_cgraph" id="_s_p_i_device_8h_ada8e5732de242edaf9b18338fd72e756_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="181,107,320,133"/><area shape="rect" id="node15" href="_s_p_i_device_8c.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="181,56,320,83"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="369,107,514,133"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="570,5,689,32"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="592,56,667,83"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="593,157,666,184"/><area shape="rect" id="node13" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="563,107,695,133"/><area shape="rect" id="node17" href="_s_p_i_device_8c.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="368,56,515,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a4af4494816445eb1d7acab5f60a4e800"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceWriteBits </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>bitStart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Write multiple bits to a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to write to </td></tr>
+    <tr><td class="paramname">bitStart</td><td>First bit position to write (0-7) </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bits to write (not more than 8) </td></tr>
+    <tr><td class="paramname">value</td><td>Right-aligned value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00256">256</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a4af4494816445eb1d7acab5f60a4e800_cgraph.png" border="0" usemap="#_s_p_i_device_8h_a4af4494816445eb1d7acab5f60a4e800_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a4af4494816445eb1d7acab5f60a4e800_cgraph" id="_s_p_i_device_8h_a4af4494816445eb1d7acab5f60a4e800_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="189,107,328,133"/><area shape="rect" id="node15" href="_s_p_i_device_8c.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="189,56,328,83"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="377,107,522,133"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="578,5,697,32"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="600,56,675,83"/><area shape="rect" id="node11" href="_s_p_i_device_8c.html#a27306a6685bff7e007c936742d3d4186" title="SPIRead" alt="" coords="601,157,674,184"/><area shape="rect" id="node13" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="571,107,703,133"/><area shape="rect" id="node17" href="_s_p_i_device_8c.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="376,56,523,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a5639c87905c2f1fdbfe3e8c98ca8dc55"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceWriteByte </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Write single byte to a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>Register address to write to </td></tr>
+    <tr><td class="paramname">value</td><td>New byte value write </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00294">294</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_cgraph.png" border="0" usemap="#_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_cgraph" id="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="192,56,339,83"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="394,5,513,32"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="416,56,491,83"/><area shape="rect" id="node9" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="387,107,519,133"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_icgraph.png" border="0" usemap="#_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_icgraph" id="_s_p_i_device_8h_a5639c87905c2f1fdbfe3e8c98ca8dc55_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="196,5,324,32"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="193,56,327,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ace0fb1dedb28f6d1869fec40ea1b826e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIDeviceWriteBytes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>length</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Write multiple bytes to a device register. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>First register address to write to </td></tr>
+    <tr><td class="paramname">length</td><td>Number of bytes to write </td></tr>
+    <tr><td class="paramname">data</td><td>Buffer to copy new data from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00156">156</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_cgraph.png" border="0" usemap="#_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_cgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_cgraph" id="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_cgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8c.html#af76a8e433cf692fedcfffb4a73f1243f" title="SPIDeviceSelect" alt="" coords="207,5,326,32"/><area shape="rect" id="node5" href="_s_p_i_device_8c.html#a95d29607d8ceb456af13395161d2221e" title="SPIWrite" alt="" coords="229,56,304,83"/><area shape="rect" id="node7" href="_s_p_i_device_8c.html#ababebda01a3a748872f563984d2cccdc" title="SPIDeviceDeselect" alt="" coords="201,107,333,133"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_icgraph.png" border="0" usemap="#_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_icgraph" id="_s_p_i_device_8h_ace0fb1dedb28f6d1869fec40ea1b826e_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="200,31,339,57"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="391,5,519,32"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="387,56,522,83"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a4cf771411e1ca360aa9fee90b25abd70"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SPIInit </td>
+          <td>(</td>
+          <td class="paramtype">volatile unsigned char *&#160;</td>
+          <td class="paramname"><em>cs_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>pin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initiates the MSSP module to work as an SPI master. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cs_port</td><td>Port were the device to comunicate to is, i.e. &amp;PORTD </td></tr>
+    <tr><td class="paramname">pin</td><td>Pin on the specified port were the device is, i.e. 2 for RB2 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00034">34</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a27306a6685bff7e007c936742d3d4186"></a>
 <div class="memitem">
 <div class="memproto">
@@ -149,16 +846,61 @@ Functions</h2></td></tr>
 <p>Hardware dependent funtion to read from SPI module. The module must be configured by the user. </p>
 <dl class="section return"><dt>Returns</dt><dd>Byte read from the SPI bus. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00042">42</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00111">111</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a27306a6685bff7e007c936742d3d4186_icgraph.png" border="0" usemap="#_s_p_i_device_8h_a27306a6685bff7e007c936742d3d4186_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a27306a6685bff7e007c936742d3d4186_icgraph" id="_s_p_i_device_8h_a27306a6685bff7e007c936742d3d4186_icgraph">
+<area shape="rect" id="node3" href="_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="129,81,274,108"/><area shape="rect" id="node5" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="323,81,461,108"/><area shape="rect" id="node7" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="514,5,641,32"/><area shape="rect" id="node9" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="510,56,645,83"/><area shape="rect" id="node11" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="513,107,641,133"/><area shape="rect" id="node13" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="510,157,645,184"/></map>
+</div>
+</p>
 
 </div>
 </div>
-<a class="anchor" id="a846b40038cb3b495eddcd293f0496df7"></a>
+<a class="anchor" id="aca5bcad6f2f93440bc0a6584e91831ed"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void SPIWrite </td>
+          <td class="memname">void SPISetDeviceChipSelectPin </td>
+          <td>(</td>
+          <td class="paramtype">volatile unsigned char *&#160;</td>
+          <td class="paramname"><em>cs_port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>pin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the device chip select port and pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cs_port</td><td>Port were the device to comunicate to is, i.e. &amp;PORTD </td></tr>
+    <tr><td class="paramname">pin</td><td>Pin on the specified port were the device is, i.e. 2 for RB2 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00058">58</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a95d29607d8ceb456af13395161d2221e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char SPIWrite </td>
           <td>(</td>
           <td class="paramtype">unsigned char&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
@@ -173,8 +915,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns 0 if all went well, !=0 otherwise. </dd></dl>
 
-<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00017">17</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_s_p_i_device_8c_source.html#l00086">86</a> of file <a class="el" href="_s_p_i_device_8c_source.html">SPIDevice.c</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="_s_p_i_device_8h_a95d29607d8ceb456af13395161d2221e_icgraph.png" border="0" usemap="#_s_p_i_device_8h_a95d29607d8ceb456af13395161d2221e_icgraph" alt=""/></div>
+<map name="_s_p_i_device_8h_a95d29607d8ceb456af13395161d2221e_icgraph" id="_s_p_i_device_8h_a95d29607d8ceb456af13395161d2221e_icgraph">
+<area shape="rect" id="node3" href="_m_c_p4_x_x_x_x_8h.html#ac6357c73fa495be314e3dec98d27784d" title="MCP4XXXXShutdownPotenciometer0" alt="" coords="141,5,376,32"/><area shape="rect" id="node5" href="_m_c_p4_x_x_x_x_8h.html#a9e058403c6741a46edb551ea532f2b19" title="MCP4XXXXShutdownPotenciometer1" alt="" coords="141,56,376,83"/><area shape="rect" id="node7" href="_m_c_p4_x_x_x_x_8h.html#afed157c5c0596e1aeb355335b46a10a1" title="MCP4XXXXShutdownBothPotenciometers" alt="" coords="128,107,389,133"/><area shape="rect" id="node9" href="_m_c_p4_x_x_x_x_8h.html#ab1c7ad824a02d52f7a02d5065cc9d826" title="MCP4XXXXSetPotenciometer0\lValue" alt="" coords="160,158,357,199"/><area shape="rect" id="node11" href="_m_c_p4_x_x_x_x_8h.html#a647245adb283637e9f15975bd4aa42af" title="MCP4XXXXSetPotenciometer1\lValue" alt="" coords="160,223,357,265"/><area shape="rect" id="node13" href="_m_c_p4_x_x_x_x_8h.html#a50d54008c904dd84ed0fa18110946f2b" title="MCP4XXXXSetPotenciometers\lValue" alt="" coords="160,289,357,330"/><area shape="rect" id="node15" href="_m_c_p6_s2_x_8h.html#ad0f3815bf51328c92b9c903eabc8d75f" title="MCP6S2XShutdown" alt="" coords="189,355,328,381"/><area shape="rect" id="node17" href="_m_c_p6_s2_x_8h.html#a2622489dce43491732be4d0ea2982117" title="MCP6S2XSetGain" alt="" coords="195,405,323,432"/><area shape="rect" id="node19" href="_m_c_p6_s2_x_8h.html#a19aff6e330f31730c3a97dbb32921ada" title="MCP6S2XSelectChannel" alt="" coords="176,456,341,483"/><area shape="rect" id="node21" href="_s_p_i_device_8h.html#acc7f2f1db6bd5c5080d44d2335c853c5" title="SPIDeviceReadBytes" alt="" coords="186,507,331,533"/><area shape="rect" id="node33" href="_s_p_i_device_8h.html#ace0fb1dedb28f6d1869fec40ea1b826e" title="SPIDeviceWriteBytes" alt="" coords="185,557,332,584"/><area shape="rect" id="node23" href="_s_p_i_device_8h.html#a85fc5b2a0f00c68cf2c4997d0cab6879" title="SPIDeviceReadByte" alt="" coords="437,507,576,533"/><area shape="rect" id="node25" href="_s_p_i_device_8h.html#ae8d513596df2aa722916c4d22ac83adf" title="SPIDeviceReadBit" alt="" coords="629,431,755,457"/><area shape="rect" id="node27" href="_s_p_i_device_8h.html#af7fd6276d4b56e1b2908118889a3add1" title="SPIDeviceReadBits" alt="" coords="625,481,759,508"/><area shape="rect" id="node29" href="_s_p_i_device_8h.html#ada8e5732de242edaf9b18338fd72e756" title="SPIDeviceWriteBit" alt="" coords="628,532,756,559"/><area shape="rect" id="node31" href="_s_p_i_device_8h.html#a4af4494816445eb1d7acab5f60a4e800" title="SPIDeviceWriteBits" alt="" coords="625,583,759,609"/><area shape="rect" id="node35" href="_s_p_i_device_8h.html#a5639c87905c2f1fdbfe3e8c98ca8dc55" title="SPIDeviceWriteByte" alt="" coords="437,557,576,584"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -184,7 +936,7 @@ Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_s_p_i_device_8h.html">SPIDevice.h</a></li>
-    <li class="footer">Generated on Thu Oct 11 2012 02:12:32 for PIC18 Libraries by
+    <li class="footer">Generated on Thu Oct 11 2012 19:54:14 for PIC18 Libraries by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

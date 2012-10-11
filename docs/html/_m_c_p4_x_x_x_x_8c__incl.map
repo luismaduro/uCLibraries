@@ -1,4 +1,4 @@
 <map id="MCP4XXXX.c" name="MCP4XXXX.c">
-<area shape="rect" id="node5" href="$_m_c_p4_x_x_x_x_8h.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="113,80,209,107"/>
-<area shape="rect" id="node7" href="$_s_p_i_device_8h.html" title="Main SPI device functions header." alt="" coords="115,155,207,181"/>
+<area shape="rect" id="node5" href="$_m_c_p4_x_x_x_x_8h.html" title="Library to interface with the MCP4XXXX digital potenciometers." alt="" coords="49,80,145,107"/>
+<area shape="rect" id="node7" href="$_s_p_i_device_8h.html" title="SPI device library." alt="" coords="50,155,141,181"/>
 </map>

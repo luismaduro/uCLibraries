@@ -42,6 +42,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('_i2_c_device_8h.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -99,6 +100,7 @@ $(document).ready(function(){initNavTree('_i2_c_device_8h.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -108,7 +110,13 @@ $(document).ready(function(){initNavTree('_i2_c_device_8h.html','');});
 
 <p>Main I2C device functions header.  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &lt;p18cxxx.h&gt;</code><br/>
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for I2CDevice.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="_i2_c_device_8h__incl.png" border="0" usemap="#_i2_c_device_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_i2_c_device_8h__dep__incl.png" border="0" usemap="#_i2_c_device_8hdep" alt=""/></div>
@@ -118,8 +126,31 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="_i2_c_device_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a410dc1e7572425a449b5dc0f7ca9f69d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a410dc1e7572425a449b5dc0f7ca9f69d">I2C_SPEED</a>&#160;&#160;&#160;400000</td></tr>
+<tr class="separator:a410dc1e7572425a449b5dc0f7ca9f69d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6898533a5604bbca1d216aef8f2080c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a6898533a5604bbca1d216aef8f2080c0">I2CBAUDVALUE</a>&#160;&#160;&#160;(((SYSTEM_OSCILATOR/4)/<a class="el" href="_i2_c_device_8h.html#a410dc1e7572425a449b5dc0f7ca9f69d">I2C_SPEED</a>)-1)</td></tr>
+<tr class="separator:a6898533a5604bbca1d216aef8f2080c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa96617b6154adeabebe8f51081318b97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#aa96617b6154adeabebe8f51081318b97">I2CSCLPIN</a>&#160;&#160;&#160;TRISCbits.TRISC3</td></tr>
+<tr class="separator:aa96617b6154adeabebe8f51081318b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916b6b1f5f2bb43800084e351e725434"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a916b6b1f5f2bb43800084e351e725434">I2CSDAPIN</a>&#160;&#160;&#160;TRISCbits.TRISC4</td></tr>
+<tr class="separator:a916b6b1f5f2bb43800084e351e725434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83978be6ff24af5b36c4936d2837b7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#aa83978be6ff24af5b36c4936d2837b7a">I2CCON1bits</a>&#160;&#160;&#160;SSPCON1bits</td></tr>
+<tr class="separator:aa83978be6ff24af5b36c4936d2837b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a321cae0f8e08987dca9a2bc6b5dfbe4d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a321cae0f8e08987dca9a2bc6b5dfbe4d">I2CCON2bits</a>&#160;&#160;&#160;SSPCON2bits</td></tr>
+<tr class="separator:a321cae0f8e08987dca9a2bc6b5dfbe4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3bc2c638b695224d79d795737e30622"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#ae3bc2c638b695224d79d795737e30622">I2CSTATbits</a>&#160;&#160;&#160;SSPSTATbits</td></tr>
+<tr class="separator:ae3bc2c638b695224d79d795737e30622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6cf3ac61a89ec3da55529deee0147bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#ae6cf3ac61a89ec3da55529deee0147bc">I2CBUF</a>&#160;&#160;&#160;SSPBUF</td></tr>
+<tr class="separator:ae6cf3ac61a89ec3da55529deee0147bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a006dab9d72bbd2f0b44025352aea19aa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a006dab9d72bbd2f0b44025352aea19aa">I2CBAUDREGISTER</a>&#160;&#160;&#160;SSPADD</td></tr>
+<tr class="separator:a006dab9d72bbd2f0b44025352aea19aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7d23473bd5eb72909c1a3588a70bb237"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a7d23473bd5eb72909c1a3588a70bb237">I2CInit</a> (void)</td></tr>
+<tr class="separator:a7d23473bd5eb72909c1a3588a70bb237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab29e53969976864795268c48d5e25043"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#ab29e53969976864795268c48d5e25043">I2CStart</a> (void)</td></tr>
 <tr class="separator:ab29e53969976864795268c48d5e25043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5aebf22432a181bee4f17860326797b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i2_c_device_8h.html#a5aebf22432a181bee4f17860326797b2">I2CRestart</a> (void)</td></tr>
@@ -169,13 +200,149 @@ Luis Maduro (Port from C++ to C and adapted to PIC18) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>June 2012 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>MIT License.</dd></dl>
-<p>I2Cdev device library code is placed under the MIT license Copyright (c) 2011 Jeff Rowberg Copyright (c) 2012 Luis Maduro</p>
+<p>I2CDevice library code is placed under the MIT license Copyright (c) 2011 Jeff Rowberg Copyright (c) 2012 Luis Maduro</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
 
 <p>Definition in file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a410dc1e7572425a449b5dc0f7ca9f69d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2C_SPEED&#160;&#160;&#160;400000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Selects the desired I2C clock speed. </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00045">45</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a006dab9d72bbd2f0b44025352aea19aa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CBAUDREGISTER&#160;&#160;&#160;SSPADD</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The register that controls the clock speed </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00063">63</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6898533a5604bbca1d216aef8f2080c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CBAUDVALUE&#160;&#160;&#160;(((SYSTEM_OSCILATOR/4)/<a class="el" href="_i2_c_device_8h.html#a410dc1e7572425a449b5dc0f7ca9f69d">I2C_SPEED</a>)-1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates the value to put on the baudrate register based on the desired speed. SYSTEM_OSCILATOR must contain the value of the oscilator. Check the formula for different microcontrollers. </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00049">49</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae6cf3ac61a89ec3da55529deee0147bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CBUF&#160;&#160;&#160;SSPBUF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The buffer of the I2C module </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00061">61</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa83978be6ff24af5b36c4936d2837b7a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CCON1bits&#160;&#160;&#160;SSPCON1bits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C control register 1 (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00055">55</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a321cae0f8e08987dca9a2bc6b5dfbe4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CCON2bits&#160;&#160;&#160;SSPCON2bits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C control register 2 (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00057">57</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa96617b6154adeabebe8f51081318b97"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CSCLPIN&#160;&#160;&#160;TRISCbits.TRISC3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configure the clock pin associated with the I2C </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00051">51</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a916b6b1f5f2bb43800084e351e725434"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CSDAPIN&#160;&#160;&#160;TRISCbits.TRISC4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Configure the data pin associated with the I2C </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00053">53</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae3bc2c638b695224d79d795737e30622"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define I2CSTATbits&#160;&#160;&#160;SSPSTATbits</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The bitwise define for the I2C status register (i.e. _______bits) </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8h_source.html#l00059">59</a> of file <a class="el" href="_i2_c_device_8h_source.html">I2CDevice.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a60a34800dd70648661e49f7846d78b37"></a>
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +359,7 @@ Luis Maduro (Port from C++ to C and adapted to PIC18) </dd></dl>
 <p>Sends an ack to the slave. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Hardware specific! </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00077">77</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00096">96</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -238,7 +405,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Single bit value </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00223">223</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00242">242</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -300,7 +467,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Right-aligned value (i.e. '101' read from any bitStart position will equal 0x05) </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00237">237</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00256">256</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -344,7 +511,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Byte value read from device </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00266">266</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00285">285</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -405,7 +572,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00164">164</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00183">183</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -448,7 +615,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00152">152</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00171">171</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -500,7 +667,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00279">279</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00298">298</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -568,7 +735,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00299">299</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00318">318</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -622,7 +789,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00337">337</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00356">356</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -683,7 +850,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00200">200</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00219">219</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -705,6 +872,25 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a class="anchor" id="a7d23473bd5eb72909c1a3588a70bb237"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void I2CInit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initiates the module to work as an I2C master. </p>
+
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00045">45</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2465951f6f92b3586c4d1d71f2f77340"></a>
 <div class="memitem">
 <div class="memproto">
@@ -721,7 +907,7 @@ Here is the caller graph for this function:</div>
 <p>Sends a not ack to the slave. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Hardware specific! </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00088">88</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00107">107</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -750,7 +936,7 @@ Here is the caller graph for this function:</div>
 <p>Reads a byte from the I2C bus. </p>
 <dl class="section return"><dt>Returns</dt><dd>The bytes retrieved. </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00139">139</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00158">158</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -779,7 +965,7 @@ Here is the caller graph for this function:</div>
 <p>Sends a restart condition to the I2C bus. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Hardware specific! </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00057">57</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00076">76</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -808,7 +994,7 @@ Here is the caller graph for this function:</div>
 <p>Sends a start condition to the I2C bus. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Hardware specific! </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00047">47</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00066">66</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -837,7 +1023,7 @@ Here is the caller graph for this function:</div>
 <p>Sends a stop condition to the I2C bus. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Hardware specific! </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00067">67</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00086">86</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -872,7 +1058,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if all went well !=0 if not. </dd></dl>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00100">100</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00119">119</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -897,7 +1083,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>This variable contains the address to read from the current device. </p>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00039">39</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00038">38</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 </div>
 </div>
@@ -912,7 +1098,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>This variable contains the address to write to the current device. </p>
 
-<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00041">41</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
+<p>Definition at line <a class="el" href="_i2_c_device_8c_source.html#l00040">40</a> of file <a class="el" href="_i2_c_device_8c_source.html">I2CDevice.c</a>.</p>
 
 </div>
 </div>
@@ -922,7 +1108,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="_i2_c_device_8h.html">I2CDevice.h</a></li>
-    <li class="footer">Generated on Thu Oct 11 2012 02:12:31 for PIC18 Libraries by
+    <li class="footer">Generated on Thu Oct 11 2012 19:54:13 for PIC18 Libraries by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.2 </li>
   </ul>

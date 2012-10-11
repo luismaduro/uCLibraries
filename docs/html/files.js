@@ -19,7 +19,10 @@ var files =
     [ "MCP6S2X.h", "_m_c_p6_s2_x_8h.html", "_m_c_p6_s2_x_8h" ],
     [ "MRF24J.c", "_m_r_f24_j_8c_source.html", null ],
     [ "MRF24J.h", "_m_r_f24_j_8h_source.html", null ],
-    [ "SPIDevice.c", "_s_p_i_device_8c_source.html", null ],
+    [ "SDCardRaw.c", "_s_d_card_raw_8c.html", "_s_d_card_raw_8c" ],
+    [ "SDCardRaw.h", "_s_d_card_raw_8h.html", "_s_d_card_raw_8h" ],
+    [ "SDCardRawConfig.h", "_s_d_card_raw_config_8h.html", "_s_d_card_raw_config_8h" ],
+    [ "SPIDevice.c", "_s_p_i_device_8c.html", "_s_p_i_device_8c" ],
     [ "SPIDevice.h", "_s_p_i_device_8h.html", "_s_p_i_device_8h" ],
     [ "stdbool.h", "stdbool_8h_source.html", null ]
 ];

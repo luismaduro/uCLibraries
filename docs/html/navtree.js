@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "PIC18 Libraries", "index.html", [
+    [ "Modules", "modules.html", "modules" ],
     [ "Data Structures", null, [
       [ "Data Structures", "annotated.html", "annotated" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -26,7 +27,8 @@ var NAVTREEINDEX =
 "_a_d524_x_8c.html",
 "_a_d_x_l345_8h.html#a5b08d46f2b81b29edd69f2a7c6434a77",
 "_h_m_c5883_l_8h.html#abda71e31590333fca6963e953bd05145",
-"_m_c_p3421_8h_source.html"
+"_m_c_p3421_8h.html#ab55db7cb7dd37c6dda533cc9b400d816",
+"group__sd__raw__config.html#ga4b98be138e87b8ab807d3f266a0c5bb9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
