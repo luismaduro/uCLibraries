@@ -35,9 +35,19 @@
 #ifndef _I2CDEV_H_
 #define _I2CDEV_H_
 
+#include <p18cxxx.h>
+
 extern unsigned char deviceAddressRead;
 extern unsigned char deviceAddressWrite;
 
+/**The bitwise define for the I2C control register 1 (i.e. _______bits)*/
+#define I2CCON1bits         SSPCON1bits
+/**The bitwise define for the I2C control register 2 (i.e. _______bits)*/
+#define I2CCON2bits         SSPCON2bits
+/**The bitwise define for the I2C status register (i.e. _______bits)*/
+#define I2CSTATbits         SSPSTATbits
+/**The buffer of the I2C module*/
+#define I2CBUF              SSPBUF
 
 void I2CStart(void);
 void I2CRestart(void);

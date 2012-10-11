@@ -46,8 +46,8 @@ unsigned char deviceAddressWrite;
  */
 void I2CStart(void)
 {
-    SSPCON2bits.SEN = 1;
-    while (SSPCON2bits.SEN);
+    I2CCON2bits.SEN = 1;
+    while (I2CCON2bits.SEN);
 }
 
 /**
@@ -56,8 +56,8 @@ void I2CStart(void)
  */
 void I2CRestart(void)
 {
-    SSPCON2bits.RSEN = 1;
-    while (SSPCON2bits.RSEN);
+    I2CCON2bits.RSEN = 1;
+    while (I2CCON2bits.RSEN);
 }
 
 /**
@@ -66,8 +66,8 @@ void I2CRestart(void)
  */
 void I2CStop(void)
 {
-    SSPCON2bits.PEN = 1;
-    while (SSPCON2bits.PEN);
+    I2CCON2bits.PEN = 1;
+    while (I2CCON2bits.PEN);
 }
 
 /**
@@ -76,9 +76,9 @@ void I2CStop(void)
  */
 void I2CAck(void)
 {
-    SSPCON2bits.ACKDT = 0;
-    SSPCON2bits.ACKEN = 1;
-    while (SSPCON2bits.ACKEN);
+    I2CCON2bits.ACKDT = 0;
+    I2CCON2bits.ACKEN = 1;
+    while (I2CCON2bits.ACKEN);
 }
 
 /**
@@ -87,9 +87,9 @@ void I2CAck(void)
  */
 void I2CNotAck(void)
 {
-    SSPCON2bits.ACKDT = 1;
-    SSPCON2bits.ACKEN = 1;
-    while (SSPCON2bits.ACKEN);
+    I2CCON2bits.ACKDT = 1;
+    I2CCON2bits.ACKEN = 1;
+    while (I2CCON2bits.ACKEN);
 }
 
 /**
@@ -99,20 +99,20 @@ void I2CNotAck(void)
  */
 unsigned char I2CWrite(unsigned char data_out)
 {
-    SSPBUF = data_out;
+    I2CBUF = data_out;
 
-    if (SSPCON1bits.WCOL)
+    if (I2CCON1bits.WCOL)
         return ( -1);
 
     else
     {
         if (((SSPCON1 & 0x0F) != 0x08) && ((SSPCON1 & 0x0F) != 0x0B))
         {
-            SSPCON1bits.CKP = 1;
+            I2CCON1bits.CKP = 1;
 
             while (!PIR1bits.SSPIF);
 
-            if ((!SSPSTATbits.R_W) && (!SSPSTATbits.BF))
+            if ((!I2CSTATbits.R_W) && (!I2CSTATbits.BF))
                 return (-2);
             else
                 return (0);
@@ -120,11 +120,11 @@ unsigned char I2CWrite(unsigned char data_out)
         }
         else if (((SSPCON1 & 0x0F) == 0x08) || ((SSPCON1 & 0x0F) == 0x0B))
         {
-            while (SSPSTATbits.BF);
+            while (I2CSTATbits.BF);
 
-            while ((SSPCON2 & 0x1F) | (SSPSTATbits.R_W));
+            while ((SSPCON2 & 0x1F) | (I2CSTATbits.R_W));
 
-            if (SSPCON2bits.ACKSTAT)
+            if (I2CCON2bits.ACKSTAT)
                 return ( -2);
             else
                 return ( 0);
@@ -139,9 +139,9 @@ unsigned char I2CWrite(unsigned char data_out)
 unsigned char I2CRead(void)
 {
     if (((SSPCON1 & 0x0F) == 0x08) || ((SSPCON1 & 0x0F) == 0x0B))
-        SSPCON2bits.RCEN = 1;
-    while (!SSPSTATbits.BF);
-    return ( SSPBUF);
+        I2CCON2bits.RCEN = 1;
+    while (!I2CSTATbits.BF);
+    return ( I2CBUF);
 }
 
 /**
