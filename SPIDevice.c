@@ -1,36 +1,106 @@
 /**
- *  @file       SPIDevice.h
- *  @brief      Main SPI device functions header
- *  @details    Abstracts bit and byte SPI R/W functions
+ *  @file       SPIDevice.c
+ *  @brief      SPI device library
  *  @author     Luis Maduro
- *  @version    1.0
- *  @date       September 2012
+ *  @version    1.00
+ *  @date       9 de Outubro de 2012, 15:10
+ *
+ *  Copyright (C) 2012  Luis Maduro
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "SPIDevice.h"
+
+volatile unsigned char *csPort;
+unsigned char csPin;
+
+/**
+ * Initiates the MSSP module to work as an SPI master.
+ * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
+ * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
+ */
+void SPIInit(volatile unsigned char *cs_port, unsigned char pin)
+{
+    SPISCKPIN = 0; // define clock pin as output
+    SPISDIPIN = 1; // define SDI pin as input
+    SPISDOPIN = 0; // define SDO pin as output
+
+    SPISTATbits.SMP = 0; //sampled at middle of data output time
+    SPISTATbits.CKE = 1; //data changes on clock transition from active to idle
+
+    SPICON1bits.WCOL = 0; //clear collision bit
+    SPICON1bits.SSPOV = 0; //clear overflow bit
+    SPICON1bits.SSPEN = 1; //enables the serial port pins to work with the MSSP
+    SPICON1bits.CKP = 0; //idle state for clock is a low level
+    SPICON1bits.SSPM = SPI_CLOCK;
+
+    csPort = cs_port;
+    csPin = pin;
+}
+
+/**
+ * Sets the device chip select port and pin.
+ * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
+ * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
+ */
+void SPISetDeviceChipSelectPin(volatile unsigned char *cs_port, unsigned char pin)
+{
+    csPort = cs_port;
+    csPin = pin;
+}
+
+/**
+ * Select the device to comunicate to by pulling the pin low.
+ */
+void SPIDeviceSelect(void)
+{
+    *csPort &= ~(1 << csPin);
+}
+
+/**
+ * Deselect the device to comunicate to by pulling the pin high.
+ */
+void SPIDeviceDeselect(void)
+{
+    *csPort |= (1 << csPin);
+}
 
 /**
  * Hardware dependent funtion to write to SPI module. The module must be
  * configured by the user.
  * @param data Byte to be sent by the SPI module.
+ * @return Returns 0 if all went well, !=0 otherwise.
  */
-void SPIWrite(unsigned char data)
+unsigned char SPIWrite(unsigned char data)
 {
     unsigned char TempVar;
 
-    TempVar = SSP1BUF; // Clears BF
+    TempVar = SPIBUF;
 
-    PIR1bits.SSPIF = 0; // Clear interrupt flag
+    SPIINTFLAG = 0;
 
-    SSP1CON1bits.WCOL = 0; //Clear any previous write collision
+    SPICON1bits.WCOL = 0;
 
-    SSP1BUF = data; // write byte to SSP1BUF register
+    SPIBUF = data;
 
-    if (SSP1CON1 & 0x80) // test if write collision occurred
-        return; // if WCOL bit is set return negative #
+    if (SPICON1bits.WCOL == 1)
+        return (-1);
     else
-        while (!PIR1bits.SSP1IF); // wait until bus cycle complete
+        while (!SPIINTFLAG);
 
-    return; // if WCOL bit is not set return non-negative#
+    return (0);
 }
 
 /**
@@ -42,216 +112,188 @@ unsigned char SPIRead(void)
 {
     unsigned char TempVar;
 
-    TempVar = SSP1BUF; //Clear BF
+    TempVar = SPIBUF;
 
-    PIR1bits.SSP1IF = 0; //Clear interrupt flag
+    SPIINTFLAG = 0;
 
-    SSP1BUF = 0x00; // initiate bus cycle
+    SPIBUF = 0x00;
 
-    while (!PIR1bits.SSP1IF); //wait until cycle complete
+    while (!SPIINTFLAG);
 
-    return (SSP1BUF); // return with byte read
+    return (SPIBUF);
 }
 
+/**
+ * Read multiple bytes from a device register.
+ * @param address First register address to read from
+ * @param length Number of bytes to read
+ * @param data Buffer to store read data in
+ */
+void SPIDeviceReadBytes(unsigned char address,
+                        unsigned char length,
+                        unsigned char *data)
+{
+    unsigned char i = 0;
 
-///**
-// * Read multiple bytes from a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address First register address to read from
-// * @param length Number of bytes to read
-// * @param data Buffer to store read data in
-// */
-//void SPIDeviceReadBytes(unsigned char deviceAddress,
-//                        unsigned char address,
-//                        unsigned char length,
-//                        unsigned char *data)
-//{
-//    unsigned char i = 0;
-//
-//    StartSPI1();
-//    WriteSPI1(deviceAddress & 0xFE);
-//    WriteSPI1(address);
-//    RestartSPI1();
-//
-//    WriteSPI1(deviceAddress | 0x01);
-//
-//    for (i = 0; i < length; i++)
-//    {
-//        data[i] = ReadSPI1();
-//
-//        if (i == (length - 1))
-//        {
-//            NotAckSPI1();
-//        }
-//        else
-//        {
-//            AckSPI1();
-//        }
-//    }
-//
-//    StopSPI1();
-//}
-//
-///**
-// * Write multiple bytes to a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address First register address to write to
-// * @param length Number of bytes to write
-// * @param data Buffer to copy new data from
-// */
-//void SPIDeviceWriteBytes(unsigned char deviceAddress,
-//                         unsigned char address,
-//                         unsigned char length,
-//                         unsigned char *data)
-//{
-//    unsigned char i;
-//
-//    StartSPI1();
-//    WriteSPI1(deviceAddress  & 0xFE);
-//    WriteSPI1(address);
-//
-//    for (i = 0; i < length; i++)
-//    {
-//        WriteSPI1(data[i]);
-//    }
-//    StopSPI1();
-//}
-//
-//
-///**
-// * Read a single bit from a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to read from
-// * @param _bit Bit in register position to read (0-7)
-// * @return Single bit value
-// */
-//unsigned char SPIDeviceReadBit(unsigned char deviceAddress,
-//                               unsigned char address,
-//                               unsigned char _bit)
-//{
-//    return (SPIDeviceReadByte(deviceAddress, address) & (1 << _bit));
-//}
-//
-///**
-// * Read multiple bits from a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to read from
-// * @param bitStart First bit position to read (0-7)
-// * @param length Number of bits to read (not more than 8)
-// * @return Right-aligned value (i.e. '101' read from any bitStart position will
-// *                              equal 0x05)
-// */
-//unsigned char SPIDeviceReadBits(unsigned char deviceAddress,
-//                                unsigned char address,
-//                                unsigned char bitStart,
-//                                unsigned char length)
-//{
-//    // 01101001 read byte
-//    // 76543210 bit numbers
-//    //    xxx   args: bitStart=4, length=3
-//    //    010   masked
-//    //   -> 010 shifted
-//    unsigned char i;
-//    unsigned char b;
-//    unsigned char r = 0;
-//
-//    b = SPIDeviceReadByte(deviceAddress, address);
-//
-//    for (i = bitStart; i > bitStart - length; i--)
-//    {
-//        r |= (b & (1 << i));
-//    }
-//    r >>= (bitStart - length + 1);
-//
-//    return r;
-//}
-//
-///**
-// * Read single byte from a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to read from
-// * @return Byte value read from device
-// */
-//unsigned char SPIDeviceReadByte(unsigned char deviceAddress,
-//                                unsigned char address)
-//{
-//    unsigned char b = 0;
-//    SPIDeviceReadBytes(deviceAddress, address, 1, &b);
-//    return b;
-//}
-//
-///**
-// * Write a single bit to a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to write to
-// * @param _bit Bit position to write (0-7)
-// * @param value New bit value to write
-// */
-//void SPIDeviceWriteBit(unsigned char deviceAddress,
-//                       unsigned char address,
-//                       unsigned char _bit,
-//                       unsigned char value)
-//{
-//    unsigned char b;
-//
-//    b = SPIDeviceReadByte(deviceAddress, address);
-//
-//    b = value ? (b | (1 << _bit)) : (b & ~(1 << _bit));
-//
-//    SPIDeviceWriteByte(deviceAddress, address, b);
-//}
-//
-///**
-// * Write multiple bits to a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to write to
-// * @param bitStart First bit position to write (0-7)
-// * @param length Number of bits to write (not more than 8)
-// * @param value Right-aligned value to write
-// */
-//void SPIDeviceWriteBits(unsigned char deviceAddress,
-//                        unsigned char address,
-//                        unsigned char bitStart,
-//                        unsigned char length,
-//                        unsigned char value)
-//{
-//    //      010 value to write
-//    // 76543210 bit numbers
-//    //    xxx   args: bitStart=4, length=3
-//    // 01000000 shift left (8 - length)    ]
-//    // 00001000 shift right (7 - bitStart) ] ---    two shifts ensure all
-//    //                                              non-important bits are 0
-//    // 11100011 mask byte
-//    // 10101111 original value (sample)
-//    // 10100011 original & mask
-//    // 10101011 masked | value
-//    unsigned char b;
-//    unsigned char mask;
-//
-//    b = SPIDeviceReadByte(deviceAddress, address);
-//
-//    mask = (0xFF << (8 - length)) | (0xFF >> (bitStart + length - 1));
-//
-//    value <<= (8 - length);
-//
-//    value >>= (7 - bitStart);
-//
-//    b &= mask;
-//
-//    b |= value;
-//
-//    SPIDeviceWriteByte(deviceAddress, address, b);
-//}
-//
-///**
-// * Write single byte to a device register.
-// * @param deviceAddress Address of the device in SPI bus
-// * @param address Register address to write to
-// * @param value New byte value write
-// */
-//void SPIDeviceWriteByte(unsigned char deviceAddress,
-//                        unsigned char address,
-//                        unsigned char value)
-//{
-//    SPIDeviceWriteBytes(deviceAddress, address, 1, &value);
-//}
+    SPIDeviceSelect();
+
+    SPIWrite(address);
+
+    for (i = 0; i < length; i++)
+    {
+        data[i] = SPIRead();
+    }
+
+    SPIDeviceDeselect();
+}
+
+/**
+ * Write multiple bytes to a device register.
+ * @param address First register address to write to
+ * @param length Number of bytes to write
+ * @param data Buffer to copy new data from
+ */
+void SPIDeviceWriteBytes(unsigned char address,
+                         unsigned char length,
+                         unsigned char *data)
+{
+    unsigned char i;
+
+    SPIDeviceSelect();
+
+    SPIWrite(address);
+
+    for (i = 0; i < length; i++)
+    {
+        SPIWrite(data[i]);
+    }
+
+    SPIDeviceDeselect();
+}
+
+/**
+ * Read a single bit from a device register.
+ * @param address Register address to read from
+ * @param _bit Bit in register position to read (0-7)
+ * @return Single bit value
+ */
+unsigned char SPIDeviceReadBit(unsigned char address,
+                               unsigned char _bit)
+{
+    return (SPIDeviceReadByte(address) & (1 << _bit));
+}
+
+/**
+ * Read multiple bits from a device register.
+ * @param address Register address to read from
+ * @param bitStart First bit position to read (0-7)
+ * @param length Number of bits to read (not more than 8)
+ * @return Right-aligned value (i.e. '101' read from any bitStart position will
+ *                              equal 0x05)
+ */
+unsigned char SPIDeviceReadBits(unsigned char address,
+                                unsigned char bitStart,
+                                unsigned char length)
+{
+    // 01101001 read byte
+    // 76543210 bit numbers
+    //    xxx   args: bitStart=4, length=3
+    //    010   masked
+    //   -> 010 shifted
+    unsigned char i;
+    unsigned char b;
+    unsigned char r = 0;
+
+    b = SPIDeviceReadByte(address);
+
+    for (i = bitStart; i > bitStart - length; i--)
+    {
+        r |= (b & (1 << i));
+    }
+    r >>= (bitStart - length + 1);
+
+    return r;
+}
+
+/**
+ * Read single byte from a device register.
+ * @param address Register address to read from
+ * @return Byte value read from device
+ */
+unsigned char SPIDeviceReadByte(unsigned char address)
+{
+    unsigned char b = 0;
+    SPIDeviceReadBytes(address, 1, &b);
+    return b;
+}
+
+/**
+ * Write a single bit to a device register.
+ * @param address Register address to write to
+ * @param _bit Bit position to write (0-7)
+ * @param value New bit value to write
+ */
+void SPIDeviceWriteBit(unsigned char address,
+                       unsigned char _bit,
+                       unsigned char value)
+{
+    unsigned char b;
+
+    b = SPIDeviceReadByte(address);
+
+    b = value ? (b | (1 << _bit)) : (b & ~(1 << _bit));
+
+    SPIDeviceWriteByte(address, b);
+}
+
+/**
+ * Write multiple bits to a device register.
+ * @param address Register address to write to
+ * @param bitStart First bit position to write (0-7)
+ * @param length Number of bits to write (not more than 8)
+ * @param value Right-aligned value to write
+ */
+void SPIDeviceWriteBits(unsigned char address,
+                        unsigned char bitStart,
+                        unsigned char length,
+                        unsigned char value)
+{
+    //      010 value to write
+    // 76543210 bit numbers
+    //    xxx   args: bitStart=4, length=3
+    // 01000000 shift left (8 - length)    ]
+    // 00001000 shift right (7 - bitStart) ] ---    two shifts ensure all
+    //                                              non-important bits are 0
+    // 11100011 mask byte
+    // 10101111 original value (sample)
+    // 10100011 original & mask
+    // 10101011 masked | value
+    unsigned char b;
+    unsigned char mask;
+
+    b = SPIDeviceReadByte(address);
+
+    mask = (0xFF << (8 - length)) | (0xFF >> (bitStart + length - 1));
+
+    value <<= (8 - length);
+
+    value >>= (7 - bitStart);
+
+    b &= mask;
+
+    b |= value;
+
+    SPIDeviceWriteByte(address, b);
+}
+
+/**
+ * Write single byte to a device register.
+ * @param deviceAddress Address of the device in SPI bus
+ * @param address Register address to write to
+ * @param value New byte value write
+ */
+void SPIDeviceWriteByte(unsigned char address,
+                        unsigned char value)
+{
+    SPIDeviceWriteBytes(address, 1, &value);
+}
