@@ -32,7 +32,6 @@
  *
  */
 
-#include <p18cxxx.h>
 #include "I2CDevice.h"
 
 /**This variable contains the address to read from the current device.*/
@@ -40,6 +39,9 @@ unsigned char deviceAddressRead;
 /**This variable contains the address to write to the current device.*/
 unsigned char deviceAddressWrite;
 
+/**
+ * Initiates the module to work as an I2C master.
+ */
 void I2CInit(void)
 {
     I2CSCLPIN = 1;
