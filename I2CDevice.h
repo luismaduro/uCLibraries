@@ -8,7 +8,7 @@
  *  @date      June 2012
  *  @copyright MIT License.
  * 
- * I2Cdev device library code is placed under the MIT license
+ * I2CDevice library code is placed under the MIT license
  * Copyright (c) 2011 Jeff Rowberg
  * Copyright (c) 2012 Luis Maduro
  * 
@@ -40,6 +40,17 @@
 extern unsigned char deviceAddressRead;
 extern unsigned char deviceAddressWrite;
 
+#define SYSTEM_OSCILATOR    64000000UL
+/**Selects the desired I2C clock speed.*/
+#define I2C_SPEED           400000
+/**Calculates the value to put on the baudrate register based on the desired speed.
+ SYSTEM_OSCILATOR must contain the value of the oscilator. Check the formula for
+ different microcontrollers.*/
+#define I2CBAUDVALUE        (((SYSTEM_OSCILATOR/4)/I2C_SPEED)-1)
+/**Configure the clock pin associated with the I2C*/
+#define I2CSCLPIN           TRISCbits.TRISC3
+/**Configure the data pin associated with the I2C*/
+#define I2CSDAPIN           TRISCbits.TRISC4
 /**The bitwise define for the I2C control register 1 (i.e. _______bits)*/
 #define I2CCON1bits         SSPCON1bits
 /**The bitwise define for the I2C control register 2 (i.e. _______bits)*/
@@ -48,7 +59,10 @@ extern unsigned char deviceAddressWrite;
 #define I2CSTATbits         SSPSTATbits
 /**The buffer of the I2C module*/
 #define I2CBUF              SSPBUF
+/**The register that controls the clock speed*/
+#define I2CBAUDREGISTER     SSPADD
 
+void I2CInit(void);
 void I2CStart(void);
 void I2CRestart(void);
 void I2CStop(void);

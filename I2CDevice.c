@@ -8,7 +8,7 @@
  *  @date       June 2012
  *  @copyright  MIT License.
  *
- * I2Cdev device library code is placed under the MIT license
+ * I2CDevice device library code is placed under the MIT license
  * Copyright (c) 2011 Jeff Rowberg
  * Copyright (c) 2012 Luis Maduro
  *
@@ -39,6 +39,23 @@
 unsigned char deviceAddressRead;
 /**This variable contains the address to write to the current device.*/
 unsigned char deviceAddressWrite;
+
+void I2CInit(void)
+{
+    I2CSCLPIN = 1;
+    I2CSDAPIN = 1;
+
+    I2CBAUDREGISTER = I2CBAUDVALUE;
+
+    I2CSTATbits.SMP = 0;
+    I2CSTATbits.CKE = 0;
+
+    I2CCON1bits.WCOL = 0;
+    I2CCON1bits.SSPOV = 0;
+    I2CCON1bits.SSPEN = 1;
+    I2CCON1bits.CKP = 0;
+    I2CCON1bits.SSPM = 0b1000;
+}
 
 /**
  * Sends a start condition to the I2C bus.
