@@ -288,7 +288,6 @@ void SPIDeviceWriteBits(unsigned char address,
 
 /**
  * Write single byte to a device register.
- * @param deviceAddress Address of the device in SPI bus
  * @param address Register address to write to
  * @param value New byte value write
  */
