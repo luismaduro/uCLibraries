@@ -1,0 +1,15 @@
+<map id="I2CDeviceWriteBits" name="I2CDeviceWriteBits">
+<area shape="rect" id="node3" href="$_a_d_x_l345_8h.html#a2f124f2120eb084084abc8f371b6674d" title="ADXL345SetRate" alt="" coords="231,5,353,32"/>
+<area shape="rect" id="node5" href="$_a_d_x_l345_8h.html#ae4bb3a77e3c69590e45bd52c46bd220c" title="ADXL345SetWakeupFrequency" alt="" coords="190,56,394,83"/>
+<area shape="rect" id="node7" href="$_a_d_x_l345_8h.html#a43e60018765797d01c5edd8aaf9d0974" title="ADXL345SetRange" alt="" coords="226,107,358,133"/>
+<area shape="rect" id="node9" href="$_a_d_x_l345_8h.html#acfed5f046b50b7b13c61f397b5c7042e" title="ADXL345SetFIFOMode" alt="" coords="214,157,370,184"/>
+<area shape="rect" id="node11" href="$_a_d_x_l345_8h.html#aacf9ea565cca611118e7ad7cd81a2fe5" title="ADXL345SetFIFOSamples" alt="" coords="205,208,379,235"/>
+<area shape="rect" id="node13" href="$_h_m_c5883_l_8h.html#ab89ad8824dcdeb5caf9acac69f4ace3a" title="HMC5883LSetSampleAveraging" alt="" coords="189,259,395,285"/>
+<area shape="rect" id="node15" href="$_h_m_c5883_l_8h.html#ac0ffbd40a355d3d608858b453e7dcb9e" title="HMC5883LSetDataRate" alt="" coords="212,309,372,336"/>
+<area shape="rect" id="node17" href="$_h_m_c5883_l_8h.html#aa4a81046ebc46c77647161afa6e53c3c" title="HMC5883LSetMeasurementBias" alt="" coords="187,360,397,387"/>
+<area shape="rect" id="node19" href="$_i_t_g3200_8h.html#ad4c042c400f9b961bdc8952f34fd0678" title="ITG3200SetDeviceID" alt="" coords="222,411,362,437"/>
+<area shape="rect" id="node21" href="$_i_t_g3200_8h.html#a5e0dc9e42bd70b5fd840ccec1bbe8d35" title="ITG3200SetFullScaleRange" alt="" coords="201,461,383,488"/>
+<area shape="rect" id="node25" href="$_i_t_g3200_8h.html#a5dca5f14d99d8d6f4b687474e97bd9a9" title="ITG3200SetDLPFBandwidth" alt="" coords="201,512,383,539"/>
+<area shape="rect" id="node27" href="$_i_t_g3200_8h.html#ace890e59c978bc2919df4bac00fb082a" title="ITG3200SetClockSource" alt="" coords="210,563,374,589"/>
+<area shape="rect" id="node23" href="$_i_t_g3200_8h.html#af93d1dff9ad892e133867dfb9611c88f" title="ITG3200Initialize" alt="" coords="445,512,563,539"/>
+</map>

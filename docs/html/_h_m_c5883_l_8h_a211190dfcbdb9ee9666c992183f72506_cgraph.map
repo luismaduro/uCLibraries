@@ -1,0 +1,9 @@
+<map id="HMC5883LInitialize" name="HMC5883LInitialize">
+<area shape="rect" id="node3" href="$_i2_c_device_8c.html#a9995a4d3ad8855572fb5b16b975ca353" title="I2CDeviceWriteByte" alt="" coords="374,56,511,83"/>
+<area shape="rect" id="node13" href="$_h_m_c5883_l_8c.html#a4a60b627b7847e2886cd1f77ac65a358" title="HMC5883LSetGain" alt="" coords="189,56,323,83"/>
+<area shape="rect" id="node16" href="$_h_m_c5883_l_8c.html#a97f3f72110a1e3c9642033133d57aa21" title="HMC5883LSetMode" alt="" coords="187,107,325,133"/>
+<area shape="rect" id="node5" href="$_i2_c_device_8c.html#a91cb6812eac002d34850bab223e933f0" title="I2CDeviceWriteBytes" alt="" coords="560,56,704,83"/>
+<area shape="rect" id="node7" href="$_i2_c_device_8c.html#ab29e53969976864795268c48d5e25043" title="I2CStart" alt="" coords="753,5,823,32"/>
+<area shape="rect" id="node9" href="$_i2_c_device_8c.html#aed4655fb7eeca2291d64496c704d2edb" title="I2CWrite" alt="" coords="752,56,824,83"/>
+<area shape="rect" id="node11" href="$_i2_c_device_8c.html#aa2b7df36988a92384217016facf46574" title="I2CStop" alt="" coords="754,107,822,133"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="I2CDevice.h" name="I2CDevice.h">
+<area shape="rect" id="node3" href="$_a_d524_x_8h.html" title="Source file for AD524X digital potenciometer." alt="" coords="5,80,83,107"/>
+<area shape="rect" id="node7" href="$_a_d_x_l345_8c.html" title="ADXL345.c" alt="" coords="115,155,201,181"/>
+<area shape="rect" id="node9" href="$_a_d_x_l345_8h.html" title="ADXL345.h" alt="" coords="159,80,245,107"/>
+<area shape="rect" id="node12" href="$_h_m_c5883_l_8c.html" title="HMC5883L.c" alt="" coords="278,155,375,181"/>
+<area shape="rect" id="node14" href="$_h_m_c5883_l_8h.html" title="HMC5883L.h" alt="" coords="322,80,419,107"/>
+<area shape="rect" id="node17" href="$_i2_c_device_8c.html" title="Main I2C device functions." alt="" coords="444,80,535,107"/>
+<area shape="rect" id="node19" href="$_i_t_g3200_8h.html" title="ITG3200.h" alt="" coords="559,80,640,107"/>
+<area shape="rect" id="node23" href="$_m_c_p3421_8c.html" title="Source file library for 18&#45;Bit ADC MCP3421." alt="" coords="665,80,756,107"/>
+<area shape="rect" id="node5" href="$_a_d524_x_8c.html" title="Source file for AD524X digital potenciometer." alt="" coords="5,155,83,181"/>
+<area shape="rect" id="node21" href="$_i_t_g3200_8c.html" title="ITG3200.c" alt="" coords="559,155,640,181"/>
+</map>

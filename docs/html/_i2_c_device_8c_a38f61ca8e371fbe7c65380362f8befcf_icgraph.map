@@ -1,0 +1,17 @@
+<map id="I2CDeviceReadBits" name="I2CDeviceReadBits">
+<area shape="rect" id="node3" href="$_a_d_x_l345_8h.html#a9384d8509f8f8ee7876fcdd863ab5e16" title="ADXL345GetRate" alt="" coords="232,5,355,32"/>
+<area shape="rect" id="node5" href="$_a_d_x_l345_8h.html#ae723a952653664cba9eea5e431b23b3b" title="ADXL345GetWakeupFrequency" alt="" coords="191,56,396,83"/>
+<area shape="rect" id="node7" href="$_a_d_x_l345_8h.html#a1177a954905106f58455f286362af76e" title="ADXL345GetRange" alt="" coords="227,107,360,133"/>
+<area shape="rect" id="node9" href="$_a_d_x_l345_8h.html#aec880735f192cf6195d748a29321f36e" title="ADXL345GetFIFOMode" alt="" coords="215,157,372,184"/>
+<area shape="rect" id="node11" href="$_a_d_x_l345_8h.html#afe653c75fdd90e6b95e7b519eb15324b" title="ADXL345GetFIFOSamples" alt="" coords="205,208,381,235"/>
+<area shape="rect" id="node13" href="$_a_d_x_l345_8h.html#a00432bb65d389850456ed790f15cb02b" title="ADXL345GetFIFOLength" alt="" coords="211,259,375,285"/>
+<area shape="rect" id="node15" href="$_h_m_c5883_l_8h.html#aabbec8f8d01fa52785844cd608b45eb6" title="HMC5883LGetSampleAveraging" alt="" coords="190,309,397,336"/>
+<area shape="rect" id="node17" href="$_h_m_c5883_l_8h.html#a5b199a9838389605030001ac753f5280" title="HMC5883LGetDataRate" alt="" coords="213,360,374,387"/>
+<area shape="rect" id="node19" href="$_h_m_c5883_l_8h.html#ab60e0cee38e174a005f376d82b96d29f" title="HMC5883LGetMeasurementBias" alt="" coords="187,411,399,437"/>
+<area shape="rect" id="node21" href="$_h_m_c5883_l_8h.html#a801f7bb450e47049150b3ce8cdabdbe2" title="HMC5883LGetGain" alt="" coords="226,461,361,488"/>
+<area shape="rect" id="node23" href="$_h_m_c5883_l_8h.html#ac7254b038c3c8d67177a5f35b6f518c9" title="HMC5883LGetMode" alt="" coords="224,512,363,539"/>
+<area shape="rect" id="node25" href="$_i_t_g3200_8h.html#a361b10aadf1bae54cb92f4fef7c305f1" title="ITG3200GetDeviceID" alt="" coords="223,563,364,589"/>
+<area shape="rect" id="node27" href="$_i_t_g3200_8h.html#ab3ef9dd6dad2b3b7e5021eaccc228428" title="ITG3200GetFullScaleRange" alt="" coords="202,613,385,640"/>
+<area shape="rect" id="node29" href="$_i_t_g3200_8h.html#a65bfda1445acf9b3e6f3c38faaab87b9" title="ITG3200GetDLPFBandwidth" alt="" coords="201,664,385,691"/>
+<area shape="rect" id="node31" href="$_i_t_g3200_8h.html#ae571752938973ac54e5a0d549680f6c3" title="ITG3200GetClockSource" alt="" coords="211,715,376,741"/>
+</map>

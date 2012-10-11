@@ -1,0 +1,16 @@
+<map id="ITG3200Initialize" name="ITG3200Initialize">
+<area shape="rect" id="node3" href="$_i_t_g3200_8c.html#a5e0dc9e42bd70b5fd840ccec1bbe8d35" title="ITG3200SetFullScaleRange" alt="" coords="171,81,352,108"/>
+<area shape="rect" id="node32" href="$_i_t_g3200_8c.html#ace890e59c978bc2919df4bac00fb082a" title="ITG3200SetClockSource" alt="" coords="179,132,343,159"/>
+<area shape="rect" id="node5" href="$_i2_c_device_8c.html#a8f2a2d2bfef6f0508b608c195174e734" title="I2CDeviceWriteBits" alt="" coords="400,107,533,133"/>
+<area shape="rect" id="node7" href="$_i2_c_device_8c.html#ae5792b683eec37571efa8c33f2793f28" title="I2CDeviceReadByte" alt="" coords="583,132,719,159"/>
+<area shape="rect" id="node25" href="$_i2_c_device_8c.html#a9995a4d3ad8855572fb5b16b975ca353" title="I2CDeviceWriteByte" alt="" coords="582,81,719,108"/>
+<area shape="rect" id="node9" href="$_i2_c_device_8c.html#aeac02231e2ff40de2f2dbe7cb179bab9" title="I2CDeviceReadBytes" alt="" coords="769,157,911,184"/>
+<area shape="rect" id="node11" href="$_i2_c_device_8c.html#ab29e53969976864795268c48d5e25043" title="I2CStart" alt="" coords="968,5,1037,32"/>
+<area shape="rect" id="node13" href="$_i2_c_device_8c.html#aed4655fb7eeca2291d64496c704d2edb" title="I2CWrite" alt="" coords="967,56,1039,83"/>
+<area shape="rect" id="node15" href="$_i2_c_device_8c.html#a5aebf22432a181bee4f17860326797b2" title="I2CRestart" alt="" coords="961,208,1044,235"/>
+<area shape="rect" id="node17" href="$_i2_c_device_8c.html#a9e31139271518c9e780981e77809147b" title="I2CRead" alt="" coords="967,259,1038,285"/>
+<area shape="rect" id="node19" href="$_i2_c_device_8c.html#a2465951f6f92b3586c4d1d71f2f77340" title="I2CNotAck" alt="" coords="961,309,1045,336"/>
+<area shape="rect" id="node21" href="$_i2_c_device_8c.html#a60a34800dd70648661e49f7846d78b37" title="I2CAck" alt="" coords="971,157,1035,184"/>
+<area shape="rect" id="node23" href="$_i2_c_device_8c.html#aa2b7df36988a92384217016facf46574" title="I2CStop" alt="" coords="969,107,1037,133"/>
+<area shape="rect" id="node27" href="$_i2_c_device_8c.html#a91cb6812eac002d34850bab223e933f0" title="I2CDeviceWriteBytes" alt="" coords="768,81,912,108"/>
+</map>
