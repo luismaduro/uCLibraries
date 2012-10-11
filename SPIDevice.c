@@ -6,7 +6,6 @@
  *  @version    1.0
  *  @date       September 2012
  */
-#include <p18cxxx.h>
 #include "SPIDevice.h"
 
 /**
@@ -20,7 +19,7 @@ void SPIWrite(unsigned char data)
 
     TempVar = SSP1BUF; // Clears BF
 
-    PIR1bits.SSP1IF = 0; // Clear interrupt flag
+    PIR1bits.SSPIF = 0; // Clear interrupt flag
 
     SSP1CON1bits.WCOL = 0; //Clear any previous write collision
 
