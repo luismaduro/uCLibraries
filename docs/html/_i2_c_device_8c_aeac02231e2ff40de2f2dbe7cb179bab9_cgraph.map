@@ -1,9 +1,0 @@
-<map id="I2CDeviceReadBytes" name="I2CDeviceReadBytes">
-<area shape="rect" id="node3" href="$_i2_c_device_8c.html#ab29e53969976864795268c48d5e25043" title="I2CStart" alt="" coords="205,5,275,32"/>
-<area shape="rect" id="node5" href="$_i2_c_device_8c.html#aed4655fb7eeca2291d64496c704d2edb" title="I2CWrite" alt="" coords="204,56,276,83"/>
-<area shape="rect" id="node7" href="$_i2_c_device_8c.html#a5aebf22432a181bee4f17860326797b2" title="I2CRestart" alt="" coords="199,107,281,133"/>
-<area shape="rect" id="node9" href="$_i2_c_device_8c.html#a9e31139271518c9e780981e77809147b" title="I2CRead" alt="" coords="205,157,275,184"/>
-<area shape="rect" id="node11" href="$_i2_c_device_8c.html#a2465951f6f92b3586c4d1d71f2f77340" title="I2CNotAck" alt="" coords="198,208,282,235"/>
-<area shape="rect" id="node13" href="$_i2_c_device_8c.html#a60a34800dd70648661e49f7846d78b37" title="I2CAck" alt="" coords="208,259,272,285"/>
-<area shape="rect" id="node15" href="$_i2_c_device_8c.html#aa2b7df36988a92384217016facf46574" title="I2CStop" alt="" coords="206,309,274,336"/>
-</map>

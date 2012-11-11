@@ -1,7 +1,0 @@
-<map id="ADXL345SetOffsetX" name="ADXL345SetOffsetX">
-<area shape="rect" id="node3" href="$_i2_c_device_8c.html#a9995a4d3ad8855572fb5b16b975ca353" title="I2CDeviceWriteByte" alt="" coords="190,56,327,83"/>
-<area shape="rect" id="node5" href="$_i2_c_device_8c.html#a91cb6812eac002d34850bab223e933f0" title="I2CDeviceWriteBytes" alt="" coords="376,56,520,83"/>
-<area shape="rect" id="node7" href="$_i2_c_device_8c.html#ab29e53969976864795268c48d5e25043" title="I2CStart" alt="" coords="569,5,639,32"/>
-<area shape="rect" id="node9" href="$_i2_c_device_8c.html#aed4655fb7eeca2291d64496c704d2edb" title="I2CWrite" alt="" coords="568,56,640,83"/>
-<area shape="rect" id="node11" href="$_i2_c_device_8c.html#aa2b7df36988a92384217016facf46574" title="I2CStop" alt="" coords="570,107,638,133"/>
-</map>

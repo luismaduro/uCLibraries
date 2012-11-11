@@ -14,14 +14,15 @@
 
 #include <delays.h>
 
-#define GetInstructionClock()	(SYSTEM_CLOCK/4)
+#define SYSTEM_CLOCK        64000000UL
+#define INSTRUCTION_CLOCK   (SYSTEM_CLOCK/4)
 
-#define Delay10us(us)   Delay10TCYx(((GetInstructionClock()/1000000)*(us)))
+#define Delay10us(us)   Delay10TCYx(((INSTRUCTION_CLOCK/1000000)*(us)))
 #define DelayMs(ms)                                                 \
     do                                                              \
     {                                                               \
         unsigned int _iTemp = (ms);                                 \
         while(_iTemp--)                                             \
-            Delay1KTCYx((GetInstructionClock()+999999)/1000000);    \
+            Delay1KTCYx((INSTRUCTION_CLOCK+999999)/1000000);    \
     } while(0)
 #endif

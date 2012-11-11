@@ -1,9 +1,0 @@
-<map id="MCP3421GetValue" name="MCP3421GetValue">
-<area shape="rect" id="node3" href="$_i2_c_device_8c.html#a0d98c514dfec6ca7bfa68b8d824353e9" title="I2CDeviceSetDeviceAddress" alt="" coords="187,5,373,32"/>
-<area shape="rect" id="node5" href="$_i2_c_device_8c.html#ab29e53969976864795268c48d5e25043" title="I2CStart" alt="" coords="245,56,315,83"/>
-<area shape="rect" id="node7" href="$_i2_c_device_8c.html#aed4655fb7eeca2291d64496c704d2edb" title="I2CWrite" alt="" coords="244,107,316,133"/>
-<area shape="rect" id="node9" href="$_i2_c_device_8c.html#a9e31139271518c9e780981e77809147b" title="I2CRead" alt="" coords="245,157,315,184"/>
-<area shape="rect" id="node11" href="$_i2_c_device_8c.html#a60a34800dd70648661e49f7846d78b37" title="I2CAck" alt="" coords="248,208,312,235"/>
-<area shape="rect" id="node13" href="$_i2_c_device_8c.html#a2465951f6f92b3586c4d1d71f2f77340" title="I2CNotAck" alt="" coords="238,259,322,285"/>
-<area shape="rect" id="node15" href="$_i2_c_device_8c.html#aa2b7df36988a92384217016facf46574" title="I2CStop" alt="" coords="246,309,314,336"/>
-</map>

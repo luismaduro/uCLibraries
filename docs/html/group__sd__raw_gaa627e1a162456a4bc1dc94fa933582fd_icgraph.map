@@ -1,7 +1,0 @@
-<map id="sd_raw_read" name="sd_raw_read">
-<area shape="rect" id="node3" href="$group__sd__raw.html#gac2e6d0ba10cef8f72391d35b4aabf385" title="sd_raw_init" alt="" coords="178,5,265,32"/>
-<area shape="rect" id="node5" href="$group__sd__raw.html#ga3e5af8a86ddddef5d06d35026b0259c8" title="sd_raw_read_interval" alt="" coords="150,56,293,83"/>
-<area shape="rect" id="node7" href="$group__sd__raw.html#ga084a585560db99bf7826015b07f4a5cf" title="sd_raw_write" alt="" coords="173,107,270,133"/>
-<area shape="rect" id="node9" href="$group__sd__raw.html#ga440e2e7588d8c68bb8fdcb198c60ca06" title="sd_raw_write_interval" alt="" coords="341,81,485,108"/>
-<area shape="rect" id="node11" href="$group__sd__raw.html#ga8cff641a3a1cd747bb6634eeba1ad54b" title="sd_raw_sync" alt="" coords="364,132,463,159"/>
-</map>
