@@ -6,6 +6,11 @@
  * @date        2011
  * @copyright 	MIT license
  */
+  /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 #include "I2CDevice.h"
 #include "HMC5883L.h"
 
@@ -412,3 +417,7 @@ unsigned char HMC5883LGetIDC(void)
 {
     return I2CDeviceReadByte(HMC5883L_ADDRESS_READ, HMC5883L_RA_ID_C);
 }
+
+/**
+ * @}
+ */

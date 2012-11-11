@@ -6,6 +6,11 @@
  * @date        2011
  * @copyright	MIT license
  */
+ /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 
 #ifndef _ITG3200_H_
 #define _ITG3200_H_
@@ -125,4 +130,8 @@ void ITG3200SetDeviceID(unsigned char id);
 unsigned char ITG3200GetDeviceID(void);
 void ITG3200Initialize(void);
 
-#endif /* _ITG3200_H_ */
+#endif
+
+/**
+ * @}
+ */

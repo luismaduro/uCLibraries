@@ -62,8 +62,8 @@
 
 #define SPIINTFLAG          PIR1bits.SSPIF
 
-void SPIInit(volatile unsigned char *cs_port, unsigned char pin);
-void SPISetDeviceChipSelectPin(volatile unsigned char *cs_port, unsigned char pin);
+void SPIInit(void);
+void SPISetDeviceChipSelectPin(volatile near unsigned char *cs_port, unsigned char pin);
 void SPIDeviceSelect(void);
 void SPIDeviceDeselect(void);
 unsigned char SPIWrite(unsigned char data);

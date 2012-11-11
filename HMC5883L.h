@@ -6,6 +6,11 @@
  * @date        2011
  * @copyright 	MIT license
  */
+ /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 
 #ifndef _HMC5883L_H_
 #define _HMC5883L_H_
@@ -96,4 +101,8 @@ void HMC5883LSetMode(unsigned char newMode);
 void HMC5883LSetGain(unsigned char gain);
 void HMC5883LInitialize(void);
 
-#endif /* _HMC5883L_H_ */
+#endif
+
+/**
+ * @}
+ */

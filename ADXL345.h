@@ -7,6 +7,11 @@
  * @date        2011
  * @copyright   GNU Public License.
  */
+ /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 
 #ifndef _ADXL345_H_
 #define _ADXL345_H_
@@ -280,4 +285,8 @@ unsigned char ADXL345GetFIFOLength(void);
 
 
 
-#endif /* _ADXL345_H_ */
+#endif
+
+/**
+ * @}
+ */

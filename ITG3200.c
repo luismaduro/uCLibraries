@@ -6,6 +6,11 @@
  * @date        2011
  * @copyright	MIT license
  */
+ /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 #include "ITG3200.h"
 
 unsigned char ITG3200Buffer[6];
@@ -651,3 +656,7 @@ void ITG3200SetClockSource(unsigned char source)
                        ITG3200_PWR_CLK_SEL_LENGTH,
                        source);
 }
+
+/**
+ * @}
+ */

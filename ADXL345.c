@@ -7,6 +7,11 @@
  * @date        2011
  * @copyright   GNU Public License.
  */
+  /**
+ * \addtogroup I2C Devices
+ *
+ * @{
+ */
 #include "I2CDevice.h"
 #include "ADXL345.h"
 
@@ -2132,3 +2137,8 @@ unsigned char ADXL345GetFIFOLength(void)
                              ADXL345_FIFOSTAT_LENGTH_BIT,
                              ADXL345_FIFOSTAT_LENGTH_LENGTH);
 }
+
+/**
+ * @}
+ */
+ 

@@ -20,10 +20,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <p18cxxx.h>
 #include "SPIDevice.h"
 
-volatile unsigned char *csPort;
+volatile near unsigned char *csPort;
 unsigned char csPin;
 
 /**
@@ -31,7 +31,7 @@ unsigned char csPin;
  * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
  * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
  */
-void SPIInit(volatile unsigned char *cs_port, unsigned char pin)
+void SPIInit(void)
 {
     SPISCKPIN = 0; // define clock pin as output
     SPISDIPIN = 1; // define SDI pin as input
@@ -45,9 +45,6 @@ void SPIInit(volatile unsigned char *cs_port, unsigned char pin)
     SPICON1bits.SSPEN = 1; //enables the serial port pins to work with the MSSP
     SPICON1bits.CKP = 0; //idle state for clock is a low level
     SPICON1bits.SSPM = SPI_CLOCK;
-
-    csPort = cs_port;
-    csPin = pin;
 }
 
 /**
@@ -55,7 +52,7 @@ void SPIInit(volatile unsigned char *cs_port, unsigned char pin)
  * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
  * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
  */
-void SPISetDeviceChipSelectPin(volatile unsigned char *cs_port, unsigned char pin)
+void SPISetDeviceChipSelectPin(volatile near unsigned char *cs_port, unsigned char pin)
 {
     csPort = cs_port;
     csPin = pin;
