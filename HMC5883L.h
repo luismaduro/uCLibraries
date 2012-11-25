@@ -15,10 +15,11 @@
 #ifndef _HMC5883L_H_
 #define _HMC5883L_H_
 
+#include "stdboolean.h"
 #include "I2CDevice.h"
 
-#define HMC5883L_ADDRESS_READ       0x3D // this device only has one address
-#define HMC5883L_ADDRESS_WRITE      0x3C
+#define HMC5883L_ADDRESS       0x1E
+
 
 #define HMC5883L_RA_CONFIG_A        0x00
 #define HMC5883L_RA_CONFIG_B        0x01
@@ -83,8 +84,8 @@
 unsigned char HMC5883LGetIDC(void);
 unsigned char HMC5883LGetIDB(void);
 unsigned char HMC5883LGetIDA(void);
-bool HMC5883LGetReadyStatus(void);
-bool HMC5883LGetLockStatus(void);
+boolean HMC5883LGetReadyStatus(void);
+boolean HMC5883LGetLockStatus(void);
 int HMC5883LGetHeadingZ(void);
 int HMC5883LGetHeadingY(void);
 int HMC5883LGetHeadingX(void);

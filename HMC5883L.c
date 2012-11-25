@@ -6,7 +6,7 @@
  * @date        2011
  * @copyright 	MIT license
  */
-  /**
+/**
  * \addtogroup I2C Devices
  *
  * @{
@@ -29,8 +29,8 @@ unsigned char mode;
 void HMC5883LInitialize(void)
 {
     // write CONFIG_A register
-    //I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,HMC5883L_RA_CONFIG_A, 0b01110000);
-    I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE, HMC5883L_RA_CONFIG_A,
+    //I2CDeviceWriteByte(HMC5883L_RA_CONFIG_A, 0b01110000);
+    I2CDeviceWriteByte(HMC5883L_RA_CONFIG_A,
                        (HMC5883L_AVERAGING_8 << (HMC5883L_CRA_AVERAGE_BIT - HMC5883L_CRA_AVERAGE_LENGTH + 1)) |
                        (HMC5883L_RATE_15 << (HMC5883L_CRA_RATE_BIT - HMC5883L_CRA_RATE_LENGTH + 1)) |
                        (HMC5883L_BIAS_NORMAL << (HMC5883L_CRA_BIAS_BIT - HMC5883L_CRA_BIAS_LENGTH + 1)));
@@ -52,8 +52,7 @@ void HMC5883LInitialize(void)
  */
 unsigned char HMC5883LGetSampleAveraging(void)
 {
-    return I2CDeviceReadBits(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_CONFIG_A,
+    return I2CDeviceReadBits(HMC5883L_RA_CONFIG_A,
                              HMC5883L_CRA_AVERAGE_BIT,
                              HMC5883L_CRA_AVERAGE_LENGTH);
 }
@@ -68,8 +67,7 @@ unsigned char HMC5883LGetSampleAveraging(void)
  */
 void HMC5883LSetSampleAveraging(unsigned char averaging)
 {
-    I2CDeviceWriteBits(HMC5883L_ADDRESS_WRITE,
-                       HMC5883L_RA_CONFIG_A,
+    I2CDeviceWriteBits(HMC5883L_RA_CONFIG_A,
                        HMC5883L_CRA_AVERAGE_BIT,
                        HMC5883L_CRA_AVERAGE_LENGTH,
                        averaging);
@@ -102,8 +100,7 @@ void HMC5883LSetSampleAveraging(unsigned char averaging)
  */
 unsigned char HMC5883LGetDataRate(void)
 {
-    return I2CDeviceReadBits(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_CONFIG_A,
+    return I2CDeviceReadBits(HMC5883L_RA_CONFIG_A,
                              HMC5883L_CRA_RATE_BIT,
                              HMC5883L_CRA_RATE_LENGTH);
 }
@@ -119,8 +116,7 @@ unsigned char HMC5883LGetDataRate(void)
  */
 void HMC5883LSetDataRate(unsigned char rate)
 {
-    I2CDeviceWriteBits(HMC5883L_ADDRESS_WRITE,
-                       HMC5883L_RA_CONFIG_A,
+    I2CDeviceWriteBits(HMC5883L_RA_CONFIG_A,
                        HMC5883L_CRA_RATE_BIT,
                        HMC5883L_CRA_RATE_LENGTH,
                        rate);
@@ -136,8 +132,7 @@ void HMC5883LSetDataRate(unsigned char rate)
  */
 unsigned char HMC5883LGetMeasurementBias(void)
 {
-    return I2CDeviceReadBits(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_CONFIG_A,
+    return I2CDeviceReadBits(HMC5883L_RA_CONFIG_A,
                              HMC5883L_CRA_BIAS_BIT,
                              HMC5883L_CRA_BIAS_LENGTH);
 }
@@ -152,8 +147,7 @@ unsigned char HMC5883LGetMeasurementBias(void)
  */
 void HMC5883LSetMeasurementBias(unsigned char bias)
 {
-    I2CDeviceWriteBits(HMC5883L_ADDRESS_WRITE,
-                       HMC5883L_RA_CONFIG_A,
+    I2CDeviceWriteBits(HMC5883L_RA_CONFIG_A,
                        HMC5883L_CRA_BIAS_BIT,
                        HMC5883L_CRA_BIAS_LENGTH,
                        bias);
@@ -186,8 +180,7 @@ void HMC5883LSetMeasurementBias(unsigned char bias)
  */
 unsigned char HMC5883LGetGain(void)
 {
-    return I2CDeviceReadBits(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_CONFIG_B,
+    return I2CDeviceReadBits(HMC5883L_RA_CONFIG_B,
                              HMC5883L_CRB_GAIN_BIT,
                              HMC5883L_CRB_GAIN_LENGTH);
 }
@@ -205,8 +198,7 @@ void HMC5883LSetGain(unsigned char gain)
     // use this method to guarantee that bits 4-0 are set to zero, which is a
     // requirement specified in the datasheet; it's actually more efficient than
     // using the I2Cdev.writeBits method
-    I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                       HMC5883L_RA_CONFIG_B,
+    I2CDeviceWriteByte(HMC5883L_RA_CONFIG_B,
                        gain << (HMC5883L_CRB_GAIN_BIT - HMC5883L_CRB_GAIN_LENGTH + 1));
 }
 
@@ -236,8 +228,7 @@ void HMC5883LSetGain(unsigned char gain)
  */
 unsigned char HMC5883LGetMode(void)
 {
-    return I2CDeviceReadBits(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_MODE,
+    return I2CDeviceReadBits(HMC5883L_RA_MODE,
                              HMC5883L_MODEREG_BIT,
                              HMC5883L_MODEREG_LENGTH);
 }
@@ -258,8 +249,7 @@ void HMC5883LSetMode(unsigned char newMode)
     // use this method to guarantee that bits 7-2 are set to zero, which is a
     // requirement specified in the datasheet; it's actually more efficient than
     // using the I2Cdev.writeBits method
-    I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                       HMC5883L_RA_MODE,
+    I2CDeviceWriteByte(HMC5883L_RA_MODE,
                        mode << (HMC5883L_MODEREG_BIT - HMC5883L_MODEREG_LENGTH + 1));
     mode = newMode; // track to tell if we have to clear bit 7 after a read
 }
@@ -278,12 +268,11 @@ void HMC5883LSetMode(unsigned char newMode)
  */
 void HMC5883LGetHeading(int *x, int *y, int *z)
 {
-    I2CDeviceReadBytes(HMC5883L_ADDRESS_READ, HMC5883L_RA_DATAX_H, 6,
+    I2CDeviceReadBytes(HMC5883L_RA_DATAX_H, 6,
                        HMC5883LBuffer);
 
     if (mode == HMC5883L_MODE_SINGLE)
-        I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                           HMC5883L_RA_MODE,
+        I2CDeviceWriteByte(HMC5883L_RA_MODE,
                            HMC5883L_MODE_SINGLE <<
                            (HMC5883L_MODEREG_BIT - HMC5883L_MODEREG_LENGTH + 1));
 
@@ -301,11 +290,10 @@ int HMC5883LGetHeadingX(void)
 {
     // each axis read requires that ALL axis registers be read, even if only
     // one is used; this was not done ineffiently in the code by accident
-    I2CDeviceReadBytes(HMC5883L_ADDRESS_READ, HMC5883L_RA_DATAX_H, 6,
+    I2CDeviceReadBytes(HMC5883L_RA_DATAX_H, 6,
                        HMC5883LBuffer);
     if (mode == HMC5883L_MODE_SINGLE)
-        I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                           HMC5883L_RA_MODE,
+        I2CDeviceWriteByte(HMC5883L_RA_MODE,
                            HMC5883L_MODE_SINGLE <<
                            (HMC5883L_MODEREG_BIT - HMC5883L_MODEREG_LENGTH + 1));
 
@@ -321,11 +309,10 @@ int HMC5883LGetHeadingY(void)
 {
     // each axis read requires that ALL axis registers be read, even if only
     // one is used; this was not done ineffiently in the code by accident
-    I2CDeviceReadBytes(HMC5883L_ADDRESS_READ, HMC5883L_RA_DATAX_H, 6,
+    I2CDeviceReadBytes(HMC5883L_RA_DATAX_H, 6,
                        HMC5883LBuffer);
     if (mode == HMC5883L_MODE_SINGLE)
-        I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                           HMC5883L_RA_MODE,
+        I2CDeviceWriteByte(HMC5883L_RA_MODE,
                            HMC5883L_MODE_SINGLE <<
                            (HMC5883L_MODEREG_BIT - HMC5883L_MODEREG_LENGTH + 1));
 
@@ -341,12 +328,11 @@ int HMC5883LGetHeadingZ(void)
 {
     // each axis read requires that ALL axis registers be read, even if only
     // one is used; this was not done ineffiently in the code by accident
-    I2CDeviceReadBytes(HMC5883L_ADDRESS_READ, HMC5883L_RA_DATAX_H, 6,
+    I2CDeviceReadBytes(HMC5883L_RA_DATAX_H, 6,
                        HMC5883LBuffer);
 
     if (mode == HMC5883L_MODE_SINGLE)
-        I2CDeviceWriteByte(HMC5883L_ADDRESS_WRITE,
-                           HMC5883L_RA_MODE,
+        I2CDeviceWriteByte(HMC5883L_RA_MODE,
                            HMC5883L_MODE_SINGLE <<
                            (HMC5883L_MODEREG_BIT - HMC5883L_MODEREG_LENGTH + 1));
 
@@ -365,11 +351,9 @@ int HMC5883LGetHeadingZ(void)
  * @see HMC5883L_RA_STATUS
  * @see HMC5883L_STATUS_LOCK_BIT
  */
-bool HMC5883LGetLockStatus(void)
+boolean HMC5883LGetLockStatus(void)
 {
-    return I2CDeviceReadBit(HMC5883L_ADDRESS_READ,
-                            HMC5883L_RA_STATUS,
-                            HMC5883L_STATUS_LOCK_BIT);
+    return I2CDeviceReadBit(HMC5883L_RA_STATUS, HMC5883L_STATUS_LOCK_BIT);
 }
 
 /**
@@ -383,10 +367,9 @@ bool HMC5883LGetLockStatus(void)
  * @see HMC5883L_RA_STATUS
  * @see HMC5883L_STATUS_READY_BIT
  */
-bool HMC5883LGetReadyStatus(void)
+boolean HMC5883LGetReadyStatus(void)
 {
-    return I2CDeviceReadBit(HMC5883L_ADDRESS_READ,
-                            HMC5883L_RA_STATUS,
+    return I2CDeviceReadBit(HMC5883L_RA_STATUS,
                             HMC5883L_STATUS_READY_BIT);
 }
 
@@ -396,8 +379,7 @@ bool HMC5883LGetReadyStatus(void)
  */
 unsigned char HMC5883LGetIDA(void)
 {
-    return I2CDeviceReadByte(HMC5883L_ADDRESS_READ,
-                             HMC5883L_RA_ID_A);
+    return I2CDeviceReadByte(HMC5883L_RA_ID_A);
 }
 
 /**
@@ -406,7 +388,7 @@ unsigned char HMC5883LGetIDA(void)
  */
 unsigned char HMC5883LGetIDB(void)
 {
-    return I2CDeviceReadByte(HMC5883L_ADDRESS_READ, HMC5883L_RA_ID_B);
+    return I2CDeviceReadByte(HMC5883L_RA_ID_B);
 }
 
 /**
@@ -415,7 +397,7 @@ unsigned char HMC5883LGetIDB(void)
  */
 unsigned char HMC5883LGetIDC(void)
 {
-    return I2CDeviceReadByte(HMC5883L_ADDRESS_READ, HMC5883L_RA_ID_C);
+    return I2CDeviceReadByte(HMC5883L_RA_ID_C);
 }
 
 /**

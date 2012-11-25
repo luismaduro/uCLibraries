@@ -15,10 +15,10 @@
 #ifndef _ITG3200_H_
 #define _ITG3200_H_
 
+#include "stdboolean.h"
 #include "I2CDevice.h"
 
-#define ITG3200_ADDRESS_WRITE       0xD0
-#define ITG3200_ADDRESS_READ        0xD1
+#define ITG3200_ADDRESS             0x68
 
 #define ITG3200_RA_WHO_AM_I         0x00
 #define ITG3200_RA_SMPLRT_DIV       0x15
@@ -92,34 +92,34 @@
 
 void ITG3200SetClockSource(unsigned char source);
 unsigned char ITG3200GetClockSource(void);
-void ITG3200SetStandbyZEnabled(bool enabled);
-bool ITG3200GetStandbyZEnabled(void);
-void ITG3200SetStandbyYEnabled(bool enabled);
-bool ITG3200GetStandbyYEnabled(void);
-void ITG3200SetStandbyXEnabled(bool enabled);
-bool ITG3200GetStandbyXEnabled(void);
-void ITG3200SetSleepEnabled(bool enabled);
-bool ITG3200GetSleepEnabled(void);
+void ITG3200SetStandbyZEnabled(boolean enabled);
+boolean ITG3200GetStandbyZEnabled(void);
+void ITG3200SetStandbyYEnabled(boolean enabled);
+boolean ITG3200GetStandbyYEnabled(void);
+void ITG3200SetStandbyXEnabled(boolean enabled);
+boolean ITG3200GetStandbyXEnabled(void);
+void ITG3200SetSleepEnabled(boolean enabled);
+boolean ITG3200GetSleepEnabled(void);
 void ITG3200Reset(void);
 int ITG3200GetRotationZ(void);
 int ITG3200GetRotationY(void);
 int ITG3200GetRotationX(void);
 void ITG3200GetRotation(int *x,int *y,int *z);
 int ITG3200GetTemperature(void);
-bool ITG3200GetIntDataReadyStatus(void);
-bool ITG3200GetIntDeviceReadyStatus(void);
-void ITG3200SetIntDataReadyEnabled(bool enabled);
-bool ITG3200GetIntDataReadyEnabled(void);
-void ITG3200SetIntDeviceReadyEnabled(bool enabled);
-bool ITG3200GetIntDeviceReadyEnabled(void);
-void ITG3200SetInterruptLatchClear(bool clear);
-bool ITG3200GetInterruptLatchClear(void);
-void ITG3200SetInterruptLatch(bool latch);
-bool ITG3200GetInterruptLatch(void);
-void ITG3200SetInterruptDrive(bool drive);
-bool ITG3200getInterruptDrive(void);
-void ITG3200SetInterruptMode(bool mode);
-bool ITG3200GetInterruptMode(void);
+boolean ITG3200GetIntDataReadyStatus(void);
+boolean ITG3200GetIntDeviceReadyStatus(void);
+void ITG3200SetIntDataReadyEnabled(boolean enabled);
+boolean ITG3200GetIntDataReadyEnabled(void);
+void ITG3200SetIntDeviceReadyEnabled(boolean enabled);
+boolean ITG3200GetIntDeviceReadyEnabled(void);
+void ITG3200SetInterruptLatchClear(boolean clear);
+boolean ITG3200GetInterruptLatchClear(void);
+void ITG3200SetInterruptLatch(boolean latch);
+boolean ITG3200GetInterruptLatch(void);
+void ITG3200SetInterruptDrive(boolean drive);
+boolean ITG3200getInterruptDrive(void);
+void ITG3200SetInterruptMode(boolean mode);
+boolean ITG3200GetInterruptMode(void);
 void ITG3200SetDLPFBandwidth(unsigned char bandwidth);
 unsigned char ITG3200GetDLPFBandwidth(void);
 void ITG3200SetFullScaleRange(unsigned char range);

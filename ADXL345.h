@@ -16,10 +16,10 @@
 #ifndef _ADXL345_H_
 #define _ADXL345_H_
 
+#include "stdboolean.h"
 #include "I2CDevice.h"
 
-#define ADXL345_ADDRESS_WRITE       0xA6
-#define ADXL345_ADDRESS_READ        0xA7
+#define ADXL345_ADDRESS             0x53
 
 #define ADXL345_RA_DEVID            0x00
 #define ADXL345_RA_RESERVED1        0x01
@@ -169,71 +169,71 @@ unsigned char ADXL345GetInactivityThreshold(void);
 void ADXL345SetInactivityThreshold(unsigned char threshold);
 unsigned char ADXL345GetInactivityTime(void);
 void ADXL345SetInactivityTime(unsigned char time);
-bool ADXL345GetActivityAC(void);
-void ADXL345SetActivityAC(bool enabled);
-bool ADXL345GetActivityXEnabled(void);
-void ADXL345SetActivityXEnabled(bool enabled);
-bool ADXL345GetActivityYEnabled(void);
-void ADXL345SetActivityYEnabled(bool enabled);
-bool ADXL345GetActivityZEnabled(void);
-void ADXL345SetActivityZEnabled(bool enabled);
-bool ADXL345GetInactivityAC(void);
-void ADXL345SetInactivityAC(bool enabled);
-bool ADXL345GetInactivityXEnabled(void);
-void ADXL345SetInactivityXEnabled(bool enabled);
-bool ADXL345GetInactivityYEnabled(void);
-void ADXL345SetInactivityYEnabled(bool enabled);
-bool ADXL345GetInactivityZEnabled(void);
-void ADXL345SetInactivityZEnabled(bool enabled);
+boolean ADXL345GetActivityAC(void);
+void ADXL345SetActivityAC(boolean enabled);
+boolean ADXL345GetActivityXEnabled(void);
+void ADXL345SetActivityXEnabled(boolean enabled);
+boolean ADXL345GetActivityYEnabled(void);
+void ADXL345SetActivityYEnabled(boolean enabled);
+boolean ADXL345GetActivityZEnabled(void);
+void ADXL345SetActivityZEnabled(boolean enabled);
+boolean ADXL345GetInactivityAC(void);
+void ADXL345SetInactivityAC(boolean enabled);
+boolean ADXL345GetInactivityXEnabled(void);
+void ADXL345SetInactivityXEnabled(boolean enabled);
+boolean ADXL345GetInactivityYEnabled(void);
+void ADXL345SetInactivityYEnabled(boolean enabled);
+boolean ADXL345GetInactivityZEnabled(void);
+void ADXL345SetInactivityZEnabled(boolean enabled);
 unsigned char ADXL345GetFreefallThreshold(void);
 void ADXL345SetFreefallThreshold(unsigned char threshold);
 unsigned char ADXL345GetFreefallTime(void);
 void ADXL345SetFreefallTime(unsigned char time);
-bool ADXL345GetTapAxisSuppress(void);
-void ADXL345SetTapAxisSuppress(bool enabled);
-bool ADXL345GetTapAxisXEnabled(void);
-void ADXL345SetTapAxisXEnabled(bool enabled);
-bool ADXL345GetTapAxisYEnabled(void);
-void ADXL345SetTapAxisYEnabled(bool enabled);
-bool ADXL345GetTapAxisZEnabled(void);
-void ADXL345SetTapAxisZEnabled(bool enabled);
-bool ADXL345GetActivitySourceX(void);
-bool ADXL345GetActivitySourceY(void);
-bool ADXL345GetActivitySourceZ(void);
-bool ADXL345GetAsleep(void);
-bool ADXL345GetTapSourceX(void);
-bool ADXL345GetTapSourceY(void);
-bool ADXL345GetTapSourceZ(void);
-bool ADXL345GetLowPowerEnabled(void);
-void ADXL345SetLowPowerEnabled(bool enabled);
+boolean ADXL345GetTapAxisSuppress(void);
+void ADXL345SetTapAxisSuppress(boolean enabled);
+boolean ADXL345GetTapAxisXEnabled(void);
+void ADXL345SetTapAxisXEnabled(boolean enabled);
+boolean ADXL345GetTapAxisYEnabled(void);
+void ADXL345SetTapAxisYEnabled(boolean enabled);
+boolean ADXL345GetTapAxisZEnabled(void);
+void ADXL345SetTapAxisZEnabled(boolean enabled);
+boolean ADXL345GetActivitySourceX(void);
+boolean ADXL345GetActivitySourceY(void);
+boolean ADXL345GetActivitySourceZ(void);
+boolean ADXL345GetAsleep(void);
+boolean ADXL345GetTapSourceX(void);
+boolean ADXL345GetTapSourceY(void);
+boolean ADXL345GetTapSourceZ(void);
+boolean ADXL345GetLowPowerEnabled(void);
+void ADXL345SetLowPowerEnabled(boolean enabled);
 unsigned char ADXL345GetRate(void);
 void ADXL345SetRate(unsigned char rate);
-bool ADXL345GetLinkEnabled(void);
-void ADXL345SetLinkEnabled(bool enabled);
-bool ADXL345GetAutoSleepEnabled(void);
-void ADXL345SetAutoSleepEnabled(bool enabled);
-bool ADXL345GetMeasureEnabled(void);
-void ADXL345SetMeasureEnabled(bool enabled);
-bool ADXL345GetSleepEnabled(void);
-void ADXL345SetSleepEnabled(bool enabled);
+boolean ADXL345GetLinkEnabled(void);
+void ADXL345SetLinkEnabled(boolean enabled);
+boolean ADXL345GetAutoSleepEnabled(void);
+void ADXL345SetAutoSleepEnabled(boolean enabled);
+boolean ADXL345GetMeasureEnabled(void);
+void ADXL345SetMeasureEnabled(boolean enabled);
+boolean ADXL345GetSleepEnabled(void);
+void ADXL345SetSleepEnabled(boolean enabled);
 unsigned char ADXL345GetWakeupFrequency(void);
 void ADXL345SetWakeupFrequency(unsigned char frequency);
-bool ADXL345GetIntDataReadyEnabled(void);
-void ADXL345SetIntDataReadyEnabled(bool enabled);
-bool ADXL345GetIntSingleTapEnabled(void);
-void ADXL345SetIntSingleTapEnabled(bool enabled);
-bool ADXL345GetIntDoubleTapEnabled(void);
-void ADXL345SetIntDoubleTapEnabled(bool enabled);
-bool ADXL345GetIntActivityEnabled(void);
-void ADXL345SetIntActivityEnabled(bool enabled);
-bool ADXL345GetIntInactivityEnabled(void);
-void ADXL345SetIntInactivityEnabled(bool enabled);
-bool ADXL345GetIntFreefallEnabled(void);
-void ADXL345SetIntFreefallEnabled(bool enabled);
-bool ADXL345GetIntWatermarkEnabled(void);
-void ADXL345SetIntWatermarkEnabled(bool enabled);
-bool ADXL345GetIntOverrunEnabled(void);
-void ADXL345SetIntOverrunEnabled(bool enabled);
+boolean ADXL345GetIntDataReadyEnabled(void);
+void ADXL345SetIntDataReadyEnabled(boolean enabled);
+boolean ADXL345GetIntSingleTapEnabled(void);
+void ADXL345SetIntSingleTapEnabled(boolean enabled);
+boolean ADXL345GetIntDoubleTapEnabled(void);
+void ADXL345SetIntDoubleTapEnabled(boolean enabled);
+boolean ADXL345GetIntActivityEnabled(void);
+void ADXL345SetIntActivityEnabled(boolean enabled);
+boolean ADXL345GetIntInactivityEnabled(void);
+void ADXL345SetIntInactivityEnabled(boolean enabled);
+boolean ADXL345GetIntFreefallEnabled(void);
+void ADXL345SetIntFreefallEnabled(boolean enabled);
+boolean ADXL345GetIntWatermarkEnabled(void);
+void ADXL345SetIntWatermarkEnabled(boolean enabled);
+boolean ADXL345GetIntOverrunEnabled(void);
+void ADXL345SetIntOverrunEnabled(boolean enabled);
 unsigned char ADXL345GetIntDataReadyPin(void);
 void ADXL345SetIntDataReadyPin(unsigned char pin);
 unsigned char ADXL345GetIntSingleTapPin(void);
@@ -280,7 +280,7 @@ unsigned char ADXL345GetFIFOTriggerInterruptPin(void);
 void ADXL345SetFIFOTriggerInterruptPin(unsigned char _interrupt);
 unsigned char ADXL345GetFIFOSamples(void);
 void ADXL345SetFIFOSamples(unsigned char size);
-bool ADXL345GetFIFOTriggerOccurred(void);
+boolean ADXL345GetFIFOTriggerOccurred(void);
 unsigned char ADXL345GetFIFOLength(void);
 
 

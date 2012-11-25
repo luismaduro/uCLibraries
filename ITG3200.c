@@ -6,7 +6,7 @@
  * @date        2011
  * @copyright	MIT license
  */
- /**
+/**
  * \addtogroup I2C Devices
  *
  * @{
@@ -41,8 +41,7 @@ void ITG3200Initialize(void)
  */
 unsigned char ITG3200GetDeviceID(void)
 {
-    return I2CDeviceReadBits(ITG3200_ADDRESS_READ,
-                             ITG3200_RA_WHO_AM_I,
+    return I2CDeviceReadBits(ITG3200_RA_WHO_AM_I,
                              ITG3200_DEVID_BIT,
                              ITG3200_DEVID_LENGTH);
 }
@@ -59,8 +58,7 @@ unsigned char ITG3200GetDeviceID(void)
  */
 void ITG3200SetDeviceID(unsigned char id)
 {
-    I2CDeviceWriteBits(ITG3200_ADDRESS_WRITE,
-                       ITG3200_RA_WHO_AM_I,
+    I2CDeviceWriteBits(ITG3200_RA_WHO_AM_I,
                        ITG3200_DEVID_BIT,
                        ITG3200_DEVID_LENGTH,
                        id);
@@ -89,7 +87,7 @@ void ITG3200SetDeviceID(unsigned char id)
  */
 unsigned char ITG3200GetRate(void)
 {
-    return I2CDeviceReadByte(ITG3200_ADDRESS_READ, ITG3200_RA_SMPLRT_DIV);
+    return I2CDeviceReadByte(ITG3200_RA_SMPLRT_DIV);
 }
 
 /**
@@ -102,7 +100,7 @@ unsigned char ITG3200GetRate(void)
  */
 void ITG3200SetRate(unsigned char rate)
 {
-    I2CDeviceWriteByte(ITG3200_ADDRESS_WRITE, ITG3200_RA_SMPLRT_DIV, rate);
+    I2CDeviceWriteByte(ITG3200_RA_SMPLRT_DIV, rate);
 }
 
 /**
@@ -124,8 +122,7 @@ void ITG3200SetRate(unsigned char rate)
  */
 unsigned char ITG3200GetFullScaleRange(void)
 {
-    return I2CDeviceReadBits(ITG3200_ADDRESS_READ,
-                             ITG3200_RA_DLPF_FS,
+    return I2CDeviceReadBits(ITG3200_RA_DLPF_FS,
                              ITG3200_DF_FS_SEL_BIT,
                              ITG3200_DF_FS_SEL_LENGTH);
 }
@@ -140,8 +137,7 @@ unsigned char ITG3200GetFullScaleRange(void)
  */
 void ITG3200SetFullScaleRange(unsigned char range)
 {
-    I2CDeviceWriteBits(ITG3200_ADDRESS_WRITE,
-                       ITG3200_RA_DLPF_FS,
+    I2CDeviceWriteBits(ITG3200_RA_DLPF_FS,
                        ITG3200_DF_FS_SEL_BIT,
                        ITG3200_DF_FS_SEL_LENGTH,
                        range);
@@ -172,8 +168,7 @@ void ITG3200SetFullScaleRange(unsigned char range)
  */
 unsigned char ITG3200GetDLPFBandwidth(void)
 {
-    return I2CDeviceReadBits(ITG3200_ADDRESS_READ,
-                             ITG3200_RA_DLPF_FS,
+    return I2CDeviceReadBits(ITG3200_RA_DLPF_FS,
                              ITG3200_DF_DLPF_CFG_BIT,
                              ITG3200_DF_DLPF_CFG_LENGTH);
 }
@@ -189,8 +184,7 @@ unsigned char ITG3200GetDLPFBandwidth(void)
  */
 void ITG3200SetDLPFBandwidth(unsigned char bandwidth)
 {
-    I2CDeviceWriteBits(ITG3200_ADDRESS_WRITE,
-                       ITG3200_RA_DLPF_FS,
+    I2CDeviceWriteBits(ITG3200_RA_DLPF_FS,
                        ITG3200_DF_DLPF_CFG_BIT,
                        ITG3200_DF_DLPF_CFG_LENGTH,
                        bandwidth);
@@ -204,10 +198,9 @@ void ITG3200SetDLPFBandwidth(unsigned char bandwidth)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_ACTL_BIT
  */
-bool ITG3200GetInterruptMode(void)
+boolean ITG3200GetInterruptMode(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_ACTL_BIT);
 }
 
@@ -218,10 +211,9 @@ bool ITG3200GetInterruptMode(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_ACTL_BIT
  */
-void ITG3200SetInterruptMode(bool mode)
+void ITG3200SetInterruptMode(boolean mode)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_ACTL_BIT,
                       mode);
 }
@@ -234,10 +226,9 @@ void ITG3200SetInterruptMode(bool mode)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_OPEN_BIT
  */
-bool ITG3200getInterruptDrive(void)
+boolean ITG3200getInterruptDrive(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_OPEN_BIT);
 }
 
@@ -248,10 +239,9 @@ bool ITG3200getInterruptDrive(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_OPEN_BIT
  */
-void ITG3200SetInterruptDrive(bool drive)
+void ITG3200SetInterruptDrive(boolean drive)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_OPEN_BIT,
                       drive);
 }
@@ -264,10 +254,9 @@ void ITG3200SetInterruptDrive(bool drive)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_LATCH_INT_EN_BIT
  */
-bool ITG3200GetInterruptLatch(void)
+boolean ITG3200GetInterruptLatch(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_LATCH_INT_EN_BIT);
 }
 
@@ -278,10 +267,9 @@ bool ITG3200GetInterruptLatch(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_LATCH_INT_EN_BIT
  */
-void ITG3200SetInterruptLatch(bool latch)
+void ITG3200SetInterruptLatch(boolean latch)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_LATCH_INT_EN_BIT,
                       latch);
 }
@@ -294,10 +282,9 @@ void ITG3200SetInterruptLatch(bool latch)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_INT_ANYRD_2CLEAR_BIT
  */
-bool ITG3200GetInterruptLatchClear(void)
+boolean ITG3200GetInterruptLatchClear(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_INT_ANYRD_2CLEAR_BIT);
 }
 
@@ -308,10 +295,9 @@ bool ITG3200GetInterruptLatchClear(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_INT_ANYRD_2CLEAR_BIT
  */
-void ITG3200SetInterruptLatchClear(bool clear)
+void ITG3200SetInterruptLatchClear(boolean clear)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_INT_ANYRD_2CLEAR_BIT,
                       clear);
 }
@@ -324,10 +310,9 @@ void ITG3200SetInterruptLatchClear(bool clear)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_ITG_RDY_EN_BIT
  */
-bool ITG3200GetIntDeviceReadyEnabled(void)
+boolean ITG3200GetIntDeviceReadyEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_ITG_RDY_EN_BIT);
 }
 
@@ -338,10 +323,9 @@ bool ITG3200GetIntDeviceReadyEnabled(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_ITG_RDY_EN_BIT
  */
-void ITG3200SetIntDeviceReadyEnabled(bool enabled)
+void ITG3200SetIntDeviceReadyEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_ITG_RDY_EN_BIT,
                       enabled);
 }
@@ -354,10 +338,9 @@ void ITG3200SetIntDeviceReadyEnabled(bool enabled)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_RAW_RDY_EN_BIT
  */
-bool ITG3200GetIntDataReadyEnabled(void)
+boolean ITG3200GetIntDataReadyEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_CFG,
+    return I2CDeviceReadBit(ITG3200_RA_INT_CFG,
                             ITG3200_INTCFG_RAW_RDY_EN_BIT);
 }
 
@@ -368,10 +351,9 @@ bool ITG3200GetIntDataReadyEnabled(void)
  * @see ITG3200_RA_INT_CFG
  * @see ITG3200_INTCFG_RAW_RDY_EN_BIT
  */
-void ITG3200SetIntDataReadyEnabled(bool enabled)
+void ITG3200SetIntDataReadyEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_INT_CFG,
+    I2CDeviceWriteBit(ITG3200_RA_INT_CFG,
                       ITG3200_INTCFG_RAW_RDY_EN_BIT,
                       enabled);
 }
@@ -384,10 +366,9 @@ void ITG3200SetIntDataReadyEnabled(bool enabled)
  * @see ITG3200_RA_INT_STATUS
  * @see ITG3200_INTSTAT_RAW_DATA_READY_BIT
  */
-bool ITG3200GetIntDeviceReadyStatus(void)
+boolean ITG3200GetIntDeviceReadyStatus(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_INT_STATUS,
+    return I2CDeviceReadBit(ITG3200_RA_INT_STATUS,
                             ITG3200_INTSTAT_ITG_RDY_BIT);
 }
 
@@ -399,10 +380,9 @@ bool ITG3200GetIntDeviceReadyStatus(void)
  * @see ITG3200_RA_INT_STATUS
  * @see ITG3200_INTSTAT_RAW_DATA_READY_BIT
  */
-bool ITG3200GetIntDataReadyStatus(void)
+boolean ITG3200GetIntDataReadyStatus(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ, 
-                            ITG3200_RA_INT_STATUS,
+    return I2CDeviceReadBit(ITG3200_RA_INT_STATUS,
                             ITG3200_INTSTAT_RAW_DATA_READY_BIT);
 }
 
@@ -413,8 +393,7 @@ bool ITG3200GetIntDataReadyStatus(void)
  */
 int ITG3200GetTemperature(void)
 {
-    I2CDeviceReadBytes(ITG3200_ADDRESS_READ, ITG3200_RA_TEMP_OUT_H, 2,
-                       ITG3200Buffer);
+    I2CDeviceReadBytes(ITG3200_RA_TEMP_OUT_H, 2, ITG3200Buffer);
     return (((int) ITG3200Buffer[0]) << 8) | ITG3200Buffer[1];
 }
 
@@ -427,8 +406,7 @@ int ITG3200GetTemperature(void)
  */
 void ITG3200GetRotation(int* x, int* y, int* z)
 {
-    I2CDeviceReadBytes(ITG3200_ADDRESS_READ, ITG3200_RA_GYRO_XOUT_H, 6,
-                       ITG3200Buffer);
+    I2CDeviceReadBytes(ITG3200_RA_GYRO_XOUT_H, 6, ITG3200Buffer);
     *x = (((int) ITG3200Buffer[0]) << 8) | ITG3200Buffer[1];
     *y = (((int) ITG3200Buffer[2]) << 8) | ITG3200Buffer[3];
     *z = (((int) ITG3200Buffer[4]) << 8) | ITG3200Buffer[5];
@@ -441,8 +419,7 @@ void ITG3200GetRotation(int* x, int* y, int* z)
  */
 int ITG3200GetRotationX(void)
 {
-    I2CDeviceReadBytes(ITG3200_ADDRESS_READ, ITG3200_RA_GYRO_XOUT_H, 2,
-                       ITG3200Buffer);
+    I2CDeviceReadBytes(ITG3200_RA_GYRO_XOUT_H, 2, ITG3200Buffer);
     return (((int) ITG3200Buffer[0]) << 8) | ITG3200Buffer[1];
 }
 
@@ -453,8 +430,7 @@ int ITG3200GetRotationX(void)
  */
 int ITG3200GetRotationY(void)
 {
-    I2CDeviceReadBytes(ITG3200_ADDRESS_READ, ITG3200_RA_GYRO_YOUT_H, 2,
-                       ITG3200Buffer);
+    I2CDeviceReadBytes(ITG3200_RA_GYRO_YOUT_H, 2, ITG3200Buffer);
     return (((int) ITG3200Buffer[0]) << 8) | ITG3200Buffer[1];
 }
 
@@ -465,8 +441,7 @@ int ITG3200GetRotationY(void)
  */
 int ITG3200GetRotationZ(void)
 {
-    I2CDeviceReadBytes(ITG3200_ADDRESS_READ, ITG3200_RA_GYRO_ZOUT_H, 2,
-                       ITG3200Buffer);
+    I2CDeviceReadBytes(ITG3200_RA_GYRO_ZOUT_H, 2, ITG3200Buffer);
     return (((int) ITG3200Buffer[0]) << 8) | ITG3200Buffer[1];
 }
 
@@ -478,8 +453,7 @@ int ITG3200GetRotationZ(void)
  */
 void ITG3200Reset(void)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBit(ITG3200_RA_PWR_MGM,
                       ITG3200_PWR_H_RESET_BIT, true);
 }
 
@@ -496,10 +470,9 @@ void ITG3200Reset(void)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_SLEEP_BIT
  */
-bool ITG3200GetSleepEnabled(void)
+boolean ITG3200GetSleepEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_PWR_MGM,
+    return I2CDeviceReadBit(ITG3200_RA_PWR_MGM,
                             ITG3200_PWR_SLEEP_BIT);
 }
 
@@ -510,10 +483,9 @@ bool ITG3200GetSleepEnabled(void)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_SLEEP_BIT
  */
-void ITG3200SetSleepEnabled(bool enabled)
+void ITG3200SetSleepEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBit(ITG3200_RA_PWR_MGM,
                       ITG3200_PWR_SLEEP_BIT,
                       enabled);
 }
@@ -526,10 +498,9 @@ void ITG3200SetSleepEnabled(bool enabled)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_XG_BIT
  */
-bool ITG3200GetStandbyXEnabled(void)
+boolean ITG3200GetStandbyXEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_PWR_MGM,
+    return I2CDeviceReadBit(ITG3200_RA_PWR_MGM,
                             ITG3200_PWR_STBY_XG_BIT);
 }
 
@@ -540,10 +511,9 @@ bool ITG3200GetStandbyXEnabled(void)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_XG_BIT
  */
-void ITG3200SetStandbyXEnabled(bool enabled)
+void ITG3200SetStandbyXEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBit(ITG3200_RA_PWR_MGM,
                       ITG3200_PWR_STBY_XG_BIT,
                       enabled);
 }
@@ -556,10 +526,9 @@ void ITG3200SetStandbyXEnabled(bool enabled)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_YG_BIT
  */
-bool ITG3200GetStandbyYEnabled(void)
+boolean ITG3200GetStandbyYEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_PWR_MGM,
+    return I2CDeviceReadBit(ITG3200_RA_PWR_MGM,
                             ITG3200_PWR_STBY_YG_BIT);
 }
 
@@ -570,10 +539,9 @@ bool ITG3200GetStandbyYEnabled(void)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_YG_BIT
  */
-void ITG3200SetStandbyYEnabled(bool enabled)
+void ITG3200SetStandbyYEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBit(ITG3200_RA_PWR_MGM,
                       ITG3200_PWR_STBY_YG_BIT,
                       enabled);
 }
@@ -586,10 +554,9 @@ void ITG3200SetStandbyYEnabled(bool enabled)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_ZG_BIT
  */
-bool ITG3200GetStandbyZEnabled(void)
+boolean ITG3200GetStandbyZEnabled(void)
 {
-    return I2CDeviceReadBit(ITG3200_ADDRESS_READ,
-                            ITG3200_RA_PWR_MGM,
+    return I2CDeviceReadBit(ITG3200_RA_PWR_MGM,
                             ITG3200_PWR_STBY_ZG_BIT);
 }
 
@@ -600,10 +567,9 @@ bool ITG3200GetStandbyZEnabled(void)
  * @see ITG3200_RA_PWR_MGM
  * @see ITG3200_PWR_STBY_ZG_BIT
  */
-void ITG3200SetStandbyZEnabled(bool enabled)
+void ITG3200SetStandbyZEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ITG3200_ADDRESS_WRITE,
-                      ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBit(ITG3200_RA_PWR_MGM,
                       ITG3200_PWR_STBY_ZG_BIT,
                       enabled);
 }
@@ -618,8 +584,7 @@ void ITG3200SetStandbyZEnabled(bool enabled)
  */
 unsigned char ITG3200GetClockSource(void)
 {
-    return I2CDeviceReadBits(ITG3200_ADDRESS_READ,
-                             ITG3200_RA_PWR_MGM,
+    return I2CDeviceReadBits(ITG3200_RA_PWR_MGM,
                              ITG3200_PWR_CLK_SEL_BIT,
                              ITG3200_PWR_CLK_SEL_LENGTH);
 }
@@ -650,8 +615,7 @@ unsigned char ITG3200GetClockSource(void)
  */
 void ITG3200SetClockSource(unsigned char source)
 {
-    I2CDeviceWriteBits(ITG3200_ADDRESS_WRITE,
-                       ITG3200_RA_PWR_MGM,
+    I2CDeviceWriteBits(ITG3200_RA_PWR_MGM,
                        ITG3200_PWR_CLK_SEL_BIT,
                        ITG3200_PWR_CLK_SEL_LENGTH,
                        source);

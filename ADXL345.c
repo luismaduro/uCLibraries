@@ -26,7 +26,7 @@ unsigned char ADXL345Buffer[6];
 void ADXL345Initialize(void)
 {
     // reset all power settings
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_POWER_CTL, 0);
+    I2CDeviceWriteByte(ADXL345_RA_POWER_CTL, 0);
     ADXL345SetAutoSleepEnabled(true);
     ADXL345SetMeasureEnabled(true);
 }
@@ -39,7 +39,7 @@ void ADXL345Initialize(void)
  */
 unsigned char ADXL345GetDeviceID(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_DEVID);
+    return I2CDeviceReadByte(ADXL345_RA_DEVID);
 }
 
 /**
@@ -54,7 +54,7 @@ unsigned char ADXL345GetDeviceID(void)
  */
 unsigned char ADXL345GetTapThreshold(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_THRESH_TAP);
+    return I2CDeviceReadByte(ADXL345_RA_THRESH_TAP);
 }
 
 /**
@@ -65,9 +65,7 @@ unsigned char ADXL345GetTapThreshold(void)
  */
 void ADXL345SetTapThreshold(unsigned char threshold)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_THRESH_TAP,
-                       threshold);
+    I2CDeviceWriteByte(ADXL345_RA_THRESH_TAP,threshold);
 }
 
 /**
@@ -88,9 +86,9 @@ void ADXL345SetTapThreshold(unsigned char threshold)
  */
 void ADXL345GetOffset(char* x, char* y, char* z)
 {
-    *x = I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSX);
-    *y = I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSY);
-    *z = I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSZ);
+    *x = I2CDeviceReadByte(ADXL345_RA_OFSX);
+    *y = I2CDeviceReadByte(ADXL345_RA_OFSY);
+    *z = I2CDeviceReadByte(ADXL345_RA_OFSZ);
 }
 
 /**
@@ -105,9 +103,9 @@ void ADXL345GetOffset(char* x, char* y, char* z)
  */
 void ADXL345SetOffset(char x, char y, char z)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSX, x);
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSY, y);
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSZ, z);
+    I2CDeviceWriteByte(ADXL345_RA_OFSX, x);
+    I2CDeviceWriteByte(ADXL345_RA_OFSY, y);
+    I2CDeviceWriteByte(ADXL345_RA_OFSZ, z);
 }
 
 /**
@@ -118,7 +116,7 @@ void ADXL345SetOffset(char x, char y, char z)
  */
 char ADXL345GetOffsetX(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSX);
+    return I2CDeviceReadByte(ADXL345_RA_OFSX);
 }
 
 /**
@@ -129,7 +127,7 @@ char ADXL345GetOffsetX(void)
  */
 void ADXL345SetOffsetX(char x)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSX, x);
+    I2CDeviceWriteByte(ADXL345_RA_OFSX, x);
 }
 
 /**
@@ -140,7 +138,7 @@ void ADXL345SetOffsetX(char x)
  */
 char ADXL345GetOffsetY(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSY);
+    return I2CDeviceReadByte(ADXL345_RA_OFSY);
 }
 
 /**
@@ -151,7 +149,7 @@ char ADXL345GetOffsetY(void)
  */
 void ADXL345SetOffsetY(char y)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSY, y);
+    I2CDeviceWriteByte(ADXL345_RA_OFSY, y);
 }
 
 /**
@@ -162,7 +160,7 @@ void ADXL345SetOffsetY(char y)
  */
 char ADXL345GetOffsetZ(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_OFSZ);
+    return I2CDeviceReadByte(ADXL345_RA_OFSZ);
 }
 
 /**
@@ -173,7 +171,7 @@ char ADXL345GetOffsetZ(void)
  */
 void ADXL345SetOffsetZ(char z)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_OFSZ, z);
+    I2CDeviceWriteByte(ADXL345_RA_OFSZ, z);
 }
 
 /**
@@ -187,7 +185,7 @@ void ADXL345SetOffsetZ(char z)
  */
 unsigned char ADXL345GetTapDuration(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_DUR);
+    return I2CDeviceReadByte(ADXL345_RA_DUR);
 }
 
 /**
@@ -198,7 +196,7 @@ unsigned char ADXL345GetTapDuration(void)
  */
 void ADXL345SetTapDuration(unsigned char duration)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_DUR, duration);
+    I2CDeviceWriteByte(ADXL345_RA_DUR, duration);
 }
 
 /**
@@ -213,7 +211,7 @@ void ADXL345SetTapDuration(unsigned char duration)
  */
 unsigned char ADXL345GetDoubleTapLatency(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_LATENT);
+    return I2CDeviceReadByte(ADXL345_RA_LATENT);
 }
 
 /**
@@ -224,7 +222,7 @@ unsigned char ADXL345GetDoubleTapLatency(void)
  */
 void ADXL345SetDoubleTapLatency(unsigned char latency)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_LATENT, latency);
+    I2CDeviceWriteByte(ADXL345_RA_LATENT, latency);
 }
 
 /**
@@ -239,7 +237,7 @@ void ADXL345SetDoubleTapLatency(unsigned char latency)
  */
 unsigned char ADXL345GetDoubleTapWindow(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_WINDOW);
+    return I2CDeviceReadByte(ADXL345_RA_WINDOW);
 }
 
 /**
@@ -250,7 +248,7 @@ unsigned char ADXL345GetDoubleTapWindow(void)
  */
 void ADXL345SetDoubleTapWindow(unsigned char window)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_WINDOW, window);
+    I2CDeviceWriteByte(ADXL345_RA_WINDOW, window);
 }
 
 /**
@@ -265,7 +263,7 @@ void ADXL345SetDoubleTapWindow(unsigned char window)
  */
 unsigned char ADXL345GetActivityThreshold(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_THRESH_ACT);
+    return I2CDeviceReadByte(ADXL345_RA_THRESH_ACT);
 }
 
 /**
@@ -276,7 +274,7 @@ unsigned char ADXL345GetActivityThreshold(void)
  */
 void ADXL345SetActivityThreshold(unsigned char threshold)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_THRESH_ACT, threshold);
+    I2CDeviceWriteByte(ADXL345_RA_THRESH_ACT, threshold);
 }
 
 /**
@@ -291,7 +289,7 @@ void ADXL345SetActivityThreshold(unsigned char threshold)
  */
 unsigned char ADXL345GetInactivityThreshold(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_THRESH_INACT);
+    return I2CDeviceReadByte(ADXL345_RA_THRESH_INACT);
 }
 
 /**
@@ -302,7 +300,7 @@ unsigned char ADXL345GetInactivityThreshold(void)
  */
 void ADXL345SetInactivityThreshold(unsigned char threshold)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_THRESH_INACT, threshold);
+    I2CDeviceWriteByte(ADXL345_RA_THRESH_INACT, threshold);
 }
 
 /**
@@ -322,7 +320,7 @@ void ADXL345SetInactivityThreshold(unsigned char threshold)
  */
 unsigned char ADXL345GetInactivityTime(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_TIME_INACT);
+    return I2CDeviceReadByte(ADXL345_RA_TIME_INACT);
 }
 
 /** Set inactivity time.
@@ -332,7 +330,7 @@ unsigned char ADXL345GetInactivityTime(void)
  */
 void ADXL345SetInactivityTime(unsigned char time)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_TIME_INACT, time);
+    I2CDeviceWriteByte(ADXL345_RA_TIME_INACT, time);
 }
 
 /**
@@ -360,10 +358,9 @@ void ADXL345SetInactivityTime(unsigned char time)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_AC_BIT
  */
-bool ADXL345GetActivityAC(void)
+boolean ADXL345GetActivityAC(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_ACT_AC_BIT);
 }
 
@@ -374,10 +371,9 @@ bool ADXL345GetActivityAC(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_AC_BIT
  */
-void ADXL345SetActivityAC(bool enabled)
+void ADXL345SetActivityAC(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_ACT_AC_BIT,
                       enabled);
 }
@@ -399,10 +395,9 @@ void ADXL345SetActivityAC(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_X_BIT
  */
-bool ADXL345GetActivityXEnabled(void)
+boolean ADXL345GetActivityXEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_ACT_X_BIT);
 }
 
@@ -414,10 +409,9 @@ bool ADXL345GetActivityXEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_X_BIT
  */
-void ADXL345SetActivityXEnabled(bool enabled)
+void ADXL345SetActivityXEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_ACT_X_BIT,
                       enabled);
 }
@@ -430,10 +424,9 @@ void ADXL345SetActivityXEnabled(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_Y_BIT
  */
-bool ADXL345GetActivityYEnabled(void)
+boolean ADXL345GetActivityYEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_ACT_Y_BIT);
 }
 
@@ -445,10 +438,9 @@ bool ADXL345GetActivityYEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_Y_BIT
  */
-void ADXL345SetActivityYEnabled(bool enabled)
+void ADXL345SetActivityYEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_ACT_Y_BIT,
                       enabled);
 }
@@ -461,10 +453,9 @@ void ADXL345SetActivityYEnabled(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_Z_BIT
  */
-bool ADXL345GetActivityZEnabled(void)
+boolean ADXL345GetActivityZEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_ACT_Z_BIT);
 }
 
@@ -476,10 +467,9 @@ bool ADXL345GetActivityZEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_ACT_Z_BIT
  */
-void ADXL345SetActivityZEnabled(bool enabled)
+void ADXL345SetActivityZEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_ACT_Z_BIT,
                       enabled);
 }
@@ -491,10 +481,9 @@ void ADXL345SetActivityZEnabled(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_AC_BIT
  */
-bool ADXL345GetInactivityAC(void)
+boolean ADXL345GetInactivityAC(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_INACT_AC_BIT);
 }
 
@@ -505,10 +494,9 @@ bool ADXL345GetInactivityAC(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_AC_BIT
  */
-void ADXL345SetInactivityAC(bool enabled)
+void ADXL345SetInactivityAC(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_INACT_AC_BIT,
                       enabled);
 }
@@ -521,10 +509,9 @@ void ADXL345SetInactivityAC(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_X_BIT
  */
-bool ADXL345GetInactivityXEnabled(void)
+boolean ADXL345GetInactivityXEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_INACT_X_BIT);
 }
 
@@ -536,10 +523,9 @@ bool ADXL345GetInactivityXEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_X_BIT
  */
-void ADXL345SetInactivityXEnabled(bool enabled)
+void ADXL345SetInactivityXEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_INACT_X_BIT,
                       enabled);
 }
@@ -552,10 +538,9 @@ void ADXL345SetInactivityXEnabled(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_Y_BIT
  */
-bool ADXL345GetInactivityYEnabled(void)
+boolean ADXL345GetInactivityYEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_INACT_Y_BIT);
 }
 
@@ -567,10 +552,9 @@ bool ADXL345GetInactivityYEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_Y_BIT
  */
-void ADXL345SetInactivityYEnabled(bool enabled)
+void ADXL345SetInactivityYEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_INACT_Y_BIT,
                       enabled);
 }
@@ -582,10 +566,9 @@ void ADXL345SetInactivityYEnabled(bool enabled)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_Z_BIT
  */
-bool ADXL345GetInactivityZEnabled(void)
+boolean ADXL345GetInactivityZEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_INACT_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_INACT_CTL,
                             ADXL345_AIC_INACT_Z_BIT);
 }
 
@@ -596,10 +579,9 @@ bool ADXL345GetInactivityZEnabled(void)
  * @see ADXL345_RA_ACT_INACT_CTL
  * @see ADXL345_AIC_INACT_Z_BIT
  */
-void ADXL345SetInactivityZEnabled(bool enabled)
+void ADXL345SetInactivityZEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_ACT_INACT_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_ACT_INACT_CTL,
                       ADXL345_AIC_INACT_Z_BIT,
                       enabled);
 }
@@ -618,7 +600,7 @@ void ADXL345SetInactivityZEnabled(bool enabled)
  */
 unsigned char ADXL345GetFreefallThreshold(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_THRESH_FF);
+    return I2CDeviceReadByte(ADXL345_RA_THRESH_FF);
 }
 
 /**
@@ -629,7 +611,7 @@ unsigned char ADXL345GetFreefallThreshold(void)
  */
 void ADXL345SetFreefallThreshold(unsigned char threshold)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_THRESH_FF, threshold);
+    I2CDeviceWriteByte(ADXL345_RA_THRESH_FF, threshold);
 }
 
 /**
@@ -645,7 +627,7 @@ void ADXL345SetFreefallThreshold(unsigned char threshold)
  */
 unsigned char ADXL345GetFreefallTime(void)
 {
-    return I2CDeviceReadByte(ADXL345_ADDRESS_READ, ADXL345_RA_TIME_FF);
+    return I2CDeviceReadByte(ADXL345_RA_TIME_FF);
 }
 
 /** Set freefall time value.
@@ -655,7 +637,7 @@ unsigned char ADXL345GetFreefallTime(void)
  */
 void ADXL345SetFreefallTime(unsigned char time)
 {
-    I2CDeviceWriteByte(ADXL345_ADDRESS_WRITE, ADXL345_RA_TIME_FF, time);
+    I2CDeviceWriteByte(ADXL345_RA_TIME_FF, time);
 }
 
 /**
@@ -668,10 +650,9 @@ void ADXL345SetFreefallTime(unsigned char time)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_SUP_BIT
  */
-bool ADXL345GetTapAxisSuppress(void)
+boolean ADXL345GetTapAxisSuppress(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_TAP_AXES,
+    return I2CDeviceReadBit(ADXL345_RA_TAP_AXES,
                             ADXL345_TAPAXIS_SUP_BIT);
 }
 
@@ -682,10 +663,9 @@ bool ADXL345GetTapAxisSuppress(void)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_SUP_BIT
  */
-void ADXL345SetTapAxisSuppress(bool enabled)
+void ADXL345SetTapAxisSuppress(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_TAP_AXES,
+    I2CDeviceWriteBit(ADXL345_RA_TAP_AXES,
                       ADXL345_TAPAXIS_SUP_BIT,
                       enabled);
 }
@@ -700,10 +680,9 @@ void ADXL345SetTapAxisSuppress(bool enabled)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_X_BIT
  */
-bool ADXL345GetTapAxisXEnabled(void)
+boolean ADXL345GetTapAxisXEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_TAP_AXES,
+    return I2CDeviceReadBit(ADXL345_RA_TAP_AXES,
                             ADXL345_TAPAXIS_X_BIT);
 }
 
@@ -714,10 +693,9 @@ bool ADXL345GetTapAxisXEnabled(void)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_X_BIT
  */
-void ADXL345SetTapAxisXEnabled(bool enabled)
+void ADXL345SetTapAxisXEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_TAP_AXES,
+    I2CDeviceWriteBit(ADXL345_RA_TAP_AXES,
                       ADXL345_TAPAXIS_X_BIT,
                       enabled);
 }
@@ -732,10 +710,9 @@ void ADXL345SetTapAxisXEnabled(bool enabled)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_Y_BIT
  */
-bool ADXL345GetTapAxisYEnabled(void)
+boolean ADXL345GetTapAxisYEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_TAP_AXES,
+    return I2CDeviceReadBit(ADXL345_RA_TAP_AXES,
                             ADXL345_TAPAXIS_Y_BIT);
 }
 
@@ -746,10 +723,9 @@ bool ADXL345GetTapAxisYEnabled(void)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_Y_BIT
  */
-void ADXL345SetTapAxisYEnabled(bool enabled)
+void ADXL345SetTapAxisYEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_TAP_AXES,
+    I2CDeviceWriteBit(ADXL345_RA_TAP_AXES,
                       ADXL345_TAPAXIS_Y_BIT,
                       enabled);
 }
@@ -764,10 +740,9 @@ void ADXL345SetTapAxisYEnabled(bool enabled)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_Z_BIT
  */
-bool ADXL345GetTapAxisZEnabled(void)
+boolean ADXL345GetTapAxisZEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_TAP_AXES,
+    return I2CDeviceReadBit(ADXL345_RA_TAP_AXES,
                             ADXL345_TAPAXIS_Z_BIT);
 }
 
@@ -777,10 +752,9 @@ bool ADXL345GetTapAxisZEnabled(void)
  * @see ADXL345_RA_TAP_AXES
  * @see ADXL345_TAPAXIS_Z_BIT
  */
-void ADXL345SetTapAxisZEnabled(bool enabled)
+void ADXL345SetTapAxisZEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_TAP_AXES,
+    I2CDeviceWriteBit(ADXL345_RA_TAP_AXES,
                       ADXL345_TAPAXIS_Z_BIT,
                       enabled);
 }
@@ -798,10 +772,9 @@ void ADXL345SetTapAxisZEnabled(bool enabled)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_ACTX_BIT
  */
-bool ADXL345GetActivitySourceX(void)
+boolean ADXL345GetActivitySourceX(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_ACTX_BIT);
 }
 
@@ -811,10 +784,9 @@ bool ADXL345GetActivitySourceX(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_ACTY_BIT
  */
-bool ADXL345GetActivitySourceY(void)
+boolean ADXL345GetActivitySourceY(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_ACTY_BIT);
 }
 
@@ -824,10 +796,9 @@ bool ADXL345GetActivitySourceY(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_ACTZ_BIT
  */
-bool ADXL345GetActivitySourceZ(void)
+boolean ADXL345GetActivitySourceZ(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_ACTZ_BIT);
 }
 
@@ -841,10 +812,9 @@ bool ADXL345GetActivitySourceZ(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_ASLEEP_BIT
  */
-bool ADXL345GetAsleep(void)
+boolean ADXL345GetAsleep(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_ASLEEP_BIT);
 }
 
@@ -854,10 +824,9 @@ bool ADXL345GetAsleep(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_TAPX_BIT
  */
-bool ADXL345GetTapSourceX(void)
+boolean ADXL345GetTapSourceX(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_TAPX_BIT);
 }
 
@@ -867,10 +836,9 @@ bool ADXL345GetTapSourceX(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_TAPY_BIT
  */
-bool ADXL345GetTapSourceY(void)
+boolean ADXL345GetTapSourceY(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_TAPY_BIT);
 }
 
@@ -880,10 +848,9 @@ bool ADXL345GetTapSourceY(void)
  * @see ADXL345_RA_ACT_TAP_STATUS
  * @see ADXL345_TAPSTAT_TAPZ_BIT
  */
-bool ADXL345GetTapSourceZ(void)
+boolean ADXL345GetTapSourceZ(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_ACT_TAP_STATUS,
+    return I2CDeviceReadBit(ADXL345_RA_ACT_TAP_STATUS,
                             ADXL345_TAPSTAT_TAPZ_BIT);
 }
 
@@ -897,10 +864,9 @@ bool ADXL345GetTapSourceZ(void)
  * @see ADXL345_RA_BW_RATE
  * @see ADXL345_BW_LOWPOWER_BIT
  */
-bool ADXL345GetLowPowerEnabled(void)
+boolean ADXL345GetLowPowerEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_BW_RATE,
+    return I2CDeviceReadBit(ADXL345_RA_BW_RATE,
                             ADXL345_BW_LOWPOWER_BIT);
 }
 
@@ -911,10 +877,9 @@ bool ADXL345GetLowPowerEnabled(void)
  * @see ADXL345_RA_BW_RATE
  * @see ADXL345_BW_LOWPOWER_BIT
  */
-void ADXL345SetLowPowerEnabled(bool enabled)
+void ADXL345SetLowPowerEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_BW_RATE,
+    I2CDeviceWriteBit(ADXL345_RA_BW_RATE,
                       ADXL345_BW_LOWPOWER_BIT,
                       enabled);
 }
@@ -934,8 +899,7 @@ void ADXL345SetLowPowerEnabled(bool enabled)
  */
 unsigned char ADXL345GetRate(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_BW_RATE,
+    return I2CDeviceReadBits(ADXL345_RA_BW_RATE,
                              ADXL345_BW_RATE_BIT,
                              ADXL345_BW_RATE_LENGTH);
 }
@@ -954,8 +918,7 @@ unsigned char ADXL345GetRate(void)
  */
 void ADXL345SetRate(unsigned char rate)
 {
-    I2CDeviceWriteBits(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_BW_RATE,
+    I2CDeviceWriteBits(ADXL345_RA_BW_RATE,
                        ADXL345_BW_RATE_BIT,
                        ADXL345_BW_RATE_LENGTH,
                        rate);
@@ -982,10 +945,9 @@ void ADXL345SetRate(unsigned char rate)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_LINK_BIT
  */
-bool ADXL345GetLinkEnabled(void)
+boolean ADXL345GetLinkEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_POWER_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_POWER_CTL,
                             ADXL345_PCTL_LINK_BIT);
 }
 
@@ -995,10 +957,9 @@ bool ADXL345GetLinkEnabled(void)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_LINK_BIT
  */
-void ADXL345SetLinkEnabled(bool enabled)
+void ADXL345SetLinkEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_POWER_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_POWER_CTL,
                       ADXL345_PCTL_LINK_BIT,
                       enabled);
 }
@@ -1032,10 +993,9 @@ void ADXL345SetLinkEnabled(bool enabled)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_AUTOSLEEP_BIT
  */
-bool ADXL345GetAutoSleepEnabled(void)
+boolean ADXL345GetAutoSleepEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_POWER_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_POWER_CTL,
                             ADXL345_PCTL_AUTOSLEEP_BIT);
 }
 
@@ -1046,10 +1006,9 @@ bool ADXL345GetAutoSleepEnabled(void)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_AUTOSLEEP_BIT
  */
-void ADXL345SetAutoSleepEnabled(bool enabled)
+void ADXL345SetAutoSleepEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_POWER_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_POWER_CTL,
                       ADXL345_PCTL_AUTOSLEEP_BIT,
                       enabled);
 }
@@ -1064,10 +1023,9 @@ void ADXL345SetAutoSleepEnabled(bool enabled)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_MEASURE_BIT
  */
-bool ADXL345GetMeasureEnabled(void)
+boolean ADXL345GetMeasureEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_POWER_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_POWER_CTL,
                             ADXL345_PCTL_MEASURE_BIT);
 }
 
@@ -1078,10 +1036,9 @@ bool ADXL345GetMeasureEnabled(void)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_MEASURE_BIT
  */
-void ADXL345SetMeasureEnabled(bool enabled)
+void ADXL345SetMeasureEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_POWER_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_POWER_CTL,
                       ADXL345_PCTL_MEASURE_BIT,
                       enabled);
 }
@@ -1107,10 +1064,9 @@ void ADXL345SetMeasureEnabled(bool enabled)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_SLEEP_BIT
  */
-bool ADXL345GetSleepEnabled(void)
+boolean ADXL345GetSleepEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_POWER_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_POWER_CTL,
                             ADXL345_PCTL_SLEEP_BIT);
 }
 
@@ -1121,10 +1077,9 @@ bool ADXL345GetSleepEnabled(void)
  * @see ADXL345_RA_POWER_CTL
  * @see ADXL345_PCTL_SLEEP_BIT
  */
-void ADXL345SetSleepEnabled(bool enabled)
+void ADXL345SetSleepEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_POWER_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_POWER_CTL,
                       ADXL345_PCTL_SLEEP_BIT,
                       enabled);
 }
@@ -1139,8 +1094,7 @@ void ADXL345SetSleepEnabled(bool enabled)
  */
 unsigned char ADXL345GetWakeupFrequency(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_POWER_CTL,
+    return I2CDeviceReadBits(ADXL345_RA_POWER_CTL,
                              ADXL345_PCTL_WAKEUP_BIT,
                              ADXL345_PCTL_WAKEUP_LENGTH);
 }
@@ -1154,8 +1108,7 @@ unsigned char ADXL345GetWakeupFrequency(void)
  */
 void ADXL345SetWakeupFrequency(unsigned char frequency)
 {
-    I2CDeviceWriteBits(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_POWER_CTL,
+    I2CDeviceWriteBits(ADXL345_RA_POWER_CTL,
                        ADXL345_PCTL_WAKEUP_BIT,
                        ADXL345_PCTL_WAKEUP_LENGTH,
                        frequency);
@@ -1172,10 +1125,9 @@ void ADXL345SetWakeupFrequency(unsigned char frequency)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_DATA_READY_BIT
  */
-bool ADXL345GetIntDataReadyEnabled(void)
+boolean ADXL345GetIntDataReadyEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_DATA_READY_BIT);
 }
 
@@ -1186,10 +1138,9 @@ bool ADXL345GetIntDataReadyEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_DATA_READY_BIT
  */
-void ADXL345SetIntDataReadyEnabled(bool enabled)
+void ADXL345SetIntDataReadyEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_DATA_READY_BIT,
                       enabled);
 }
@@ -1201,10 +1152,9 @@ void ADXL345SetIntDataReadyEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_SINGLE_TAP_BIT
  */
-bool ADXL345GetIntSingleTapEnabled(void)
+boolean ADXL345GetIntSingleTapEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_SINGLE_TAP_BIT);
 }
 
@@ -1215,10 +1165,9 @@ bool ADXL345GetIntSingleTapEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_SINGLE_TAP_BIT
  */
-void ADXL345SetIntSingleTapEnabled(bool enabled)
+void ADXL345SetIntSingleTapEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_SINGLE_TAP_BIT,
                       enabled);
 }
@@ -1230,10 +1179,9 @@ void ADXL345SetIntSingleTapEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_DOUBLE_TAP_BIT
  */
-bool ADXL345GetIntDoubleTapEnabled(void)
+boolean ADXL345GetIntDoubleTapEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_DOUBLE_TAP_BIT);
 }
 
@@ -1243,10 +1191,9 @@ bool ADXL345GetIntDoubleTapEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_DOUBLE_TAP_BIT
  */
-void ADXL345SetIntDoubleTapEnabled(bool enabled)
+void ADXL345SetIntDoubleTapEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_DOUBLE_TAP_BIT,
                       enabled);
 }
@@ -1257,10 +1204,9 @@ void ADXL345SetIntDoubleTapEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_ACTIVITY_BIT
  */
-bool ADXL345GetIntActivityEnabled(void)
+boolean ADXL345GetIntActivityEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_ACTIVITY_BIT);
 }
 
@@ -1270,10 +1216,9 @@ bool ADXL345GetIntActivityEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_ACTIVITY_BIT
  */
-void ADXL345SetIntActivityEnabled(bool enabled)
+void ADXL345SetIntActivityEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_ACTIVITY_BIT,
                       enabled);
 }
@@ -1284,10 +1229,9 @@ void ADXL345SetIntActivityEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_INACTIVITY_BIT
  */
-bool ADXL345GetIntInactivityEnabled(void)
+boolean ADXL345GetIntInactivityEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_INACTIVITY_BIT);
 }
 
@@ -1297,10 +1241,9 @@ bool ADXL345GetIntInactivityEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_INACTIVITY_BIT
  */
-void ADXL345SetIntInactivityEnabled(bool enabled)
+void ADXL345SetIntInactivityEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_INACTIVITY_BIT,
                       enabled);
 }
@@ -1312,10 +1255,9 @@ void ADXL345SetIntInactivityEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_FREE_FALL_BIT
  */
-bool ADXL345GetIntFreefallEnabled(void)
+boolean ADXL345GetIntFreefallEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_FREE_FALL_BIT);
 }
 
@@ -1325,10 +1267,9 @@ bool ADXL345GetIntFreefallEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_FREE_FALL_BIT
  */
-void ADXL345SetIntFreefallEnabled(bool enabled)
+void ADXL345SetIntFreefallEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_FREE_FALL_BIT,
                       enabled);
 }
@@ -1339,10 +1280,9 @@ void ADXL345SetIntFreefallEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_WATERMARK_BIT
  */
-bool ADXL345GetIntWatermarkEnabled(void)
+boolean ADXL345GetIntWatermarkEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_WATERMARK_BIT);
 }
 
@@ -1352,10 +1292,9 @@ bool ADXL345GetIntWatermarkEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_WATERMARK_BIT
  */
-void ADXL345SetIntWatermarkEnabled(bool enabled)
+void ADXL345SetIntWatermarkEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_WATERMARK_BIT,
                       enabled);
 }
@@ -1366,10 +1305,9 @@ void ADXL345SetIntWatermarkEnabled(bool enabled)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_OVERRUN_BIT
  */
-bool ADXL345GetIntOverrunEnabled(void)
+boolean ADXL345GetIntOverrunEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_ENABLE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_ENABLE,
                             ADXL345_INT_OVERRUN_BIT);
 }
 
@@ -1379,10 +1317,9 @@ bool ADXL345GetIntOverrunEnabled(void)
  * @see ADXL345_RA_INT_ENABLE
  * @see ADXL345_INT_OVERRUN_BIT
  */
-void ADXL345SetIntOverrunEnabled(bool enabled)
+void ADXL345SetIntOverrunEnabled(boolean enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_ENABLE,
+    I2CDeviceWriteBit(ADXL345_RA_INT_ENABLE,
                       ADXL345_INT_OVERRUN_BIT,
                       enabled);
 }
@@ -1398,8 +1335,7 @@ void ADXL345SetIntOverrunEnabled(bool enabled)
  */
 unsigned char ADXL345GetIntDataReadyPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_DATA_READY_BIT);
 }
 
@@ -1411,8 +1347,7 @@ unsigned char ADXL345GetIntDataReadyPin(void)
  */
 void ADXL345SetIntDataReadyPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_DATA_READY_BIT,
                       pin);
 }
@@ -1425,8 +1360,7 @@ void ADXL345SetIntDataReadyPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntSingleTapPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_SINGLE_TAP_BIT);
 }
 
@@ -1438,8 +1372,7 @@ unsigned char ADXL345GetIntSingleTapPin(void)
  */
 void ADXL345SetIntSingleTapPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_SINGLE_TAP_BIT,
                       pin);
 }
@@ -1452,8 +1385,7 @@ void ADXL345SetIntSingleTapPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntDoubleTapPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_DOUBLE_TAP_BIT);
 }
 
@@ -1465,8 +1397,7 @@ unsigned char ADXL345GetIntDoubleTapPin(void)
  */
 void ADXL345SetIntDoubleTapPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_DOUBLE_TAP_BIT,
                       pin);
 }
@@ -1479,8 +1410,7 @@ void ADXL345SetIntDoubleTapPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntActivityPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_ACTIVITY_BIT);
 }
 
@@ -1492,8 +1422,7 @@ unsigned char ADXL345GetIntActivityPin(void)
  */
 void ADXL345SetIntActivityPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_ACTIVITY_BIT,
                       pin);
 }
@@ -1506,8 +1435,7 @@ void ADXL345SetIntActivityPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntInactivityPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_INACTIVITY_BIT);
 }
 
@@ -1519,8 +1447,7 @@ unsigned char ADXL345GetIntInactivityPin(void)
  */
 void ADXL345SetIntInactivityPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_INACTIVITY_BIT,
                       pin);
 }
@@ -1533,8 +1460,7 @@ void ADXL345SetIntInactivityPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntFreefallPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_FREE_FALL_BIT);
 }
 
@@ -1546,8 +1472,7 @@ unsigned char ADXL345GetIntFreefallPin(void)
  */
 void ADXL345SetIntFreefallPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_FREE_FALL_BIT,
                       pin);
 }
@@ -1560,8 +1485,7 @@ void ADXL345SetIntFreefallPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntWatermarkPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_WATERMARK_BIT);
 }
 
@@ -1573,8 +1497,7 @@ unsigned char ADXL345GetIntWatermarkPin(void)
  */
 void ADXL345SetIntWatermarkPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_WATERMARK_BIT,
                       pin);
 }
@@ -1587,8 +1510,7 @@ void ADXL345SetIntWatermarkPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntOverrunPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_MAP,
+    return I2CDeviceReadBit(ADXL345_RA_INT_MAP,
                             ADXL345_INT_OVERRUN_BIT);
 }
 
@@ -1600,8 +1522,7 @@ unsigned char ADXL345GetIntOverrunPin(void)
  */
 void ADXL345SetIntOverrunPin(unsigned char pin)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_INT_MAP,
+    I2CDeviceWriteBit(ADXL345_RA_INT_MAP,
                       ADXL345_INT_OVERRUN_BIT,
                       pin);
 }
@@ -1623,8 +1544,7 @@ void ADXL345SetIntOverrunPin(unsigned char pin)
  */
 unsigned char ADXL345GetIntDataReadySource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_DATA_READY_BIT);
 }
 
@@ -1636,8 +1556,7 @@ unsigned char ADXL345GetIntDataReadySource(void)
  */
 unsigned char ADXL345GetIntSingleTapSource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_SINGLE_TAP_BIT);
 }
 
@@ -1649,8 +1568,7 @@ unsigned char ADXL345GetIntSingleTapSource(void)
  */
 unsigned char ADXL345GetIntDoubleTapSource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_DOUBLE_TAP_BIT);
 }
 
@@ -1662,8 +1580,7 @@ unsigned char ADXL345GetIntDoubleTapSource(void)
  */
 unsigned char ADXL345GetIntActivitySource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_ACTIVITY_BIT);
 }
 
@@ -1675,8 +1592,7 @@ unsigned char ADXL345GetIntActivitySource(void)
  */
 unsigned char ADXL345GetIntInactivitySource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_INACTIVITY_BIT);
 }
 
@@ -1688,8 +1604,7 @@ unsigned char ADXL345GetIntInactivitySource(void)
  */
 unsigned char ADXL345GetIntFreefallSource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_FREE_FALL_BIT);
 }
 
@@ -1701,8 +1616,7 @@ unsigned char ADXL345GetIntFreefallSource(void)
  */
 unsigned char ADXL345GetIntWatermarkSource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_WATERMARK_BIT);
 }
 
@@ -1714,8 +1628,7 @@ unsigned char ADXL345GetIntWatermarkSource(void)
  */
 unsigned char ADXL345GetIntOverrunSource(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_INT_SOURCE,
+    return I2CDeviceReadBit(ADXL345_RA_INT_SOURCE,
                             ADXL345_INT_OVERRUN_BIT);
 }
 
@@ -1731,8 +1644,7 @@ unsigned char ADXL345GetIntOverrunSource(void)
  */
 unsigned char ADXL345GetSelfTestEnabled(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBit(ADXL345_RA_DATA_FORMAT,
                             ADXL345_FORMAT_SELFTEST_BIT);
 }
 
@@ -1745,8 +1657,7 @@ unsigned char ADXL345GetSelfTestEnabled(void)
  */
 void ADXL345SetSelfTestEnabled(unsigned char enabled)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBit(ADXL345_RA_DATA_FORMAT,
                       ADXL345_FORMAT_SELFTEST_BIT,
                       enabled);
 }
@@ -1762,8 +1673,7 @@ void ADXL345SetSelfTestEnabled(unsigned char enabled)
  */
 unsigned char ADXL345GetSPIMode(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBit(ADXL345_RA_DATA_FORMAT,
                             ADXL345_FORMAT_SPIMODE_BIT);
 }
 
@@ -1776,8 +1686,7 @@ unsigned char ADXL345GetSPIMode(void)
  */
 void ADXL345SetSPIMode(unsigned char mode)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBit(ADXL345_RA_DATA_FORMAT,
                       ADXL345_FORMAT_SPIMODE_BIT,
                       mode);
 }
@@ -1793,8 +1702,7 @@ void ADXL345SetSPIMode(unsigned char mode)
  */
 unsigned char ADXL345GetInterruptMode(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBit(ADXL345_RA_DATA_FORMAT,
                             ADXL345_FORMAT_INTMODE_BIT);
 }
 
@@ -1807,8 +1715,7 @@ unsigned char ADXL345GetInterruptMode(void)
  */
 void ADXL345SetInterruptMode(unsigned char mode)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBit(ADXL345_RA_DATA_FORMAT,
                       ADXL345_FORMAT_INTMODE_BIT,
                       mode);
 }
@@ -1827,8 +1734,7 @@ void ADXL345SetInterruptMode(unsigned char mode)
  */
 unsigned char ADXL345GetFullResolution(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBit(ADXL345_RA_DATA_FORMAT,
                             ADXL345_FORMAT_FULL_RES_BIT);
 }
 
@@ -1841,8 +1747,7 @@ unsigned char ADXL345GetFullResolution(void)
  */
 void ADXL345SetFullResolution(unsigned char resolution)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBit(ADXL345_RA_DATA_FORMAT,
                       ADXL345_FORMAT_FULL_RES_BIT,
                       resolution);
 }
@@ -1858,8 +1763,7 @@ void ADXL345SetFullResolution(unsigned char resolution)
  */
 unsigned char ADXL345GetDataJustification(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBit(ADXL345_RA_DATA_FORMAT,
                             ADXL345_FORMAT_JUSTIFY_BIT);
 }
 
@@ -1872,8 +1776,7 @@ unsigned char ADXL345GetDataJustification(void)
  */
 void ADXL345SetDataJustification(unsigned char justification)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBit(ADXL345_RA_DATA_FORMAT,
                       ADXL345_FORMAT_JUSTIFY_BIT,
                       justification);
 }
@@ -1890,8 +1793,7 @@ void ADXL345SetDataJustification(unsigned char justification)
  */
 unsigned char ADXL345GetRange(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_DATA_FORMAT,
+    return I2CDeviceReadBits(ADXL345_RA_DATA_FORMAT,
                              ADXL345_FORMAT_RANGE_BIT,
                              ADXL345_FORMAT_RANGE_LENGTH);
 }
@@ -1906,8 +1808,7 @@ unsigned char ADXL345GetRange(void)
  */
 void ADXL345SetRange(unsigned char range)
 {
-    I2CDeviceWriteBits(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_DATA_FORMAT,
+    I2CDeviceWriteBits(ADXL345_RA_DATA_FORMAT,
                        ADXL345_FORMAT_RANGE_BIT,
                        ADXL345_FORMAT_RANGE_LENGTH,
                        range);
@@ -1936,7 +1837,7 @@ void ADXL345SetRange(unsigned char range)
  */
 void ADXL345GetAcceleration(int* x, int* y, int* z)
 {
-    I2CDeviceReadBytes(ADXL345_ADDRESS_READ, ADXL345_RA_DATAX0, 6, ADXL345Buffer);
+    I2CDeviceReadBytes(ADXL345_RA_DATAX0, 6, ADXL345Buffer);
     *x = (((int) ADXL345Buffer[1]) << 8) | ADXL345Buffer[0];
     *y = (((int) ADXL345Buffer[3]) << 8) | ADXL345Buffer[2];
     *z = (((int) ADXL345Buffer[5]) << 8) | ADXL345Buffer[4];
@@ -1949,7 +1850,7 @@ void ADXL345GetAcceleration(int* x, int* y, int* z)
  */
 int ADXL345GetAccelerationX(void)
 {
-    I2CDeviceReadBytes(ADXL345_ADDRESS_READ, ADXL345_RA_DATAX0, 2, ADXL345Buffer);
+    I2CDeviceReadBytes(ADXL345_RA_DATAX0, 2, ADXL345Buffer);
     return (((int) ADXL345Buffer[1]) << 8) | ADXL345Buffer[0];
 }
 
@@ -1960,7 +1861,7 @@ int ADXL345GetAccelerationX(void)
  */
 int ADXL345GetAccelerationY(void)
 {
-    I2CDeviceReadBytes(ADXL345_ADDRESS_READ, ADXL345_RA_DATAY0, 2, ADXL345Buffer);
+    I2CDeviceReadBytes(ADXL345_RA_DATAY0, 2, ADXL345Buffer);
     return (((int) ADXL345Buffer[1]) << 8) | ADXL345Buffer[0];
 }
 
@@ -1971,7 +1872,7 @@ int ADXL345GetAccelerationY(void)
  */
 int ADXL345GetAccelerationZ(void)
 {
-    I2CDeviceReadBytes(ADXL345_ADDRESS_READ, ADXL345_RA_DATAZ0, 2, ADXL345Buffer);
+    I2CDeviceReadBytes(ADXL345_RA_DATAZ0, 2, ADXL345Buffer);
     return (((int) ADXL345Buffer[1]) << 8) | ADXL345Buffer[0];
 }
 
@@ -1999,8 +1900,7 @@ int ADXL345GetAccelerationZ(void)
  */
 unsigned char ADXL345GetFIFOMode(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_FIFO_CTL,
+    return I2CDeviceReadBits(ADXL345_RA_FIFO_CTL,
                              ADXL345_FIFO_MODE_BIT,
                              ADXL345_FIFO_MODE_LENGTH);
 }
@@ -2015,8 +1915,7 @@ unsigned char ADXL345GetFIFOMode(void)
  */
 void ADXL345SetFIFOMode(unsigned char mode)
 {
-    I2CDeviceWriteBits(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_FIFO_CTL,
+    I2CDeviceWriteBits(ADXL345_RA_FIFO_CTL,
                        ADXL345_FIFO_MODE_BIT,
                        ADXL345_FIFO_MODE_LENGTH,
                        mode);
@@ -2033,8 +1932,7 @@ void ADXL345SetFIFOMode(unsigned char mode)
  */
 unsigned char ADXL345GetFIFOTriggerInterruptPin(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_FIFO_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_FIFO_CTL,
                             ADXL345_FIFO_TRIGGER_BIT);
 }
 
@@ -2047,8 +1945,7 @@ unsigned char ADXL345GetFIFOTriggerInterruptPin(void)
  */
 void ADXL345SetFIFOTriggerInterruptPin(unsigned char _interrupt)
 {
-    I2CDeviceWriteBit(ADXL345_ADDRESS_WRITE,
-                      ADXL345_RA_FIFO_CTL,
+    I2CDeviceWriteBit(ADXL345_RA_FIFO_CTL,
                       ADXL345_FIFO_TRIGGER_BIT,
                       _interrupt);
 }
@@ -2077,8 +1974,7 @@ void ADXL345SetFIFOTriggerInterruptPin(unsigned char _interrupt)
  */
 unsigned char ADXL345GetFIFOSamples(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_FIFO_CTL,
+    return I2CDeviceReadBits(ADXL345_RA_FIFO_CTL,
                              ADXL345_FIFO_SAMPLES_BIT,
                              ADXL345_FIFO_SAMPLES_LENGTH);
 }
@@ -2094,8 +1990,7 @@ unsigned char ADXL345GetFIFOSamples(void)
  */
 void ADXL345SetFIFOSamples(unsigned char size)
 {
-    I2CDeviceWriteBits(ADXL345_ADDRESS_WRITE,
-                       ADXL345_RA_FIFO_CTL,
+    I2CDeviceWriteBits(ADXL345_RA_FIFO_CTL,
                        ADXL345_FIFO_SAMPLES_BIT,
                        ADXL345_FIFO_SAMPLES_LENGTH,
                        size);
@@ -2109,10 +2004,9 @@ void ADXL345SetFIFOSamples(unsigned char size)
  * @see ADXL345_RA_FIFO_CTL
  * @see ADXL345_FIFOSTAT_TRIGGER_BIT
  */
-bool ADXL345GetFIFOTriggerOccurred(void)
+boolean ADXL345GetFIFOTriggerOccurred(void)
 {
-    return I2CDeviceReadBit(ADXL345_ADDRESS_READ,
-                            ADXL345_RA_FIFO_CTL,
+    return I2CDeviceReadBit(ADXL345_RA_FIFO_CTL,
                             ADXL345_FIFOSTAT_TRIGGER_BIT);
 }
 
@@ -2132,8 +2026,7 @@ bool ADXL345GetFIFOTriggerOccurred(void)
  */
 unsigned char ADXL345GetFIFOLength(void)
 {
-    return I2CDeviceReadBits(ADXL345_ADDRESS_READ,
-                             ADXL345_RA_FIFO_CTL,
+    return I2CDeviceReadBits(ADXL345_RA_FIFO_CTL,
                              ADXL345_FIFOSTAT_LENGTH_BIT,
                              ADXL345_FIFOSTAT_LENGTH_LENGTH);
 }
