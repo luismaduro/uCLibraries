@@ -2,22 +2,17 @@
 #define LIB_MRF24J_H
 
 #include <p18cxxx.h>
-#include "stdbool.h"
+#include "stdboolean.h"
 
 #ifdef NO
 
 #define MIWI_COM_EN()       (PORTEbits.RE6 = 1)
 #define MIWI_WAKE_LOW()     (PORTEbits.RE5 = 0)
 #define MIWI_WAKE_HIGH()    (PORTEbits.RE5 = 1)
-#define MIWI_CS_HIGH()      (PORTEbits.RE0 = 1)
-#define MIWI_CS_LOW()       (PORTEbits.RE0 = 0)
+#define MIWI_DESELECT()      (PORTEbits.RE0 = 1)
+#define MIWI_SELECT()       (PORTEbits.RE0 = 0)
 #define MIWI_RESET_HIGH()   (PORTEbits.RE4 = 1)
 #define MIWI_RESET_LOW()    (PORTEbits.RE4 = 0)
-
-#define SDO_HIGH()          (PORTDbits.RD4 = 1)
-#define SDO_LOW()           (PORTDbits.RD4 = 0)
-#define SCK_HIGH()          (PORTDbits.RD6 = 1)
-#define SCK_LOW()           (PORTDbits.RD6 = 0)
 
 #define HOST_INTERRUPT_ENABLE (INTCONbits.INT0IE)
 
@@ -28,15 +23,10 @@
 #define MIWI_COM_EN()       (PORTAbits.RA4 = 1)
 #define MIWI_WAKE_LOW()     (PORTAbits.RA3 = 0)
 #define MIWI_WAKE_HIGH()    (PORTAbits.RA3 = 1)
-#define MIWI_CS_HIGH()      (PORTAbits.RA0 = 1)
-#define MIWI_CS_LOW()       (PORTAbits.RA0 = 0)
+#define MIWI_DESELECT()      (PORTAbits.RA0 = 1)
+#define MIWI_SELECT()       (PORTAbits.RA0 = 0)
 #define MIWI_RESET_HIGH()   (PORTAbits.RA2 = 1)
 #define MIWI_RESET_LOW()    (PORTAbits.RA2 = 0)
-
-#define SDO_HIGH()			(PORTDbits.RD4 = 1)
-#define SDO_LOW()			(PORTDbits.RD4 = 0)
-#define SCK_HIGH()			(PORTDbits.RD6 = 1)
-#define SCK_LOW()			(PORTDbits.RD6 = 0)
 
 #define HOST_INTERRUPT_ENABLE (INTCONbits.INT0IE)
 
@@ -262,7 +252,7 @@ void MRF24J40LongAddressWrite(unsigned char * address);
 void MRF24J40LongAddressRead(unsigned char * address);
 void MRF24J40SetInterrupts(void);
 unsigned char MRF24J40GetInterrupts(void);
-void MRF24J40SetPromiscuous(bool enabled);
+void MRF24J40SetPromiscuous(boolean enabled);
 void MRF24J40SetPower(unsigned char power);
 /**
  * Set the channel, using 802.15.4 channel numbers (11..26)
@@ -273,7 +263,7 @@ void MRF24J40RXEnable(void);
 void MRF24J40RXDisable(void);
 /** If you want to throw away rx data */
 void MRF24J40RXFlush(void);
-void MRF24J40PacketSend(unsigned int dest, unsigned int len, char* packet);
-unsigned char MRF24J40PacketReceive(char* packet);
+void MRF24J40SendPacket(unsigned int dest, unsigned int len, char* packet);
+unsigned char MRF24J40ReceivePacket(char* packet);
 
 #endif  /* LIB_MRF24J_H */
