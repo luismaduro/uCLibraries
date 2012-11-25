@@ -23,9 +23,6 @@
 #include <p18cxxx.h>
 #include "SPIDevice.h"
 
-volatile near unsigned char *csPort;
-unsigned char csPin;
-
 /**
  * Initiates the MSSP module to work as an SPI master.
  * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
@@ -45,33 +42,6 @@ void SPIInit(void)
     SPICON1bits.SSPEN = 1; //enables the serial port pins to work with the MSSP
     SPICON1bits.CKP = 0; //idle state for clock is a low level
     SPICON1bits.SSPM = SPI_CLOCK;
-}
-
-/**
- * Sets the device chip select port and pin.
- * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
- * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
- */
-void SPISetDeviceChipSelectPin(volatile near unsigned char *cs_port, unsigned char pin)
-{
-    csPort = cs_port;
-    csPin = pin;
-}
-
-/**
- * Select the device to comunicate to by pulling the pin low.
- */
-void SPIDeviceSelect(void)
-{
-    *csPort &= ~(1 << csPin);
-}
-
-/**
- * Deselect the device to comunicate to by pulling the pin high.
- */
-void SPIDeviceDeselect(void)
-{
-    *csPort |= (1 << csPin);
 }
 
 /**
@@ -109,7 +79,7 @@ unsigned char SPIRead(void)
 {
     unsigned char TempVar;
 
-    TempVar = SPIBUF;
+    //TempVar = SPIBUF;
 
     SPIINTFLAG = 0;
 
@@ -126,22 +96,15 @@ unsigned char SPIRead(void)
  * @param length Number of bytes to read
  * @param data Buffer to store read data in
  */
-void SPIDeviceReadBytes(unsigned char address,
-                        unsigned char length,
+void SPIDeviceReadBytes(unsigned char length,
                         unsigned char *data)
 {
     unsigned char i = 0;
-
-    SPIDeviceSelect();
-
-    SPIWrite(address);
 
     for (i = 0; i < length; i++)
     {
         data[i] = SPIRead();
     }
-
-    SPIDeviceDeselect();
 }
 
 /**
@@ -150,146 +113,176 @@ void SPIDeviceReadBytes(unsigned char address,
  * @param length Number of bytes to write
  * @param data Buffer to copy new data from
  */
-void SPIDeviceWriteBytes(unsigned char address,
-                         unsigned char length,
+void SPIDeviceWriteBytes(unsigned char length,
                          unsigned char *data)
 {
     unsigned char i;
-
-    SPIDeviceSelect();
-
-    SPIWrite(address);
 
     for (i = 0; i < length; i++)
     {
         SPIWrite(data[i]);
     }
-
-    SPIDeviceDeselect();
 }
 
-/**
- * Read a single bit from a device register.
- * @param address Register address to read from
- * @param _bit Bit in register position to read (0-7)
- * @return Single bit value
- */
-unsigned char SPIDeviceReadBit(unsigned char address,
-                               unsigned char _bit)
-{
-    return (SPIDeviceReadByte(address) & (1 << _bit));
-}
-
-/**
- * Read multiple bits from a device register.
- * @param address Register address to read from
- * @param bitStart First bit position to read (0-7)
- * @param length Number of bits to read (not more than 8)
- * @return Right-aligned value (i.e. '101' read from any bitStart position will
- *                              equal 0x05)
- */
-unsigned char SPIDeviceReadBits(unsigned char address,
-                                unsigned char bitStart,
-                                unsigned char length)
-{
-    // 01101001 read byte
-    // 76543210 bit numbers
-    //    xxx   args: bitStart=4, length=3
-    //    010   masked
-    //   -> 010 shifted
-    unsigned char i;
-    unsigned char b;
-    unsigned char r = 0;
-
-    b = SPIDeviceReadByte(address);
-
-    for (i = bitStart; i > bitStart - length; i--)
-    {
-        r |= (b & (1 << i));
-    }
-    r >>= (bitStart - length + 1);
-
-    return r;
-}
-
-/**
- * Read single byte from a device register.
- * @param address Register address to read from
- * @return Byte value read from device
- */
-unsigned char SPIDeviceReadByte(unsigned char address)
-{
-    unsigned char b = 0;
-    SPIDeviceReadBytes(address, 1, &b);
-    return b;
-}
-
-/**
- * Write a single bit to a device register.
- * @param address Register address to write to
- * @param _bit Bit position to write (0-7)
- * @param value New bit value to write
- */
-void SPIDeviceWriteBit(unsigned char address,
-                       unsigned char _bit,
-                       unsigned char value)
-{
-    unsigned char b;
-
-    b = SPIDeviceReadByte(address);
-
-    b = value ? (b | (1 << _bit)) : (b & ~(1 << _bit));
-
-    SPIDeviceWriteByte(address, b);
-}
-
-/**
- * Write multiple bits to a device register.
- * @param address Register address to write to
- * @param bitStart First bit position to write (0-7)
- * @param length Number of bits to write (not more than 8)
- * @param value Right-aligned value to write
- */
-void SPIDeviceWriteBits(unsigned char address,
-                        unsigned char bitStart,
-                        unsigned char length,
-                        unsigned char value)
-{
-    //      010 value to write
-    // 76543210 bit numbers
-    //    xxx   args: bitStart=4, length=3
-    // 01000000 shift left (8 - length)    ]
-    // 00001000 shift right (7 - bitStart) ] ---    two shifts ensure all
-    //                                              non-important bits are 0
-    // 11100011 mask byte
-    // 10101111 original value (sample)
-    // 10100011 original & mask
-    // 10101011 masked | value
-    unsigned char b;
-    unsigned char mask;
-
-    b = SPIDeviceReadByte(address);
-
-    mask = (0xFF << (8 - length)) | (0xFF >> (bitStart + length - 1));
-
-    value <<= (8 - length);
-
-    value >>= (7 - bitStart);
-
-    b &= mask;
-
-    b |= value;
-
-    SPIDeviceWriteByte(address, b);
-}
-
-/**
- * Write single byte to a device register.
- * @param address Register address to write to
- * @param value New byte value write
- */
-void SPIDeviceWriteByte(unsigned char address,
-                        unsigned char value)
-{
-    SPIDeviceWriteBytes(address, 1, &value);
-}
+///**
+// * Read a single bit from a device register.
+// * @param address Register address to read from
+// * @param _bit Bit in register position to read (0-7)
+// * @return Single bit value
+// */
+//unsigned char SPIDeviceReadBit(unsigned char address,
+//                               unsigned char _bit)
+//{
+//    return (SPIDeviceReadByte(address) & (1 << _bit));
+//}
+//
+///**
+// * Read multiple bits from a device register.
+// * @param address Register address to read from
+// * @param bitStart First bit position to read (0-7)
+// * @param length Number of bits to read (not more than 8)
+// * @return Right-aligned value (i.e. '101' read from any bitStart position will
+// *                              equal 0x05)
+// */
+//unsigned char SPIDeviceReadBits(unsigned char address,
+//                                unsigned char bitStart,
+//                                unsigned char length)
+//{
+//    // 01101001 read byte
+//    // 76543210 bit numbers
+//    //    xxx   args: bitStart=4, length=3
+//    //    010   masked
+//    //   -> 010 shifted
+//    unsigned char i;
+//    unsigned char b;
+//    unsigned char r = 0;
+//
+//    b = SPIDeviceReadByte(address);
+//
+//    for (i = bitStart; i > bitStart - length; i--)
+//    {
+//        r |= (b & (1 << i));
+//    }
+//    r >>= (bitStart - length + 1);
+//
+//    return r;
+//}
+//
+///**
+// * Read single byte from a device register.
+// * @param address Register address to read from
+// * @return Byte value read from device
+// */
+//unsigned char SPIDeviceReadByte(unsigned char address)
+//{
+//    unsigned char b = 0;
+//    SPIDeviceReadBytes(address, 1, &b);
+//    return b;
+//}
+//
+///**
+// * Write a single bit to a device register.
+// * @param address Register address to write to
+// * @param _bit Bit position to write (0-7)
+// * @param value New bit value to write
+// */
+//void SPIDeviceWriteBit(unsigned char address,
+//                       unsigned char _bit,
+//                       unsigned char value)
+//{
+//    unsigned char b;
+//
+//    b = SPIDeviceReadByte(address);
+//
+//    b = value ? (b | (1 << _bit)) : (b & ~(1 << _bit));
+//
+//    SPIDeviceWriteByte(address, b);
+//}
+//
+///**
+// * Write multiple bits to a device register.
+// * @param address Register address to write to
+// * @param bitStart First bit position to write (0-7)
+// * @param length Number of bits to write (not more than 8)
+// * @param value Right-aligned value to write
+// */
+//void SPIDeviceWriteBits(unsigned char address,
+//                        unsigned char bitStart,
+//                        unsigned char length,
+//                        unsigned char value)
+//{
+//    //      010 value to write
+//    // 76543210 bit numbers
+//    //    xxx   args: bitStart=4, length=3
+//    // 01000000 shift left (8 - length)    ]
+//    // 00001000 shift right (7 - bitStart) ] ---    two shifts ensure all
+//    //                                              non-important bits are 0
+//    // 11100011 mask byte
+//    // 10101111 original value (sample)
+//    // 10100011 original & mask
+//    // 10101011 masked | value
+//    unsigned char b;
+//    unsigned char mask;
+//
+//    b = SPIDeviceReadByte(address);
+//
+//    mask = (0xFF << (8 - length)) | (0xFF >> (bitStart + length - 1));
+//
+//    value <<= (8 - length);
+//
+//    value >>= (7 - bitStart);
+//
+//    b &= mask;
+//
+//    b |= value;
+//
+//    SPIDeviceWriteByte(address, b);
+//}
+//
+///**
+// * Write single byte to a device register.
+// * @param address Register address to write to
+// * @param value New byte value write
+// */
+//void SPIDeviceWriteByte(unsigned char address,
+//                        unsigned char value)
+//{
+//    SPIDeviceWriteBytes(address, 1, &value);
+//}
+//
+///**
+// * Sends data contained in a buffer over the SPI bus.
+// *
+// * \param[in] data A pointer to the buffer which contains the data to send.
+// * \param[in] data_len The number of bytes to send.
+// */
+//void SPIDeviceSendData(const unsigned char *data, unsigned int data_len)
+//{
+//    do
+//    {
+//        unsigned char b = *data++;
+//
+//        SPIWrite(b);
+//
+//    }
+//    while (--data_len);
+//}
+//
+///**
+// * Receives multiple bytes from the SPI bus and writes them to a buffer.
+// *
+// * \param[out] buffer A pointer to the buffer into which the data gets written.
+// * \param[in] buffer_len The number of bytes to read.
+// */
+//void SPIDeviceReceiveData(unsigned char *buffer, unsigned int buffer_len)
+//{
+//    --buffer;
+//
+//    do
+//    {
+//        ++buffer;
+//        *buffer = SPIRead();
+//
+//    }
+//    while (--buffer_len);
+//}
