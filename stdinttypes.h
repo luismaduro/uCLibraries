@@ -1,5 +1,5 @@
 /**
- *  @file       stdint.h
+ *  @file       stdinttypes.h
  *  @brief      Source file
  *  @author     Luis Maduro
  *  @version    1.00

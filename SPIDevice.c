@@ -25,8 +25,6 @@
 
 /**
  * Initiates the MSSP module to work as an SPI master.
- * @param cs_port Port were the device to comunicate to is, i.e. &PORTD
- * @param pin Pin on the specified port were the device is, i.e. 2 for RB2
  */
 void SPIInit(void)
 {
@@ -92,7 +90,6 @@ unsigned char SPIRead(void)
 
 /**
  * Read multiple bytes from a device register.
- * @param address First register address to read from
  * @param length Number of bytes to read
  * @param data Buffer to store read data in
  */
@@ -109,7 +106,6 @@ void SPIDeviceReadBytes(unsigned char length,
 
 /**
  * Write multiple bytes to a device register.
- * @param address First register address to write to
  * @param length Number of bytes to write
  * @param data Buffer to copy new data from
  */

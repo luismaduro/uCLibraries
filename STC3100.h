@@ -80,6 +80,9 @@
 #define REG_RAM30               62
 #define REG_RAM31               63
 
+/**
+ * Register map of the STC3100 chip. All the accessible registers are maped here.
+ */
 typedef union
 {
     /**Used for simpler readings of the chip.*/
@@ -195,6 +198,9 @@ typedef union
         unsigned char RAM31;
     };
 
+    /**
+     * Mode register bits.
+     */
     struct
     {
         /**32,768 Hz clock source: 0: auto-detect, 1: external clock*/
@@ -213,6 +219,9 @@ typedef union
         unsigned char : 3;
     } MODEbits;
 
+    /**
+     * Control / Status Register detailed.
+     */
     struct
     {
         /**Unused*/
@@ -261,6 +270,9 @@ typedef union
 
 } tSTC31000Data;
 
+/**
+ * Struct that stores the updated values.
+ */
 typedef struct
 {
     /**Value of the voltage in mV.*/
