@@ -168,12 +168,6 @@ void MRF24J40SendPacket(unsigned int dest, unsigned int len, char* packet)
 
     // ack on, and go!
     MRF24J40WriteShort(MRF_TXNCON, 0b00000101);
-
-    HOST_INTERRUPT_ENABLE = 0;
-
-    while (MRF24J40GetInterrupts() != MRF_I_TXNIF);
-
-    HOST_INTERRUPT_ENABLE = 1;
 }
 
 unsigned char MRF24J40ReceivePacket(char* packet)
@@ -241,7 +235,7 @@ unsigned char MRF24J40GetInterrupts(void)
 void MRF24J40SetChannel(unsigned char channel)
 {
     MRF24J40WriteLong(MRF_RFCON0, (((channel) << 4) | 0x03));
-    MRF24J40WriteShort(MRF_RFCTL, 0x04); //  Ã¢â‚¬â€œ Reset RF state machine.
+    MRF24J40WriteShort(MRF_RFCTL, 0x04); //  Ã¢â?¬â?? Reset RF state machine.
     MRF24J40WriteShort(MRF_RFCTL, 0x00); // part 2
 }
 
