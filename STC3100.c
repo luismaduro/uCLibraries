@@ -25,21 +25,34 @@
 #include "I2CDevice.h"
 #include "STC3100.h"
 
+/**Variable that contains the register values of the entire chip.*/
 tSTC31000Data STC3100Data;
+/**Stores the battery data.*/
 tBatteryData BatteryData;
 
+/**
+ * Read the entire chip memory to the #STC3100Data variable.
+ */
 void STC3100ReadChip(void)
 {
     I2CDeviceSetDeviceAddress(STC3100_ADDRESS);
-    I2CDeviceReadBytes(REG_MODE, 32, &(STC3100Data.ByteArray[0]));
+    I2CDeviceReadBytes(REG_MODE, 64, &(STC3100Data.ByteArray[0]));
 }
 
+/**
+ * Writes the entire chip memory with the content of the #STC3100Data variable.
+ */
 void STC3100WriteChip(void)
 {
     I2CDeviceSetDeviceAddress(STC3100_ADDRESS);
-    I2CDeviceWriteBytes(REG_MODE, 32, &(STC3100Data.ByteArray[0]));
+    I2CDeviceWriteBytes(REG_MODE, 64, &(STC3100Data.ByteArray[0]));
 }
 
+/**
+ * Update the Voltage, Current, Temperature and Charge values based on the actual
+ * values present on the #STC3100Data variable and stores that values on the
+ * #BatteryData variable.
+ */
 void UpdateBatteryData(void)
 {
     unsigned int high_byte = 0;
