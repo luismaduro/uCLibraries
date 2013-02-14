@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/newmain.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/newmain.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/newmain.o ${OBJECTDIR}/_ext/1188112913/OWIcrc.o ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/newmain.o.d ${OBJECTDIR}/_ext/1188112913/OWIcrc.o.d ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o.d ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o.d ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/newmain.p1
+OBJECTFILES=${OBJECTDIR}/newmain.o ${OBJECTDIR}/_ext/1188112913/OWIcrc.o ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o
 
 
 CFLAGS=
@@ -69,26 +69,8 @@ FIXDEPS=fixDeps
 	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=18F14K22
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: compile
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/newmain.p1: newmain.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/newmain.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=none  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/newmain.p1  newmain.c 
-	@-${MV} ${OBJECTDIR}/newmain.d ${OBJECTDIR}/newmain.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/newmain.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-else
-${OBJECTDIR}/newmain.p1: newmain.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR} 
-	@${RM} ${OBJECTDIR}/newmain.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/newmain.p1  newmain.c 
-	@-${MV} ${OBJECTDIR}/newmain.d ${OBJECTDIR}/newmain.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/newmain.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-endif
-
+MP_PROCESSOR_OPTION_LD=18f14k22
+MP_LINKER_DEBUG_OPTION=
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -96,18 +78,91 @@ else
 endif
 
 # ------------------------------------------------------------------------------------
+# Rules for buildStep: compile
+ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/newmain.o: newmain.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/newmain.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/newmain.o   newmain.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/newmain.o 
+	@${FIXDEPS} "${OBJECTDIR}/newmain.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIcrc.o: ../../1WireUSART/OWIcrc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIcrc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIcrc.o   ../../1WireUSART/OWIcrc.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIcrc.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIcrc.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o: ../../1WireUSART/OWIHighLevelFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o   ../../1WireUSART/OWIHighLevelFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o: ../../1WireUSART/OWISWBitFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o   ../../1WireUSART/OWISWBitFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o: ../../1WireUSART/OWIUARTBitFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG  -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o   ../../1WireUSART/OWIUARTBitFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+else
+${OBJECTDIR}/newmain.o: newmain.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR} 
+	@${RM} ${OBJECTDIR}/newmain.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/newmain.o   newmain.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/newmain.o 
+	@${FIXDEPS} "${OBJECTDIR}/newmain.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIcrc.o: ../../1WireUSART/OWIcrc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIcrc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIcrc.o   ../../1WireUSART/OWIcrc.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIcrc.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIcrc.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o: ../../1WireUSART/OWIHighLevelFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o   ../../1WireUSART/OWIHighLevelFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIHighLevelFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o: ../../1WireUSART/OWISWBitFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o   ../../1WireUSART/OWISWBitFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWISWBitFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o: ../../1WireUSART/OWIUARTBitFunctions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1188112913 
+	@${RM} ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -I"C:/Users/Luis Maduro/Dropbox/Universidade/Mestrado/2 - Tese/PIC18Libraries/1WireUSART" -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o   ../../1WireUSART/OWIUARTBitFunctions.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1188112913/OWIUARTBitFunctions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+endif
+
+# ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G --asmlist -mdist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.map  -D__DEBUG=1 --debugger=none  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"   -odist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	@${RM} dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.hex 
-	
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w -x -u_DEBUG  -u_EXTENDEDMODE -z__MPLAB_BUILD=1  -u_CRUNTIME -z__MPLAB_DEBUG=1 $(MP_LINKER_DEBUG_OPTION) -l ${MP_CC_DIR}\\..\\lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G --asmlist -mdist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.map  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"   -odist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w   -u_EXTENDEDMODE -z__MPLAB_BUILD=1  -u_CRUNTIME -l ${MP_CC_DIR}\\..\\lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/1WireUSART.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 endif
 
 

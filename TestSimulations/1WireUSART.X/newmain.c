@@ -20,7 +20,7 @@
 #pragma config STVREN = ON
 #pragma config LVP = ON
 #pragma config BBSIZ = OFF
-#pragma config XINST = OFF
+#pragma config XINST = ON
 #pragma config CP0 = OFF
 #pragma config CP1 = OFF
 #pragma config CPB = OFF
@@ -34,16 +34,15 @@
 #pragma config EBTR1 = OFF
 #pragma config EBTRB = OFF
 
-#include<xc.h>
+#include <p18cxxx.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * 
+ * Main Fuction
  */
-int main(int argc, char** argv)
+void main(void)
 {
 
-    return (EXIT_SUCCESS);
 }
 
