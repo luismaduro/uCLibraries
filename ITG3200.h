@@ -6,11 +6,6 @@
  * @date        2011
  * @copyright	MIT license
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
 
 #ifndef _ITG3200_H_
 #define _ITG3200_H_

@@ -20,11 +20,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
+ 
 #include "AD524X.h"
 
 unsigned char *instructionByte;
@@ -172,7 +168,3 @@ void AD524XSetRDAC2Midscale(void)
 
     *instructionByte &= 0b10111111;
 }
-
-/**
- * @}
- */

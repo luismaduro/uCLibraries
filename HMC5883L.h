@@ -6,11 +6,6 @@
  * @date        2011
  * @copyright 	MIT license
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
 
 #ifndef _HMC5883L_H_
 #define _HMC5883L_H_

@@ -20,11 +20,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
 #include "I2CDevice.h"
 #include "MCP3421.h"
 
@@ -178,7 +173,3 @@ float MCP3421GetValue(void)
 
     return voltage;
 }
-
-/**
- * @}
- */

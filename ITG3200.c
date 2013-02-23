@@ -6,11 +6,6 @@
  * @date        2011
  * @copyright	MIT license
  */
-/**
- * \addtogroup I2C Devices
- *
- * @{
- */
 #include "ITG3200.h"
 
 unsigned char ITG3200Buffer[6];

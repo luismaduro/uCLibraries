@@ -6,11 +6,7 @@
  * @date        2011
  * @copyright 	MIT license
  */
-/**
- * \addtogroup I2C Devices
- *
- * @{
- */
+ 
 #include "I2CDevice.h"
 #include "HMC5883L.h"
 

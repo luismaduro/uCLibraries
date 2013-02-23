@@ -1,16 +1,11 @@
 /**
  * @file        ADXL345.h
- * @details     Drivers for ADXL345 Accelerometer
+ * @brief       Drivers for ADXL345 Accelerometer
  * @author      Luis Maduro
  * @author      Jeff Rowberg
  * @version     1.0
  * @date        2011
  * @copyright   GNU Public License.
- */
- /**
- * \addtogroup I2C Devices
- *
- * @{
  */
 
 #ifndef _ADXL345_H_
@@ -286,7 +281,3 @@ unsigned char ADXL345GetFIFOLength(void);
 
 
 #endif
-
-/**
- * @}
- */

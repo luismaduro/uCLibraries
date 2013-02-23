@@ -20,11 +20,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
+ 
 #ifndef AD5241_H
 #define	AD5241_H
 
@@ -52,7 +48,3 @@ void AD524XSetRDAC1Midscale(void);
 void AD524XSetRDAC2Midscale(void);
 
 #endif	/* AD5241_H */
-
-/**
- * @}
- */

@@ -20,12 +20,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- /**
- * \addtogroup I2C Devices
- *
- * @{
- */
-
+ 
 #ifndef MCP3421_H
 #define	MCP3421_H
 
@@ -140,7 +135,3 @@ void MCP3421SetPGAGain(unsigned char value);
 float MCP3421GetValue(void);
 
 #endif
-
-/**
- * @}
- */
