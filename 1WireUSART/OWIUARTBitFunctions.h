@@ -3,7 +3,7 @@
  *
  * Atmel Corporation
  *
- * \li File:               OWIdefs.h
+ * \li File:               OWIBitFunctions.h
  * \li Compiler:           IAR EWAAVR 3.20a
  * \li Support mail:       avr@atmel.com
  *
@@ -12,15 +12,14 @@
  * \li Application Note:   AVR318 - Dallas 1-Wire(R) master.
  *
  *
- * \li Description:        Common definitions used for all implementations.
+ * \li Description:        Header file for OWIBitFunctions.c
  *
  *                         $Revision: 1.7 $
- *                         $Date: Thursday, August 19, 2004 14:27:16 UTC $
+ *                         $Date: Thursday, August 19, 2004 14:27:18 UTC $
  ****************************************************************************/
 
-#ifndef _OWI_DEFS_H_
-#define _OWI_DEFS_H_
-
+#ifndef _OWI_BIT_FUNCTIONS_H_
+#define _OWI_BIT_FUNCTIONS_H_
 
 /****************************************************************************
  ROM commands
@@ -46,5 +45,11 @@
 #define     OWI_UART_READ_BIT   0xff    //!< UART Read bit pattern.
 #define     OWI_UART_RESET      0xf0    //!< UART Reset bit pattern.
 
+unsigned char OWITouchBit(unsigned char outValue);
+void OWIInit(void);
+void OWIWriteBit1(void);
+void OWIWriteBit0(void);
+unsigned char OWIReadBit(void);
+unsigned char OWIDetectPresence(void);
 
 #endif

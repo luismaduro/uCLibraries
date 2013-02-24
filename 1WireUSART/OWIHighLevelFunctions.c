@@ -20,9 +20,9 @@
  *                         $Date: Thursday, August 19, 2004 14:27:18 UTC $
  ****************************************************************************/
 
+#include "OWIUARTBitFunctions.h"
 #include "OWIHighLevelFunctions.h"
-#include "OWIBitFunctions.h"
-#include "OWIPolled.h"
+
 
 /*! \brief  Sends one byte of data on the 1-Wire(R) bus(es).
  *  
@@ -33,7 +33,7 @@
  *  
  *  \param  pins    A bitmask of the buses to send the data to.
  */
-void OWI_SendByte(unsigned char data, unsigned char pins)
+void OWISendByte(unsigned char data)
 {
     unsigned char temp;
     unsigned char i;
@@ -46,11 +46,11 @@ void OWI_SendByte(unsigned char data, unsigned char pins)
         temp = data & 0x01;
         if (temp)
         {
-            OWI_WriteBit1(pins);
+            OWIWriteBit1();
         }
         else
         {
-            OWI_WriteBit0(pins);
+            OWIWriteBit0();
         }
         // Right shift the data to get next bit.
         data >>= 1;
@@ -66,7 +66,7 @@ void OWI_SendByte(unsigned char data, unsigned char pins)
  *  
  *  \return     The byte read from the bus.
  */
-unsigned char OWI_ReceiveByte(unsigned char pin)
+unsigned char OWIReceiveByte(void)
 {
     unsigned char data;
     unsigned char i;
@@ -81,7 +81,7 @@ unsigned char OWI_ReceiveByte(unsigned char pin)
         data >>= 1;
         // Set the msb if a '1' value is read from the bus.
         // Leave as it is ('0') else.
-        if (OWI_ReadBit(pin))
+        if (OWIReadBit())
         {
             // Set msb
             data |= 0x80;
@@ -94,10 +94,10 @@ unsigned char OWI_ReceiveByte(unsigned char pin)
  *
  *  \param  pins    A bitmask of the buses to send the SKIP ROM command to.
  */
-void OWI_SkipRom(unsigned char pins)
+void OWISkipRom(void)
 {
     // Send the SKIP ROM command on the bus.
-    OWI_SendByte(OWI_ROM_SKIP, pins);
+    OWISendByte(OWI_ROM_SKIP);
 }
 
 /*! \brief  Sends the READ ROM command and reads back the ROM id.
@@ -106,18 +106,18 @@ void OWI_SkipRom(unsigned char pins)
  *
  *  \param  pin     A bitmask of the bus to read from.
  */
-void OWI_ReadRom(unsigned char * romValue, unsigned char pin)
+void OWIReadROM(unsigned char *romValue)
 {
     unsigned char bytesLeft = 8;
 
     // Send the READ ROM command on the bus.
-    OWI_SendByte(OWI_ROM_READ, pin);
+    OWISendByte(OWI_ROM_READ);
 
     // Do 8 times.
     while (bytesLeft > 0)
     {
         // Place the received data in memory.
-        *romValue++ = OWI_ReceiveByte(pin);
+        *romValue++ = OWIReceiveByte();
         bytesLeft--;
     }
 }
@@ -128,18 +128,18 @@ void OWI_ReadRom(unsigned char * romValue, unsigned char pin)
  *
  *  \param  pins    A bitmask of the buses to perform the MATCH ROM command on.
  */
-void OWI_MatchRom(unsigned char * romValue, unsigned char pins)
+void OWIMatchROM(unsigned char *romValue)
 {
     unsigned char bytesLeft = 8;
 
     // Send the MATCH ROM command.
-    OWI_SendByte(OWI_ROM_MATCH, pins);
+    OWISendByte(OWI_ROM_MATCH);
 
     // Do once for each byte.
     while (bytesLeft > 0)
     {
         // Transmit 1 byte of the ID to match.
-        OWI_SendByte(*romValue++, pins);
+        OWISendByte(*romValue++);
         bytesLeft--;
     }
 }
@@ -162,11 +162,15 @@ void OWI_MatchRom(unsigned char * romValue, unsigned char pins)
  *
  *  \param  pin             A bit-mask of the bus to perform a ROM search on.
  *
- *  \return The last bit position where there was a discrepancy between slave addresses the last time this function was run. Returns OWI_ROM_SEARCH_FAILED if an error was detected (e.g. a device was connected to the bus during the search), or OWI_ROM_SEARCH_FINISHED when there are no more devices to be discovered.
+ *  \return The last bit position where there was a discrepancy between slave 
+ *          addresses the last time this function was run. Returns
+ *          OWI_ROM_SEARCH_FAILED if an error was detected (e.g. a device was
+ *          connected to the bus during the search), or OWI_ROM_SEARCH_FINISHED
+ *          when there are no more devices to be discovered.
  *
  *  \note   See main.c for an example of how to utilize this function.
  */
-unsigned char OWI_SearchRom(unsigned char * bitPattern, unsigned char lastDeviation, unsigned char pin)
+unsigned char OWISearchROM(unsigned char * bitPattern, unsigned char lastDeviation)
 {
     unsigned char currentBit = 1;
     unsigned char newDeviation = 0;
@@ -175,14 +179,14 @@ unsigned char OWI_SearchRom(unsigned char * bitPattern, unsigned char lastDeviat
     unsigned char bitB;
 
     // Send SEARCH ROM command on the bus.
-    OWI_SendByte(OWI_ROM_SEARCH, pin);
+    OWISendByte(OWI_ROM_SEARCH);
 
     // Walk through all 64 bits.
     while (currentBit <= 64)
     {
         // Read bit from bus twice.
-        bitA = OWI_ReadBit(pin);
-        bitB = OWI_ReadBit(pin);
+        bitA = OWIReadBit();
+        bitB = OWIReadBit();
 
         if (bitA && bitB)
         {
@@ -235,11 +239,11 @@ unsigned char OWI_SearchRom(unsigned char * bitPattern, unsigned char lastDeviat
         // Send the selected bit to the bus.
         if ((*bitPattern) & bitMask)
         {
-            OWI_WriteBit1(pin);
+            OWIWriteBit1();
         }
         else
         {
-            OWI_WriteBit0(pin);
+            OWIWriteBit0();
         }
 
         // Increment current bit.    

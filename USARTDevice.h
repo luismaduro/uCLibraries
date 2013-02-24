@@ -29,21 +29,22 @@
 #define BAUDRATE                115200
 #define USART_FOSC              64000000
 #define USART_SPBRG             ((USART_FOSC/BAUDRATE/16)-1)
-#define USART_TXSTATbits        TXSTA1bits
-#define USART_RCSTATbits        RCSTA1bits
-#define USART_BAUDCONbits       BAUDCON1bits
-#define SPBRG_LOW               SPBRG1
-#define SPBRG_HIGH              SPBRGH1
-#define USART_RX_REG            RCREG1
-#define USART_TX_REG            TXREG1
+#define USART_TXSTATbits        TXSTAbits
+#define USART_RCSTATbits        RCSTAbits
+#define USART_BAUDCONbits       BAUDCONbits
+#define SPBRG_LOW               SPBRG
+#define SPBRG_HIGH              SPBRGH
+#define USART_RX_REG            RCREG
+#define USART_TX_REG            TXREG
 #define USART_RX_FLAG           PIR1bits.RC1IF
+#define USART_TX_FLAG           PIR1bits.TX1IF
 
 
 void USARTInit(void);
-void USARTSetBaudrate(void);
+void USARTSetBaudrate(unsigned long baudrate);
 void USARTPutChar(char c);
 char USARTGetChar(void);
 void USARTSendRAMString(char *string);
-void USARTSendROMString(const rom char *string);
+void USARTSendROMString(const char *string);
 #endif	/* USARTDEVICE_H */
 

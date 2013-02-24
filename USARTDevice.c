@@ -25,6 +25,9 @@
 
 void USARTInit(void)
 {
+    unsigned int baud = 0;
+    unsigned char low, high;
+
     USART_TXSTATbits.CSRC = 1;
     USART_TXSTATbits.TX9 = 0;
     USART_TXSTATbits.TXEN = 1;
@@ -45,20 +48,11 @@ void USARTInit(void)
 
     USART_BAUDCONbits.ABDOVF = 0;
     USART_BAUDCONbits.RCIDL = 1;
-    USART_BAUDCONbits.RXDTP = 0;
-    USART_BAUDCONbits.TXCKP = 1;
+    USART_BAUDCONbits.DTRXP = 0;
+    USART_BAUDCONbits.CKTXP = 1;
     USART_BAUDCONbits.BRG16 = 0;
     USART_BAUDCONbits.WUE = 0;
     USART_BAUDCONbits.ABDEN = 0;
-
-    USARTSetBaudrate();
-
-}
-
-void USARTSetBaudrate(void)
-{
-    unsigned int baud = 0;
-    unsigned char low, high;
 
     baud = USART_SPBRG;
     low = (unsigned char) (baud & 0x00FF);
@@ -66,6 +60,22 @@ void USARTSetBaudrate(void)
     SPBRG_LOW = low;
     SPBRG_HIGH = high;
 
+}
+
+/**
+ * Set the baudrate on the fly based on the requested.
+ * @param baudrate
+ */
+void USARTSetBaudrate(unsigned long baudrate)
+{
+    unsigned int baud = 0;
+    unsigned char low, high;
+
+    baud = ((USART_FOSC/baudrate/16)-1);
+    low = (unsigned char) (baud & 0x00FF);
+    high = (unsigned char) (baud >> 8);
+    SPBRG_LOW = low;
+    SPBRG_HIGH = high;
 }
 
 /**
@@ -111,7 +121,7 @@ void USARTSendRAMString(char *string)
  * Sends a string stored in rom memory throught USART
  * @param string String to be sent.
  */
-void USARTSendROMString(const rom char *string)
+void USARTSendROMString(const char *string)
 {
     char c;
 

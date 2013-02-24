@@ -1,4 +1,3 @@
-// This file has been prepared for Doxygen automatic documentation generation.
 /*! \file ********************************************************************
  *
  * Atmel Corporation
@@ -19,8 +18,7 @@
  *                         $Date: Thursday, August 19, 2004 14:27:16 UTC $
  ****************************************************************************/
 
-#include "OWIcrc.h"
-#include "OWIdefs.h"
+#include "OWICRC.h"
 
 /*! \brief  Compute the CRC8 value of a data set.
  *
@@ -39,7 +37,7 @@
  *          As the seed argument computes the CRC8 value of a
  *          longer string of data.
  */
-unsigned char OWI_ComputeCRC8(unsigned char inData, unsigned char seed)
+unsigned char OWIComputeCRC8(unsigned char inData, unsigned char seed)
 {
     unsigned char bitsLeft;
     unsigned char temp;
@@ -79,7 +77,7 @@ unsigned char OWI_ComputeCRC8(unsigned char inData, unsigned char seed)
  *          As the seed argument computes the CRC16 value of a
  *          longer string of data.
  */
-unsigned int OWI_ComputeCRC16(unsigned char inData, unsigned int seed)
+unsigned int OWIComputeCRC16(unsigned char inData, unsigned int seed)
 {
     unsigned char bitsLeft;
     unsigned char temp;
@@ -113,14 +111,14 @@ unsigned int OWI_ComputeCRC16(unsigned char inData, unsigned int seed)
  *  \retval OWI_CRC_OK      The CRC's matched.
  *  \retval OWI_CRC_ERROR   There was a discrepancy between the calculated and the stored CRC.
  */
-unsigned char OWI_CheckRomCRC(unsigned char * romValue)
+unsigned char OWICheckRomCRC(unsigned char *romValue)
 {
     unsigned char i;
     unsigned char crc8 = 0;
 
     for (i = 0; i < 7; i++)
     {
-        crc8 = OWI_ComputeCRC8(*romValue, crc8);
+        crc8 = OWIComputeCRC8(*romValue, crc8);
         romValue++;
     }
     if (crc8 == (*romValue))

@@ -40,33 +40,16 @@
  *
  ****************************************************************************/
 
-#include "OWIPolled.h"
-
-#ifdef OWI_UART_DRIVER
-
-#include "OWIBitFunctions.h"
+#include "../USARTDevice.h"
+#include "OWIUARTBitFunctions.h"
 
 /*! \brief Initialization of the one wire bus. (Polled UART driver)
  *  
  *  This function initializes the 1-Wire bus by configuring the UART.
  */
-void OWI_Init()
+void OWIInit(void)
 {
-    // Choose single or double UART speed.
-    OWI_UART_STATCTRL_REG_A = (OWI_UART_2X << OWI_U2X);
-
-    // Enable UART transmitter and receiver.
-    OWI_UART_STATCTRL_REG_B = (1 << OWI_TXEN) | (1 << OWI_RXEN);
-
-    // Set up asynchronous mode, 8 data bits, no parity, 1 stop bit.
-    // (Initial value, can be removed)
-#ifdef URSEL
-    OWI_UART_STATCTRL_REG_C = (1 << OWI_URSEL) | (1 << OWI_UCSZ1) | (1 << OWI_UCSZ0);
-#else
-    OWI_UART_STATCTRL_REG_C = (1 << OWI_UCSZ1) | (1 << OWI_UCSZ0);
-#endif
-
-    OWI_UART_BAUD_RATE_REG_L = OWI_UBRR_115200;
+    USARTInit();
 }
 
 /*! \brief  Write and read one bit to/from the 1-Wire bus. (Polled UART driver)
@@ -77,18 +60,15 @@ void OWI_Init()
  *
  *  \return The value received by the UART from the bus.
  */
-unsigned char OWI_TouchBit(unsigned char outValue)
+unsigned char OWITouchBit(unsigned char outValue)
 {
     // Place the output value in the UART transmit buffer, and wait
     // until it is received by the UART receiver.
-    OWI_UART_DATA_REGISTER = outValue;
-    while (!(OWI_UART_STATCTRL_REG_A & (1 << OWI_RXC)))
-    {
-
-    }
+    USART_TX_REG = outValue;
+    while (!USART_RX_FLAG);
     // Set the UART Baud Rate back to 115200kbps when finished.
-    OWI_UART_BAUD_RATE_REG_L = OWI_UBRR_115200;
-    return OWI_UART_DATA_REGISTER;
+    USARTSetBaudrate(115200);
+    return USART_RX_REG;
 }
 
 /*! \brief Write a '1' bit to the bus(es). (Polled UART DRIVER)
@@ -96,9 +76,9 @@ unsigned char OWI_TouchBit(unsigned char outValue)
  *  Generates the waveform for transmission of a '1' bit on the 1-Wire
  *  bus.
  */
-void OWI_WriteBit1()
+void OWIWriteBit1(void)
 {
-    OWI_TouchBit(OWI_UART_WRITE1);
+    OWITouchBit(OWI_UART_WRITE1);
 }
 
 /*! \brief  Write a '0' to the bus(es). (Polled UART DRIVER)
@@ -106,9 +86,9 @@ void OWI_WriteBit1()
  *  Generates the waveform for transmission of a '0' bit on the 1-Wire(R)
  *  bus.
  */
-void OWI_WriteBit0()
+void OWIWriteBit0(void)
 {
-    OWI_TouchBit(OWI_UART_WRITE0);
+    OWITouchBit(OWI_UART_WRITE0);
 }
 
 /*! \brief  Read a bit from the bus(es). (Polled UART DRIVER)
@@ -117,11 +97,11 @@ void OWI_WriteBit0()
  *
  *  \return The value read from the bus (0 or 1).
  */
-unsigned char OWI_ReadBit()
+unsigned char OWIReadBit(void)
 {
     // Return 1 if the value received matches the value sent.
     // Return 0 else. (A slave held the bus low).
-    return (OWI_TouchBit(OWI_UART_READ_BIT) == OWI_UART_READ_BIT);
+    return (OWITouchBit(OWI_UART_READ_BIT) == OWI_UART_READ_BIT);
 }
 
 /*! \brief  Send a Reset signal and listen for Presence signal. (Polled 
@@ -132,19 +112,16 @@ unsigned char OWI_ReadBit()
  *
  *  \return A bitmask of the buses where a presence signal was detected.
  */
-unsigned char OWI_DetectPresence()
+unsigned char OWIDetectPresence(void)
 {
     // Reset UART receiver to clear RXC register.
-    OWI_UART_STATCTRL_REG_B &= ~(1 << OWI_RXEN);
-    OWI_UART_STATCTRL_REG_B |= (1 << OWI_RXEN);
+    USART_RCSTATbits.SPEN = 0;
+    USART_RCSTATbits.SPEN = 1;
 
     // Set UART Baud Rate to 9600 for Reset/Presence signalling.
-    OWI_UART_BAUD_RATE_REG_L = OWI_UBRR_9600;
+    USARTSetBaudrate(9600);
 
     // Return 0 if the value received matches the value sent.
     // return 1 else. (Presence detected)
-    return (OWI_TouchBit(OWI_UART_RESET) != OWI_UART_RESET);
+    return (OWITouchBit(OWI_UART_RESET) != OWI_UART_RESET);
 }
-
-
-#endif
