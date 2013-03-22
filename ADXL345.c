@@ -25,6 +25,8 @@ void ADXL345Initialize(void)
     I2CDeviceWriteByte(ADXL345_RA_POWER_CTL, 0);
     ADXL345SetAutoSleepEnabled(true);
     ADXL345SetMeasureEnabled(true);
+    ADXL345SetFullResolution(1);
+    ADXL345SetRange(ADXL345_RANGE_16G);
 }
 
 /**
