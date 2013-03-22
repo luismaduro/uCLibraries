@@ -32,10 +32,10 @@
 #define USART_TXSTATbits        TXSTAbits
 #define USART_RCSTATbits        RCSTAbits
 #define USART_BAUDCONbits       BAUDCONbits
-#define SPBRG_LOW               SPBRG
-#define SPBRG_HIGH              SPBRGH
-#define USART_RX_REG            RCREG
-#define USART_TX_REG            TXREG
+#define SPBRG_LOW               SPBRG1
+#define SPBRG_HIGH              SPBRGH1
+#define USART_RX_REG            RCREG1
+#define USART_TX_REG            TXREG1
 #define USART_RX_FLAG           PIR1bits.RC1IF
 #define USART_TX_FLAG           PIR1bits.TX1IF
 

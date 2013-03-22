@@ -48,8 +48,8 @@ void USARTInit(void)
 
     USART_BAUDCONbits.ABDOVF = 0;
     USART_BAUDCONbits.RCIDL = 1;
-    USART_BAUDCONbits.DTRXP = 0;
-    USART_BAUDCONbits.CKTXP = 1;
+    USART_BAUDCONbits.RXDTP = 0;
+    USART_BAUDCONbits.TXCKP = 1;
     USART_BAUDCONbits.BRG16 = 0;
     USART_BAUDCONbits.WUE = 0;
     USART_BAUDCONbits.ABDEN = 0;

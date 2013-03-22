@@ -31,6 +31,8 @@
 #ifndef _KERNEL_H
 #define _KERNEL_H
 
+//#define USE_SLEEP
+
 /**Function pointer on the task body.*/
 typedef void (*TaskBody)(void);
 

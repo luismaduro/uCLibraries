@@ -27,7 +27,7 @@
  *  customise for theirs owns applications. There are no
  *  priority between task like a round-robin task scheduling.
  */
-
+#include <xc.h>
 #include <stdio.h>
 #include <limits.h>
 #include "kernel.h"
@@ -160,6 +160,10 @@ void Scheduler(void)
                 // Set the scheduler pointer on the next task
                 pTaskSchedule = pTaskSchedule->pTaskNext;
             }
+            
+#ifdef USE_SLEEP
+            SLEEP();
+#endif
         }
     }
 }
