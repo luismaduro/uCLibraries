@@ -54,15 +54,15 @@ void RFM2xInterruptHandler(void)
     if (ITStatus1.bits.PacketSentInterrupt)
     {
 #ifdef MASTER_RFM23
-        LATCbits.LATC1 = !PORTCbits.RC1;
-        LATCbits.LATC1 = !PORTCbits.RC1;
         RFM2xSetModeStandby();
+#endif
+#ifdef RECEIVER_RFM23
+        RFM2xSetModeRX();
 #endif
     }
     if (ITStatus1.bits.RXFIFOAlmostFull)
     {
         RFM2xReceiveData();
-        asm(" nop");
     }
     if (ITStatus2.bits.SyncDetected)
     {
@@ -88,9 +88,6 @@ unsigned char RFM2xInit(void)
     /**Wait until chip is ready*/
     newTime = usTickCount + 20;
     while (usTickCount <= newTime);
-    /**Clear the interrupt registers*/
-    //    RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
-    //    RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
 
     /**Enable the necessary registers, put the module into ready mode*/
     RFM2xWriteByte(RFM2X_REG_05_INTERRUPT_ENABLE1, RFM2X_ENRXFFAFULL | RFM2X_ENPKSENT);
@@ -117,8 +114,6 @@ unsigned char RFM2xInit(void)
     //RX Data Rate @ 128kbps
     RFM2xWriteByte(RFM2X_REG_1C_IF_FILTER_BANDWIDTH, 0x82);
     RFM2xWriteByte(RFM2X_REG_1D_AFC_LOOP_GEARSHIFT_OVERRIDE, 0x40);
-//    RFM2xWriteByte(RFM2X_REG_1E_AFC_TIMING_CONTROL, 0x0A);
-//    RFM2xWriteByte(RFM2X_REG_1F_CLOCK_RECOVERY_GEARSHIFT_OVERRIDE, 0x03);
     RFM2xWriteByte(RFM2X_REG_20_CLOCK_RECOVERY_OVERSAMPLING_RATE, 0x5E);
     RFM2xWriteByte(RFM2X_REG_21_CLOCK_RECOVERY_OFFSET2, 0x01);
     RFM2xWriteByte(RFM2X_REG_22_CLOCK_RECOVERY_OFFSET1, 0x5D);
@@ -131,7 +126,7 @@ unsigned char RFM2xInit(void)
     RFM2xWriteByte(RFM2X_REG_30_DATA_ACCESS_CONTROL, 0x21);
     //No address and header check
     RFM2xWriteByte(RFM2X_REG_32_HEADER_CONTROL1, 0x00);
-    //Header not used for header length,packet length not included, sync on 3
+    //    //Header not used for header length,packet length not included, sync on 3
     RFM2xWriteByte(RFM2X_REG_33_HEADER_CONTROL2, 0x0A);
     //Preamble has 6 byte (12 nibbles)
     RFM2xWriteByte(RFM2X_REG_34_PREAMBLE_LENGTH, 0x0C);
@@ -166,9 +161,6 @@ unsigned char RFM2xInit(void)
     RFM2xWriteByte(RFM2X_REG_7C_TX_FIFO_CONTROL1, RFM2X_TXFFAFULL_THRESHOLD);
     RFM2xWriteByte(RFM2X_REG_7D_TX_FIFO_CONTROL2, RFM2X_TXFFAEM_THRESHOLD);
     RFM2xWriteByte(RFM2X_REG_7E_RX_FIFO_CONTROL, RFM2X_RXFFAFULL_THRESHOLD);
-
-    //    RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
-    //    RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
 
     RFM2xSetModeStandby();
 
