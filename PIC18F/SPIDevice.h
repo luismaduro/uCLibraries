@@ -23,7 +23,7 @@
 #ifndef _SPIDEV_H_
 #define _SPIDEV_H_
 
-#include <p18cxxx.h>
+#include <xc.h>
 
 //------------MUST UNCOMENT ONE OF THE FOLLOWING--------//
 
@@ -45,33 +45,34 @@
 #define SPI_CLOCK 0b0000
 #endif
 
-/**Configure the clock pin associated with the SPI*/
-#define SPISCKPIN           TRISDbits.TRISD6
-/**Configure the data input pin associated with the SPI*/
-#define SPISDIPIN           TRISDbits.TRISD5
-/**Configure the data output pin associated with the SPI*/
-#define SPISDOPIN           TRISDbits.TRISD4
+///**Configure the clock pin associated with the SPI*/
+//#define SPISCKPIN           TRISCbits.TRISC3
+///**Configure the data input pin associated with the SPI*/
+//#define SPISDIPIN           TRISCbits.TRISC4
+///**Configure the data output pin associated with the SPI*/
+//#define SPISDOPIN           TRISCbits.TRISC5
 /**The bitwise define for the I2C control register 1 (i.e. _______bits)*/
-#define SPICON1bits         SSP2CON1bits
+#define SPICON1bits         SSP1CON1bits
 /**The bitwise define for the I2C control register 2 (i.e. _______bits)*/
-#define SPICON2bits         SSP2CON2bits
+#define SPICON2bits         SSP1CON2bits
 /**The bitwise define for the I2C status register (i.e. _______bits)*/
-#define SPISTATbits         SSP2STATbits
+#define SPISTATbits         SSP1STATbits
 /**The buffer of the I2C module*/
-#define SPIBUF              SSP2BUF
+#define SPIBUF              SSP1BUF
 
-#define SPIINTFLAG          PIR2bits.SSP2IF
+#define SPIINTFLAG          PIR1bits.SSP1IF
 
 void SPIInit(void);
-void SPISetDeviceChipSelectPin(volatile near unsigned char *cs_port, unsigned char pin);
 unsigned char SPIWrite(unsigned char data);
 unsigned char SPIRead(void);
+
 unsigned char SPIDeviceReadBit(unsigned char address,
                                unsigned char _bit);
 unsigned char SPIDeviceReadBits(unsigned char address,
                                 unsigned char bitStart,
                                 unsigned char length);
 unsigned char SPIDeviceReadByte(unsigned char address);
+
 void SPIDeviceReadBytes(unsigned char length,
                         unsigned char *data);
 void SPIDeviceWriteBit(unsigned char address,

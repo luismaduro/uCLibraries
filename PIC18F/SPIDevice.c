@@ -20,7 +20,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <p18cxxx.h>
 #include "SPIDevice.h"
 
 /**
@@ -28,18 +27,18 @@
  */
 void SPIInit(void)
 {
-    SPISCKPIN = 0; // define clock pin as output
-    SPISDIPIN = 1; // define SDI pin as input
-    SPISDOPIN = 0; // define SDO pin as output
+//    SPISCKPIN = 0; // define clock pin as output
+//    SPISDIPIN = 1; // define SDI pin as input
+//    SPISDOPIN = 0; // define SDO pin as output
 
     SPISTATbits.SMP = 0; //sampled at middle of data output time
     SPISTATbits.CKE = 1; //data changes on clock transition from active to idle
 
     SPICON1bits.WCOL = 0; //clear collision bit
     SPICON1bits.SSPOV = 0; //clear overflow bit
-    SPICON1bits.SSPEN = 1; //enables the serial port pins to work with the MSSP
     SPICON1bits.CKP = 0; //idle state for clock is a low level
     SPICON1bits.SSPM = SPI_CLOCK;
+    SPICON1bits.SSPEN = 1; //enables the serial port pins to work with the MSSP
 }
 
 /**
@@ -50,10 +49,6 @@ void SPIInit(void)
  */
 unsigned char SPIWrite(unsigned char data)
 {
-    unsigned char TempVar;
-
-    TempVar = SPIBUF;
-
     SPIINTFLAG = 0;
 
     SPICON1bits.WCOL = 0;
@@ -75,10 +70,6 @@ unsigned char SPIWrite(unsigned char data)
  */
 unsigned char SPIRead(void)
 {
-    unsigned char TempVar;
-
-    //TempVar = SPIBUF;
-
     SPIINTFLAG = 0;
 
     SPIBUF = 0x00;
