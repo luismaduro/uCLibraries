@@ -37,6 +37,8 @@ static TaskDescriptor *pTaskSchedule = NULL;
 /**Timer for the scheduler*/
 unsigned long usTickCount = 0;
 
+unsigned short TickGet(unsigned short usTickVal);
+
 /**
  * Return a delta of time
  * @param usTickVal Value of usTickCount when timer is started. To start timer,

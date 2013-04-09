@@ -51,7 +51,6 @@ typedef struct _TaskDescriptor
 
 extern unsigned long usTickCount;
 
-unsigned short TickGet(unsigned short usTickVal);
 void AddTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod, TaskBody pTask);
 void SuspendTask(TaskDescriptor *pTaskDescriptor);
 void ResumeTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod);
