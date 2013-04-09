@@ -438,8 +438,8 @@ typedef struct
     unsigned char EndOfTransmission;
 } tPackageFormat;
 
-extern tPackageFormat RXPacket;
-extern tPackageFormat TXPacket;
+extern volatile tPackageFormat RXPacket;
+extern volatile tPackageFormat TXPacket;
 
 unsigned char RFM2xReadByte(unsigned char reg);
 void RFM2xWriteByte(unsigned char reg, unsigned char val);

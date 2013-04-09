@@ -1,12 +1,12 @@
 #include "RFM23.h"
 
-unsigned char _idleMode = RFM2X_XTON;
-unsigned int _txGood = 0;
-unsigned char rssi = 0;
-tInterruptStatus1 ITStatus1;
-tInterruptStatus2 ITStatus2;
-tPackageFormat RXPacket;
-tPackageFormat TXPacket;
+volatile unsigned char _idleMode = RFM2X_XTON;
+volatile unsigned int _txGood = 0;
+volatile unsigned char rssi = 0;
+volatile tInterruptStatus1 ITStatus1;
+volatile tInterruptStatus2 ITStatus2;
+volatile tPackageFormat RXPacket;
+volatile tPackageFormat TXPacket;
 
 unsigned char RFM2xReadByte(unsigned char reg)
 {
@@ -73,7 +73,6 @@ void RFM2xInterruptHandler(void)
 unsigned char RFM2xInit(void)
 {
     unsigned long newTime;
-    unsigned char device, version, status;
 
     WirelessShutdownMode();
     newTime = usTickCount + 20;
@@ -164,7 +163,7 @@ unsigned char RFM2xInit(void)
 
     RFM2xSetModeStandby();
 
-    return status;
+    return 0;
 }
 
 void RFM2xSetMode(unsigned char mode)
@@ -200,14 +199,14 @@ void RFM2xSendData(void)
 {
     RFM2xSetModeIdle();
     RFM2xResetTXFIFO();
-    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, &(TXPacket.Preamble[0]), sizeof (TXPacket));
+    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(TXPacket.Preamble[0]), sizeof (TXPacket));
     RFM2xSetModeTX();
 }
 
 void RFM2xReceiveData(void)
 {
     RFM2xSetModeIdle();
-    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, &(RXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD - 7);
+    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD - 7);
     RXPacket.SignalStrength = rssi;
     RFM2xResetRXFIFO();
 }
