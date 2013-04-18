@@ -430,12 +430,11 @@ typedef struct
     unsigned char SendTriesNumber;
     unsigned char PacketInfo;
     unsigned char PayloadLength;
-    unsigned char Payload[30];
+    unsigned char Payload[32];
     unsigned char BatteryLevel[2];
     unsigned char SignalStrength;
     unsigned char RTC[4];
     unsigned char CRC[4];
-    unsigned char EndOfTransmission;
 } tPackageFormat;
 
 extern volatile tPackageFormat RXPacket;
