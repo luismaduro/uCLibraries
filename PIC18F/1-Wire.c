@@ -21,8 +21,7 @@ int LastDeviceFlag = 0; /*!< Variable used in One_Wire_Search_Bus(). Does not
 unsigned char CRCTemp = 0; /*!< Variable used in DoCRC8(). Does not have use
                             * to the user.*/
 
-sDevice sensorDevicesList[MAX_SENSORS];
-sDevice *sensorDevices = &sensorDevicesList[0];
+UINT16_VAL timerValue;
 
 const unsigned char dscrc_table[] = {
     0, 94, 188, 226, 97, 63, 221, 131, 194, 156, 126, 32, 163, 253, 31, 65,
@@ -55,11 +54,11 @@ unsigned char OneWireResetPulse(void)
 {
     unsigned char presence_detect;
 
-    ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
+    ONE_WIRE_PIN_DIRECTION = INPUT;
     ONE_WIRE_PIN = LOW;
+    ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
 
-    WaitUs(DELAY_240Us); // delay 480 microsecond (us)
-    WaitUs(DELAY_240Us);
+    WaitUs(DELAY_480Us); // delay 480 microsecond (us)
 
     ONE_WIRE_PIN_DIRECTION = INPUT; // Release the bus
 
@@ -75,8 +74,7 @@ unsigned char OneWireResetPulse(void)
         presence_detect = 0;
     }
 
-    WaitUs(DELAY_205Us); // delay 410 microsecond (us)
-    WaitUs(DELAY_205Us);
+    WaitUs(DELAY_410Us); // delay 410 microsecond (us)
 
     return presence_detect;
 }
@@ -91,8 +89,9 @@ void OneWireWriteBit(unsigned char write_bit)
     if (write_bit)
     {
         //writing a bit '1'
-        ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
+        ONE_WIRE_PIN_DIRECTION = INPUT;
         ONE_WIRE_PIN = LOW;
+        ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
         WaitUs(DELAY_6Us); // delay 6 microsecond (us)
         ONE_WIRE_PIN_DIRECTION = INPUT; // Release the bus
         WaitUs(DELAY_64Us); // delay 64 microsecond (us)
@@ -101,8 +100,9 @@ void OneWireWriteBit(unsigned char write_bit)
     else
     {
         //writing a bit '0'
-        ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
+        ONE_WIRE_PIN_DIRECTION = INPUT;
         ONE_WIRE_PIN = LOW;
+        ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
         WaitUs(DELAY_60Us); // delay 60 microsecond (us)
         ONE_WIRE_PIN_DIRECTION = INPUT; // Release the bus
         WaitUs(DELAY_10Us); // delay 10 microsecond for
@@ -120,11 +120,12 @@ unsigned char OneWireReadBit(void)
     unsigned char read_data;
 
     //reading a bit
-    ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
+    ONE_WIRE_PIN_DIRECTION = INPUT;
     ONE_WIRE_PIN = LOW;
-    WaitUs(DELAY_2Us); // delay 6 microsecond (us)
+    ONE_WIRE_PIN_DIRECTION = OUTPUT; // Drive the bus low
+    WaitUs(DELAY_6Us); // delay 6 microsecond (us)
     ONE_WIRE_PIN_DIRECTION = INPUT; // Release the bus
-    WaitUs(DELAY_12Us); // delay 9 microsecond (us)
+    WaitUs(DELAY_9Us); // delay 9 microsecond (us)
 
     if (ONE_WIRE_PIN == HIGH)
     {
@@ -463,7 +464,7 @@ void FindAllDevicesOneWire(tLaseredROMCode *romcode, unsigned char *num_devices)
     unsigned char devices = 0;
 
     *num_devices = 0;
-    
+
     rslt = OneWireFirst();
 
     while (rslt)
@@ -498,19 +499,4 @@ unsigned char DoCRC8(unsigned char value)
     // TEST BUILD
     CRCTemp = dscrc_table[CRCTemp ^ value];
     return CRCTemp;
-}
-
-/**
- * @fn void Wait(unsigned char uSec)
- * @brief Performs a delay of a specified value in microseconds.
- * @param uSec Value in microseconds to wait.
- */
-void WaitUs(unsigned char uSec)
-{
-    PR2 = uSec;
-    TMR2 = 0;
-    PIR1bits.TMR2IF = 0;
-    T2CONbits.TMR2ON = 1;
-    while(!PIR1bits.TMR2IF);
-    T2CONbits.TMR2ON = 0;
 }

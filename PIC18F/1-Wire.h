@@ -13,9 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
-/** Maximum number of devices on the system.*/
-#define MAX_SENSORS 3
+#include <GenericTypeDefs.h>
 
 /** Macro to return or set value of HIGH (1)*/
 #define	HIGH	1
@@ -27,10 +25,11 @@
 #define	INPUT 	1 
 
 #define ONE_WIRE_PIN_DIRECTION 	(TRISBbits.TRISB1)  /*!< One Wire pin direction register*/
-#define ONE_WIRE_PIN            (PORTBbits.RB1)     /*!< One Wire pin register*/
+#define ONE_WIRE_PIN            (LATBbits.LATB1)     /*!< One Wire pin register*/
 
 #define DELAY_2Us       2       /*!< Value to be used on Wait() funtion for 2 microseconds delay.*/
 #define DELAY_6Us	6       /*!< Value to be used on Wait() funtion for 6 microseconds delay.*/
+#define DELAY_9Us	10      /*!< Value to be used on Wait() funtion for 9 microseconds delay.*/
 #define DELAY_10Us	10      /*!< Value to be used on Wait() funtion for 10 microseconds delay.*/
 #define DELAY_12Us	12      /*!< Value to be used on Wait() funtion for 12 microseconds delay.*/
 #define DELAY_55Us	55      /*!< Value to be used on Wait() funtion for 55 microseconds delay.*/
@@ -39,7 +38,8 @@
 #define DELAY_70Us	70      /*!< Value to be used on Wait() funtion for 70 microseconds delay.*/
 #define DELAY_205Us	205     /*!< Value to be used on Wait() funtion for 205 microseconds delay.*/
 #define DELAY_240Us	240     /*!< Value to be used on Wait() funtion for 240 microseconds delay.*/
-
+#define DELAY_410Us	410     /*!< Value to be used on Wait() funtion for 410 microseconds delay.*/
+#define DELAY_480Us	480     /*!< Value to be used on Wait() funtion for 500 microseconds delay.*/
 /**
  * Enumerator that sets the TemperatureSource variable to the
  * specific source through all the available ones.
@@ -52,6 +52,24 @@ typedef enum
     DeviceType_DS2438
 
 } tDeviceType;
+
+/**
+ * Return type for various funtions.
+ */
+typedef enum
+{
+    /** All gone well.*/
+    SUCCESSFUL,
+    /** Sensor requested does not respond.*/
+    SENSOR_NOT_PRESENT,
+    /** Cyclic Redundancy Check doesn't match.*/
+    CRC_NOT_MATCH,
+    /** Error between data conversions.*/
+    CONVERTION_ERROR,
+    /** Temperature not in range of the sensor hability.*/
+    TEMPERATURE_NOT_IN_RANGE
+
+} eReturnTypes;
 
 /**
  * @struct Lasered_ROM_Code
@@ -70,47 +88,6 @@ typedef struct
     unsigned char CRC; /*!< One Wire Device Rom Code CRC*/
 } tLaseredROMCode; /*!< Variable type to store the devices Rom Codes.*/
 
-#define CONFIGURATION_SIZE 22
-
-/**
- * Structure that store every possible elements of each device.
- */
-typedef union
-{
-    struct
-    {
-        /**Flag to state if the sensor is used or not.*/
-        bool used;                      //1
-        /**Device type.*/
-        tDeviceType deviceType;         //1
-        /**Device rom code.*/
-        tLaseredROMCode romCode;        //8
-        /**Address of the device on the system. [A...Z]*/
-        char addressTemperature;        //1
-        /**Address of the device on the system. [A...Z]*/
-        char addressHumidity;           //1
-        /**Variable to store the temperature if the device has it.*/
-        float temperature;              //4
-        /**Variable to store the humidity if the device has it.*/
-        float humidity;                 //4
-        /**Flag to see if the last reading is valid.*/
-        bool readingValid;              //1
-        /**Keep tracking of the number of errors in the sensor.*/
-        unsigned char numberOfErrors;   //1
-    }Data;
-
-    struct
-    {
-        /**Bytes of the content for easier manipulation.*/
-        unsigned char number[CONFIGURATION_SIZE];
-    } Byte;
-} sDevice;
-
-/** List of the sensor on the system.*/
-extern sDevice sensorDevicesList[MAX_SENSORS];
-extern sDevice *sensorDevices;
-/** Device indentification for the old command respose.*/
-extern sDevice sourceForOldCommand;
 
 unsigned char OneWireResetPulse(void);
 void OneWireWriteBit(unsigned char write_data);
@@ -126,6 +103,6 @@ unsigned char OneWireVerify(void);
 void OneWireTargetSetup(unsigned char family_code);
 void OneWireFamilySkipSetup(void);
 void FindAllDevicesOneWire(tLaseredROMCode *romcode, unsigned char *num_devices);
-void WaitUs(unsigned char uSec);
+void WaitUs(unsigned int uSec);
 
 #endif
