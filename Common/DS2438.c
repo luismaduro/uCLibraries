@@ -5,11 +5,10 @@
  *  @date       Feb 2012
  *  @brief      Library to interface with DS2438 temperature sensor.
  */
-#include <p18cxxx.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "DS2438.h"
-#include "1-Wire.h"
 
 /**
  * This funtion configures the DS2438 with the specified confguration.
@@ -17,76 +16,76 @@
  * This is a Configuration type variable.
  * @return Returns an ::Return_Types enum to be verified if all went well.
  */
-eReturnTypes DS2438Configure(sDevice device, Configuration Config)
+unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config)
 {
     unsigned char DS2438Data[9] = {0};
 
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device.romCode.Family_Code);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device.romCode.CRC);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device.FamilyCode);
+    OneWireWriteByte(device.ROMCodeByte1);
+    OneWireWriteByte(device.ROMCodeByte2);
+    OneWireWriteByte(device.ROMCodeByte3);
+    OneWireWriteByte(device.ROMCodeByte4);
+    OneWireWriteByte(device.ROMCodeByte5);
+    OneWireWriteByte(device.ROMCodeByte6);
+    OneWireWriteByte(device.OWICRC);
 
-    One_Wire_Write_Byte(WRITE_SCRATCHPAD);
-    One_Wire_Write_Byte(DS2438_PAGE_0);
-    One_Wire_Write_Byte(Config.Register);
+    OneWireWriteByte(WRITE_SCRATCHPAD);
+    OneWireWriteByte(DS2438_PAGE_0);
+    OneWireWriteByte(Config.Register);
 
-    Delay_10mS();
+    DelayMiliSeconds(10);
 
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device.romCode.Family_Code);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device.romCode.CRC);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device.FamilyCode);
+    OneWireWriteByte(device.ROMCodeByte1);
+    OneWireWriteByte(device.ROMCodeByte2);
+    OneWireWriteByte(device.ROMCodeByte3);
+    OneWireWriteByte(device.ROMCodeByte4);
+    OneWireWriteByte(device.ROMCodeByte5);
+    OneWireWriteByte(device.ROMCodeByte6);
+    OneWireWriteByte(device.OWICRC);
 
-    One_Wire_Write_Byte(READ_SCRATCHPAD);
-    One_Wire_Write_Byte(DS2438_PAGE_0);
-    DS2438Data[STATUS] = One_Wire_Read_Byte();
-    DS2438Data[TEMP_LSB] = One_Wire_Read_Byte();
-    DS2438Data[TEMP_MSB] = One_Wire_Read_Byte();
-    DS2438Data[VOLT_LSB] = One_Wire_Read_Byte();
-    DS2438Data[VOLT_MSB] = One_Wire_Read_Byte();
-    DS2438Data[CURR_LSB] = One_Wire_Read_Byte();
-    DS2438Data[CURR_MSB] = One_Wire_Read_Byte();
-    DS2438Data[THRESH] = One_Wire_Read_Byte();
-    DS2438Data[CRC8] = One_Wire_Read_Byte();
+    OneWireWriteByte(READ_SCRATCHPAD);
+    OneWireWriteByte(DS2438_PAGE_0);
+    DS2438Data[STATUS] = OneWireReadByte();
+    DS2438Data[TEMP_LSB] = OneWireReadByte();
+    DS2438Data[TEMP_MSB] = OneWireReadByte();
+    DS2438Data[VOLT_LSB] = OneWireReadByte();
+    DS2438Data[VOLT_MSB] = OneWireReadByte();
+    DS2438Data[CURR_LSB] = OneWireReadByte();
+    DS2438Data[CURR_MSB] = OneWireReadByte();
+    DS2438Data[THRESH] = OneWireReadByte();
+    DS2438Data[CRC8] = OneWireReadByte();
 
-    if (DS2438Data[CRC8] != Calculate_CRC((unsigned char *) DS2438Data, 8))
-        return CRC_NOT_MATCH;
+    if (DS2438Data[CRC8] != OneWireCRC8(&DS2438Data[0], 8))
+        return false;
 
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device.romCode.Family_Code);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device.romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device.romCode.CRC);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device.FamilyCode);
+    OneWireWriteByte(device.ROMCodeByte1);
+    OneWireWriteByte(device.ROMCodeByte2);
+    OneWireWriteByte(device.ROMCodeByte3);
+    OneWireWriteByte(device.ROMCodeByte4);
+    OneWireWriteByte(device.ROMCodeByte5);
+    OneWireWriteByte(device.ROMCodeByte6);
+    OneWireWriteByte(device.OWICRC);
 
-    One_Wire_Write_Byte(COPY_SCRATCHPAD);
-    One_Wire_Write_Byte(DS2438_PAGE_0);
+    OneWireWriteByte(COPY_SCRATCHPAD);
+    OneWireWriteByte(DS2438_PAGE_0);
 
-    Delay_10mS();
+    DelayMiliSeconds(10);
 
-    return SUCCESSFUL;
+    return true;
 }
 
 /**
@@ -96,59 +95,55 @@ eReturnTypes DS2438Configure(sDevice device, Configuration Config)
  * @param humidity Pointer to the variable that stores the humidity.
  * @return Returns an ::Return_Types enum to be verified if all went well.
  */
-eReturnTypes DS2438GetTemperatureAndHumidity(sDevice *device)
+unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device)
 {
-    int int_temp = 0;
-    float float_temp;
-    int int_voltage = 0;
-    float float_voltage;
-    float float_humidity;
     unsigned char DS2438Data[9] = {0};
 
     //recall memory
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device->romCode.Family_Code);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device->romCode.CRC);
-    One_Wire_Write_Byte(RECALL_E_E);
-    One_Wire_Write_Byte(DS2438_PAGE_0);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device->FamilyCode);
+    OneWireWriteByte(device->ROMCodeByte1);
+    OneWireWriteByte(device->ROMCodeByte2);
+    OneWireWriteByte(device->ROMCodeByte3);
+    OneWireWriteByte(device->ROMCodeByte4);
+    OneWireWriteByte(device->ROMCodeByte5);
+    OneWireWriteByte(device->ROMCodeByte6);
+    OneWireWriteByte(device->OWICRC);
+    OneWireWriteByte(RECALL_E_E);
+    OneWireWriteByte(DS2438_PAGE_0);
 
     //read scratchpad
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device->romCode.Family_Code);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device->romCode.CRC);
-    One_Wire_Write_Byte(READ_SCRATCHPAD);
-    One_Wire_Write_Byte(DS2438_PAGE_0);
-    DS2438Data[STATUS] = One_Wire_Read_Byte();
-    DS2438Data[TEMP_LSB] = One_Wire_Read_Byte();
-    DS2438Data[TEMP_MSB] = One_Wire_Read_Byte();
-    DS2438Data[VOLT_LSB] = One_Wire_Read_Byte();
-    DS2438Data[VOLT_MSB] = One_Wire_Read_Byte();
-    DS2438Data[CURR_LSB] = One_Wire_Read_Byte();
-    DS2438Data[CURR_MSB] = One_Wire_Read_Byte();
-    DS2438Data[THRESH] = One_Wire_Read_Byte();
-    DS2438Data[CRC8] = One_Wire_Read_Byte();
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device->FamilyCode);
+    OneWireWriteByte(device->ROMCodeByte1);
+    OneWireWriteByte(device->ROMCodeByte2);
+    OneWireWriteByte(device->ROMCodeByte3);
+    OneWireWriteByte(device->ROMCodeByte4);
+    OneWireWriteByte(device->ROMCodeByte5);
+    OneWireWriteByte(device->ROMCodeByte6);
+    OneWireWriteByte(device->OWICRC);
+    OneWireWriteByte(READ_SCRATCHPAD);
+    OneWireWriteByte(DS2438_PAGE_0);
+    DS2438Data[STATUS] = OneWireReadByte();
+    DS2438Data[TEMP_LSB] = OneWireReadByte();
+    DS2438Data[TEMP_MSB] = OneWireReadByte();
+    DS2438Data[VOLT_LSB] = OneWireReadByte();
+    DS2438Data[VOLT_MSB] = OneWireReadByte();
+    DS2438Data[CURR_LSB] = OneWireReadByte();
+    DS2438Data[CURR_MSB] = OneWireReadByte();
+    DS2438Data[THRESH] = OneWireReadByte();
+    DS2438Data[CRC8] = OneWireReadByte();
 
-    if (DS2438Data[CRC8] != Calculate_CRC((unsigned char *) DS2438Data, 8))
-        return CRC_NOT_MATCH;
+    if (DS2438Data[CRC8] != OneWireCRC8(&DS2438Data[0], 8))
+        return false;
 
+/*
     int_temp = (int) DS2438Data[TEMP_MSB];
     int_temp <<= 8;
     int_temp |= DS2438Data[TEMP_LSB];
@@ -174,43 +169,42 @@ eReturnTypes DS2438GetTemperatureAndHumidity(sDevice *device)
     {
         device->humidity = 0.0;
     }
+*/
 
-
-
-    return SUCCESSFUL;
+    return true;
 }
 
-eReturnTypes DS2438IssueTemperatureAndHumidityConvertion(sDevice *device)
+unsigned char DS2438IssueTemperatureAndHumidityConvertion(tLaseredROMCode *device)
 {
     //Convert Temperature
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device->romCode.Family_Code);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device->romCode.CRC);
-    One_Wire_Write_Byte(CONVERT_TEMPERATURE);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device->FamilyCode);
+    OneWireWriteByte(device->ROMCodeByte1);
+    OneWireWriteByte(device->ROMCodeByte2);
+    OneWireWriteByte(device->ROMCodeByte3);
+    OneWireWriteByte(device->ROMCodeByte4);
+    OneWireWriteByte(device->ROMCodeByte5);
+    OneWireWriteByte(device->ROMCodeByte6);
+    OneWireWriteByte(device->OWICRC);
+    OneWireWriteByte(CONVERT_TEMPERATURE);
 
     //Convert voltage (humidity)
-    if (One_Wire_Reset_Pulse() == 1)
-        return SENSOR_NOT_PRESENT;
+    if (OneWireReset() == 1)
+        return false;
 
-    One_Wire_Write_Byte(MATCH_ROM_COMMAND);
-    One_Wire_Write_Byte(device->romCode.Family_Code);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_1);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_2);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_3);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_4);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_5);
-    One_Wire_Write_Byte(device->romCode.ROM_Code_Byte_6);
-    One_Wire_Write_Byte(device->romCode.CRC);
-    One_Wire_Write_Byte(CONVERT_VOLTAGE);
+    OneWireWriteByte(MATCH_ROM_COMMAND);
+    OneWireWriteByte(device->FamilyCode);
+    OneWireWriteByte(device->ROMCodeByte1);
+    OneWireWriteByte(device->ROMCodeByte2);
+    OneWireWriteByte(device->ROMCodeByte3);
+    OneWireWriteByte(device->ROMCodeByte4);
+    OneWireWriteByte(device->ROMCodeByte5);
+    OneWireWriteByte(device->ROMCodeByte6);
+    OneWireWriteByte(device->OWICRC);
+    OneWireWriteByte(CONVERT_VOLTAGE);
 
-    return SUCCESSFUL;
+    return true;
 }

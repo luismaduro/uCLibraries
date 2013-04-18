@@ -8,9 +8,11 @@
 #ifndef DS18B20_H
 #define DS18B20_H
 
-#include <p18cxxx.h>
-#include "GlobalTypeDefs.h"
-#include "1-Wire.h"
+#include <xc.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "PIC18F/1-Wire.h"
+#include "MainMaster.h"
 
 /**
  * @def     READ_ROM_COMMAND
@@ -102,8 +104,8 @@
 
 
 //eReturnTypes DS18B20GetROMCode(void);
-eReturnTypes DS18B20Configure(sDevice device, unsigned char resolution);
-eReturnTypes DS18B20IssueTemperatureConvertion(sDevice device);
-eReturnTypes DS18B20GetTemperature(sDevice *device);
+eReturnTypes DS18B20Configure(tLaseredROMCode device, unsigned char resolution);
+eReturnTypes DS18B20IssueTemperatureConvertion(tLaseredROMCode device);
+eReturnTypes DS18B20GetTemperature(tLaseredROMCode device, float *temperature);
 
 #endif

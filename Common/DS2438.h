@@ -8,20 +8,11 @@
 #ifndef DS2438_H
 #define DS2438_H
 
-#include <p18cxxx.h>
-#include "GlobalTypeDefs.h"
-#include "1-Wire.h"
+#include <stdbool.h>
+#include "DS2482.h"
+#include "uwn_common.h"
 
 /** @cond IGNORE*/
-#define READ_ROM_COMMAND        0x33
-#define MATCH_ROM_COMMAND       0x55
-#define SKIP_ROM_COMMAND        0xCC
-
-#define WRITE_SCRATCHPAD        0x4E
-#define READ_SCRATCHPAD         0xBE
-#define COPY_SCRATCHPAD         0x48
-#define RECALL_E_E              0xB8
-
 #define DS2438_PAGE_0           0x00
 #define DS2438_PAGE_1           0x01
 #define DS2438_PAGE_2           0x02
@@ -46,6 +37,23 @@
 /** @endcond*/
 
 /**
+ * @struct Lasered_ROM_Code
+ * 
+ * @brief Structure to save the One Wire Device Rom Code.
+ */
+typedef struct
+{
+    unsigned char FamilyCode; /*!< One Wire Device Family*/
+    unsigned char ROMCodeByte1; /*!< One Wire Device Rom Code Byte 1*/
+    unsigned char ROMCodeByte2; /*!< One Wire Device Rom Code Byte 2*/
+    unsigned char ROMCodeByte3; /*!< One Wire Device Rom Code Byte 3*/
+    unsigned char ROMCodeByte4; /*!< One Wire Device Rom Code Byte 4*/
+    unsigned char ROMCodeByte5; /*!< One Wire Device Rom Code Byte 5*/
+    unsigned char ROMCodeByte6; /*!< One Wire Device Rom Code Byte 6*/
+    unsigned char OWICRC; /*!< One Wire Device Rom Code CRC*/
+} tLaseredROMCode; /*!< Variable type to store the devices Rom Codes.*/
+
+/**
  * @union Configuration
  * @brief Configuration register of the DS2438.*/
 typedef union
@@ -62,12 +70,12 @@ typedef union
         unsigned char NVB : 1; /*!<Nonvolatile Memory Busy Flag*/
         unsigned char ADB : 1; /*!<A/D Converter Busy Flag*/
         unsigned char : 1;
-    } Bits /*!< Bits of the configuration register.*/;
+    } Bits; /*!< Bits of the configuration register.*/
 
-} Configuration; /*!< Varable to configure the DS2438. */
+} DS2438_Typedef; /*!< Varable to configure the DS2438. */
 
-eReturnTypes DS2438Configure(sDevice device, Configuration Config);
-eReturnTypes DS2438GetTemperatureAndHumidity(sDevice *device);
-eReturnTypes DS2438IssueTemperatureAndHumidityConvertion(sDevice *device);
+unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config);
+unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device);
+unsigned char DS2438IssueTemperatureAndHumidityConvertion(tLaseredROMCode *device);
 
 #endif
