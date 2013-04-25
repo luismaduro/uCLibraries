@@ -20,7 +20,7 @@ unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config)
 {
     unsigned char DS2438Data[9] = {0};
 
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -39,7 +39,7 @@ unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config)
 
     DelayMiliSeconds(10);
 
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -67,7 +67,7 @@ unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config)
     if (DS2438Data[CRC8] != OneWireCRC8(&DS2438Data[0], 8))
         return false;
 
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -95,12 +95,14 @@ unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config)
  * @param humidity Pointer to the variable that stores the humidity.
  * @return Returns an ::Return_Types enum to be verified if all went well.
  */
-unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device)
+unsigned char DS2438GetData(tLaseredROMCode *device, float *temperature,
+                            float *voltage, float *current)
 {
-    unsigned char DS2438Data[9] = {0};
+    uint8_t DS2438Data[9] = {0};
 
-    //recall memory
-    if (OneWireReset() == 1)
+    int16_t temp;
+
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -116,7 +118,7 @@ unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device)
     OneWireWriteByte(DS2438_PAGE_0);
 
     //read scratchpad
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -143,41 +145,33 @@ unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device)
     if (DS2438Data[CRC8] != OneWireCRC8(&DS2438Data[0], 8))
         return false;
 
-/*
-    int_temp = (int) DS2438Data[TEMP_MSB];
-    int_temp <<= 8;
-    int_temp |= DS2438Data[TEMP_LSB];
-    float_temp = (float) int_temp;
-    device->temperature = float_temp * 0.00390625;
+    temp = (int16_t) DS2438Data[TEMP_MSB];
+    temp <<= 8;
+    temp |= DS2438Data[TEMP_LSB];
+    *temperature = (float) temp;
+    *temperature *= 0.00390625;
 
-    int_voltage = (int) DS2438Data[VOLT_MSB];
-    int_voltage <<= 8;
-    int_voltage |= DS2438Data[VOLT_LSB];
-    float_voltage = (float) int_voltage;
+    temp = (int16_t) DS2438Data[VOLT_MSB];
+    temp <<= 8;
+    temp |= DS2438Data[VOLT_LSB];
+    *voltage = (float) temp;
 
-    float_voltage *= 0.01;
+    *voltage *= 0.01;
 
-    float_humidity = ((float_voltage / 5.0F) - 0.16F) / 0.0062;
+    temp = (int16_t) DS2438Data[CURR_MSB];
+    temp <<= 8;
+    temp |= DS2438Data[CURR_MSB];
+    *current = (float) temp;
 
-    device->humidity = (float) (float_humidity / (1.0546 - 0.00216 * device->temperature));
-
-    if (float_humidity > 100.0)
-    {
-        device->humidity = 100.0;
-    }
-    else if (float_humidity < 0.0)
-    {
-        device->humidity = 0.0;
-    }
-*/
+    *current /= (4096.0 * 0.05);
 
     return true;
 }
 
-unsigned char DS2438IssueTemperatureAndHumidityConvertion(tLaseredROMCode *device)
+unsigned char DS2438IssueConvertions(tLaseredROMCode *device)
 {
     //Convert Temperature
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);
@@ -192,7 +186,7 @@ unsigned char DS2438IssueTemperatureAndHumidityConvertion(tLaseredROMCode *devic
     OneWireWriteByte(CONVERT_TEMPERATURE);
 
     //Convert voltage (humidity)
-    if (OneWireReset() == 1)
+    if (OneWireReset() == 0)
         return false;
 
     OneWireWriteByte(MATCH_ROM_COMMAND);

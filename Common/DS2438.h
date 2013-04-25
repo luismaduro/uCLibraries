@@ -37,23 +37,6 @@
 /** @endcond*/
 
 /**
- * @struct Lasered_ROM_Code
- * 
- * @brief Structure to save the One Wire Device Rom Code.
- */
-typedef struct
-{
-    unsigned char FamilyCode; /*!< One Wire Device Family*/
-    unsigned char ROMCodeByte1; /*!< One Wire Device Rom Code Byte 1*/
-    unsigned char ROMCodeByte2; /*!< One Wire Device Rom Code Byte 2*/
-    unsigned char ROMCodeByte3; /*!< One Wire Device Rom Code Byte 3*/
-    unsigned char ROMCodeByte4; /*!< One Wire Device Rom Code Byte 4*/
-    unsigned char ROMCodeByte5; /*!< One Wire Device Rom Code Byte 5*/
-    unsigned char ROMCodeByte6; /*!< One Wire Device Rom Code Byte 6*/
-    unsigned char OWICRC; /*!< One Wire Device Rom Code CRC*/
-} tLaseredROMCode; /*!< Variable type to store the devices Rom Codes.*/
-
-/**
  * @union Configuration
  * @brief Configuration register of the DS2438.*/
 typedef union
@@ -75,7 +58,8 @@ typedef union
 } DS2438_Typedef; /*!< Varable to configure the DS2438. */
 
 unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config);
-unsigned char DS2438GetTemperatureAndHumidity(tLaseredROMCode *device);
-unsigned char DS2438IssueTemperatureAndHumidityConvertion(tLaseredROMCode *device);
+unsigned char DS2438GetData(tLaseredROMCode *device, float *temperature,
+                            float *voltage, float *current);
+unsigned char DS2438IssueConvertions(tLaseredROMCode *device);
 
 #endif
