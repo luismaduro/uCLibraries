@@ -25,11 +25,11 @@
 #define __DS2482_H
 
 #include <stdbool.h>
-#include "../STM32F1/I2CDevice.h"
+#include <I2CDevice.h>
 
 // constants/macros/typedefs
-#define DS2482_I2C_ADDR		0x1B	//< Base I2C address of DS2482 devices
-#define POLL_LIMIT				0x30	// 0x30 is the minimum poll limit
+#define DS2482_I2C_ADDR		0x36	//< Base I2C address of DS2482 devices
+#define POLL_LIMIT		0xFF	// 0x30 is the minimum poll limit
 //1-wire EEPROM and silicon serial number commands
 #define READ_ROM_COMMAND        0x33
 #define MATCH_ROM_COMMAND       0x55
@@ -87,6 +87,23 @@
 #define DS2482_READPTR_CSR	0xD2	//< DS2482 Channel Selection Register
 #define DS2482_READPTR_CR	0xC3	//< DS2482 Configuration Register
 
+/**
+ * @struct Lasered_ROM_Code
+ * 
+ * @brief Structure to save the One Wire Device Rom Code.
+ */
+typedef struct
+{
+    unsigned char FamilyCode; /*!< One Wire Device Family*/
+    unsigned char ROMCodeByte1; /*!< One Wire Device Rom Code Byte 1*/
+    unsigned char ROMCodeByte2; /*!< One Wire Device Rom Code Byte 2*/
+    unsigned char ROMCodeByte3; /*!< One Wire Device Rom Code Byte 3*/
+    unsigned char ROMCodeByte4; /*!< One Wire Device Rom Code Byte 4*/
+    unsigned char ROMCodeByte5; /*!< One Wire Device Rom Code Byte 5*/
+    unsigned char ROMCodeByte6; /*!< One Wire Device Rom Code Byte 6*/
+    unsigned char OWICRC; /*!< One Wire Device Rom Code CRC*/
+} tLaseredROMCode; /*!< Variable type to store the devices Rom Codes.*/
+
 // DS2482 Funtion definition
 unsigned char DS2482Reset(void);
 unsigned char DS2482Detect(void);
@@ -101,6 +118,9 @@ unsigned char OneWireReadByte(void);
 void OneWireBlockTransfer(unsigned char *transfer_buffer, unsigned char length);
 unsigned char OneWireTouchByte(unsigned char sendbyte);
 unsigned char OneWireCRC8(unsigned char *addr, unsigned char len);
-unsigned char OneWireSearch(unsigned char *newAddr);
-
+unsigned char OneWireFirst(void);
+unsigned char OneWireNext(void);
+unsigned char OneWireSearch(void);
+unsigned char DS2482SearchTriplet(int search_direction);
+void OneWireFindAllDevicesOnBus(tLaseredROMCode *romcode, unsigned char *num_devices);
 #endif
