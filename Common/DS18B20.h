@@ -11,8 +11,8 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "PIC18F/1-Wire.h"
-#include "MainMaster.h"
+#include <stdbool.h>
+#include "OneWire.h"
 
 /**
  * @def     READ_ROM_COMMAND
@@ -45,67 +45,22 @@
 #define CONVERT_TEMPERATURE     0x44
 
 /**
- * @def     COPY_SCRATCHPAD
- * @brief   Copy Scratchpad Command for the DS18B20.
- */
-#define COPY_SCRATCHPAD         0x48
-
-/**
- * @def     WRITE_SCRATCHPAD
- * @brief   Write Scratchpad Command for the DS18B20.
- */
-#define WRITE_SCRATCHPAD        0x4E
-
-/**
- * @def     READ_SCRATCHPAD
- * @brief   Read Scratchpad Command for the DS18B20.
- */
-#define READ_SCRATCHPAD         0xBE
-
-/**
- * @def     RECALL_E_E
- * @brief   Recall EEPROM to Scatchpad Command for the DS18B20.
- */
-#define RECALL_E_E              0xB8
-
-/**
  * @def     READ_POWER_SUPPLY
  * @brief   Read Value of Power Supply Command for the DS18B20.
  */
 #define READ_POWER_SUPPLY       0xB4
 
-/**
- * @def     RESOLUTION_9BITS
- * @brief   Value to configure the DS18B20 for 9 bits temperature readings.
- *          To be used in DS18B20_Configure() funtion.
- */
-#define RESOLUTION_9BITS        0x1F
-
-/**
- * @def     RESOLUTION_10BITS
- * @brief   Value to configure the DS18B20 for 10 bits temperature readings.
- *          To be used in DS18B20_Configure() funtion.
- */
-#define RESOLUTION_10BITS       0x3F
-
-/**
- * @def     RESOLUTION_11BITS
- * @brief   Value to configure the DS18B20 for 11 bits temperature readings.
- *          To be used in DS18B20_Configure() funtion.
- */
-#define RESOLUTION_11BITS       0x5F
-
-/**
- * @def     RESOLUTION_12BITS
- * @brief   Value to configure the DS18B20 for 12 bits temperature readings.
- *          To be used in DS18B20_Configure() funtion.
- */
-#define RESOLUTION_12BITS       0x7F
+typedef enum
+{
+    DS18B20Resolution_9Bits = 0x1F,
+    DS18B20Resolution_10Bits = 0x3F,
+    DS18B20Resolution_11Bits = 0x5F,
+    DS18B20Resolution_12Bits = 0x7F
+} DS18B20Resolution;
 
 
-//eReturnTypes DS18B20GetROMCode(void);
-eReturnTypes DS18B20Configure(tLaseredROMCode device, unsigned char resolution);
-eReturnTypes DS18B20IssueTemperatureConvertion(tLaseredROMCode device);
-eReturnTypes DS18B20GetTemperature(tLaseredROMCode device, float *temperature);
+bool DS18B20Configure(tLaseredROMCode *device, DS18B20Resolution resolution);
+bool DS18B20IssueTemperatureConvertion(tLaseredROMCode *device);
+bool DS18B20GetTemperature(tLaseredROMCode *device, float *temperature);
 
 #endif

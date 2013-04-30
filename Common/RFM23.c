@@ -7,6 +7,7 @@ volatile tInterruptStatus1 ITStatus1;
 volatile tInterruptStatus2 ITStatus2;
 volatile tPackageFormat RXPacket;
 volatile tPackageFormat TXPacket;
+volatile bool NewPacketReceived;
 
 unsigned char RFM2xReadByte(unsigned char reg)
 {
@@ -72,21 +73,16 @@ void RFM2xInterruptHandler(void)
 
 unsigned char RFM2xInit(void)
 {
-    unsigned long newTime;
-
     WirelessShutdownMode();
-    newTime = usTickCount + 20;
-    while (usTickCount <= newTime);
+    TakerDelayMiliseconds(20);
     WirelessNormalMode();
-    newTime = usTickCount + 20;
-    while (usTickCount <= newTime);
+    TakerDelayMiliseconds(20);
 
     /**Make a software reset*/
     RFM2xWriteByte(RFM2X_REG_07_OPERATING_MODE1, RFM2X_SWRES);
 
     /**Wait until chip is ready*/
-    newTime = usTickCount + 20;
-    while (usTickCount <= newTime);
+    TakerDelayMiliseconds(20);
 
     /**Enable the necessary registers, put the module into ready mode*/
     RFM2xWriteByte(RFM2X_REG_05_INTERRUPT_ENABLE1, RFM2X_ENRXFFAFULL | RFM2X_ENPKSENT);
@@ -122,15 +118,15 @@ unsigned char RFM2xInit(void)
     RFM2xWriteByte(RFM2X_REG_2A_AFC_LIMITER, 0x50);
 
     //Disable package handle, msb first, disable crc.
-    RFM2xWriteByte(RFM2X_REG_30_DATA_ACCESS_CONTROL, 0x21);
+    RFM2xWriteByte(RFM2X_REG_30_DATA_ACCESS_CONTROL, 0x61);
     //No address and header check
     RFM2xWriteByte(RFM2X_REG_32_HEADER_CONTROL1, 0x00);
-    //    //Header not used for header length,packet length not included, sync on 3
+    //Header not used for header length,packet length not included, sync on 3&2
     RFM2xWriteByte(RFM2X_REG_33_HEADER_CONTROL2, 0x0A);
     //Preamble has 6 byte (12 nibbles)
     RFM2xWriteByte(RFM2X_REG_34_PREAMBLE_LENGTH, 0x0C);
     //Preamble must have at least 6 nible to be correct
-    RFM2xWriteByte(RFM2X_REG_35_PREAMBLE_DETECTION_CONTROL1, 0x22);
+    RFM2xWriteByte(RFM2X_REG_35_PREAMBLE_DETECTION_CONTROL1, 0x62);
     //Only use 1 sync word, in word 3
     RFM2xWriteByte(RFM2X_REG_36_SYNC3, 0x2D);
     RFM2xWriteByte(RFM2X_REG_37_SYNC2, 0xD4);
@@ -145,9 +141,9 @@ unsigned char RFM2xInit(void)
     RFM2xWriteByte(RFM2X_REG_6E_TX_DATA_RATE1, 0x20);
     RFM2xWriteByte(RFM2X_REG_6F_TX_DATA_RATE0, 0xC5);
     //Disable manchester
-    RFM2xWriteByte(RFM2X_REG_70_MODULATION_CONTROL1, 0x00);
+    RFM2xWriteByte(RFM2X_REG_70_MODULATION_CONTROL1, 0x04);
     //FSK, fd[8] =0, no invert for Tx/Rx data, fifo mode
-    RFM2xWriteByte(RFM2X_REG_71_MODULATION_CONTROL2, 0x23);
+    RFM2xWriteByte(RFM2X_REG_71_MODULATION_CONTROL2, 0x2B);
     //Modulation Frequency Deviation
     RFM2xWriteByte(RFM2X_REG_72_FREQUENCY_DEVIATION, 0x50);
     RFM2xWriteByte(RFM2X_REG_73_FREQUENCY_OFFSET1, 0x00);
@@ -164,6 +160,11 @@ unsigned char RFM2xInit(void)
     RFM2xSetModeStandby();
 
     return 0;
+}
+
+unsigned char RFM2xStatusRead(void)
+{
+    return RFM2xReadByte(RFM2X_REG_02_DEVICE_STATUS);
 }
 
 void RFM2xSetMode(unsigned char mode)
@@ -232,4 +233,47 @@ void RFM2xResetAllFIFO(void)
 unsigned char RFM2xReadRSSI(void)
 {
     return RFM2xReadByte(RFM2X_REG_26_RSSI);
+}
+
+// Returns true if centre + (fhch * fhs) is within limits
+// Caution, different versions of the RF22 support different max freq
+// so YMMV
+
+bool RFM2xSetFrequency(float centre, float afcPullInRange)
+{
+    unsigned char fbsel = RFM2X_SBSEL;
+    unsigned char afclimiter;
+
+    if (centre < 240.0 || centre > 960.0) // 930.0 for early silicon
+        return false;
+
+    if (centre >= 480.0)
+    {
+        if (afcPullInRange < 0.0 || afcPullInRange > 0.318750)
+            return false;
+        centre /= 2;
+        fbsel |= RFM2X_HBSEL;
+        afclimiter = (unsigned char) (afcPullInRange * 1000000.0 / 1250.0);
+    }
+    else
+    {
+        if (afcPullInRange < 0.0 || afcPullInRange > 0.159375)
+            return false;
+        afclimiter = (unsigned char) (afcPullInRange * 1000000.0 / 625.0);
+    }
+    centre /= 10.0;
+
+    float integerPart = floor(centre);
+    float fractionalPart = centre - integerPart;
+
+    unsigned char fb = (unsigned char) integerPart - 24; // Range 0 to 23
+    fbsel |= fb;
+    unsigned int fc = (unsigned int) (fractionalPart * 64000);
+    RFM2xWriteByte(RFM2X_REG_73_FREQUENCY_OFFSET1, 0); // REVISIT
+    RFM2xWriteByte(RFM2X_REG_74_FREQUENCY_OFFSET2, 0);
+    RFM2xWriteByte(RFM2X_REG_75_FREQUENCY_BAND_SELECT, fbsel);
+    RFM2xWriteByte(RFM2X_REG_76_NOMINAL_CARRIER_FREQUENCY1, fc >> 8);
+    RFM2xWriteByte(RFM2X_REG_77_NOMINAL_CARRIER_FREQUENCY0, fc & 0xff);
+    RFM2xWriteByte(RFM2X_REG_2A_AFC_LIMITER, afclimiter);
+    return !(RFM2xStatusRead() & RFM2X_FREQERR);
 }

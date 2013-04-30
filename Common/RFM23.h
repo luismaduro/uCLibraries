@@ -14,8 +14,10 @@ extern "C"
 #endif
 
 #include <xc.h>
-#include "PIC18F/SPIDevice.h"
-#include "PicoKernel/kernel.h"
+#include <math.h>
+#include <stdbool.h>
+#include "SPIDevice.h"
+#include "Tasker/Tasker.h"
 
 #ifdef MASTER_RFM23
 #define WirelessTurnSupplyON()          LATCbits.LATC2 = 0;
@@ -440,12 +442,15 @@ typedef struct
 extern volatile tPackageFormat RXPacket;
 extern volatile tPackageFormat TXPacket;
 
+extern volatile bool NewPacketReceived;
+
 unsigned char RFM2xReadByte(unsigned char reg);
 void RFM2xWriteByte(unsigned char reg, unsigned char val);
 void RFM2xBurstReadByte(unsigned char reg, unsigned char *dest, unsigned char len);
 void RFM2xBurstWriteByte(unsigned char reg, unsigned char *src, unsigned char len);
 void RFM2xInterruptHandler(void);
 unsigned char RFM2xInit(void);
+unsigned char RFM2xStatusRead(void);
 void RFM2xSetMode(unsigned char mode);
 void RFM2xSetModeStandby(void);
 void RFM2xSetModeIdle(void);
@@ -457,6 +462,7 @@ void RFM2xResetRXFIFO(void);
 void RFM2xResetTXFIFO(void);
 void RFM2xResetAllFIFO(void);
 unsigned char RFM2xReadRSSI(void);
+bool RFM2xSetFrequency(float centre, float afcPullInRange);
 #ifdef	__cplusplus
 }
 #endif
