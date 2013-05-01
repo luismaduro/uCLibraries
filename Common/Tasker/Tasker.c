@@ -129,7 +129,6 @@ unsigned char TaskerModifyTask(void (*userTask)(void),
                 Tasks[tempI].taskIsActive = oneTimeTask;
             }
             Tasks[tempI].plannedTask = _counterMs + taskInterval;
-            //numberTasks++;
             _done = 0;
             break;
         }

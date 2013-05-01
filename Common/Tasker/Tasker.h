@@ -163,6 +163,8 @@ void TaskerTimerInterruptHandler(void);
  * after all the initiation on the system.
  */
 void TaskerScheduler(void);
-/**Just a simple delay in miliseconds. Not related to the Tasker system.*/
+/**
+ * Just a simple delay in miliseconds. Not related to the Tasker system.
+ */
 void TakerDelayMiliseconds(unsigned int delay);
 #endif
