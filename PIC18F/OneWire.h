@@ -111,35 +111,6 @@ typedef union
     }; /*!< Variable type to store the devices Rom Codes.*/
 } tLaseredROMCode;
 
-/**
- * Structure that store every possible elements of each device.
- */
-typedef union
-{
-
-    struct
-    {
-        /**Flag to state if the sensor is used or not.*/
-        bool used;
-        /**Device rom code.*/
-        tLaseredROMCode romCode;
-        /**Variable to store the temperature if the device has it.*/
-        float temperature;
-        /**Variable to store the humidity if the device has it.*/
-        float humidity;
-        /**Flag to see if the last reading is valid.*/
-        bool readingValid;
-        /**Keep tracking of the number of errors in the sensor.*/
-        unsigned char numberOfErrors;
-    };
-
-    struct
-    {
-        /**Bytes of the content for easier manipulation.*/
-        unsigned char number[19];
-    } Byte;
-} tDevice;
-
 void OneWireInit(void);
 
 // Perform a 1-Wire reset cycle. Returns 1 if a device responds
