@@ -9,6 +9,7 @@
 volatile unsigned long _counterMs = 0;
 volatile unsigned char _initialized = 0;
 volatile unsigned char numberTasks;
+
 TaskerCore Tasks[MAXIMUM_TASKS];
 
 void TaskerSetTimer();
@@ -18,40 +19,8 @@ unsigned char TaskerSetTask(void (*)(void),
 
 void TaskerBegin(void)
 {
-    TaskerSetTimer();
     _initialized = true;
     numberTasks = 0;
-}
-
-void TaskerSetTimer(void)
-{
-    //Timer 0 @ 1ms to Kernel (8MHz)
-    TIMER_CON.T08BIT = 0;
-    TIMER_CON.T0CS = 0;
-    TIMER_CON.T0SE = 0;
-    TIMER_CON.PSA = 0;
-    TIMER_CON.T0PS = 0b000;
-
-    TIMER_HIGH_BYTE_REG = TIMER_HIGH_BYTE_VALUE;
-    TIMER_LOW_BYTE_REG = TIMER_LOW_BYTE_VALUE;
-
-    TIMER_INT_FLAG = 0;
-    TIMER_INT_PRIORITY = 0;
-    TIMER_INT_ENABLE = 1;
-    TIMER_CON.TMR0ON = 1;
-}
-
-void TaskerHaltScheduler(void)
-{
-    TIMER_ON_BIT = 0;
-}
-
-void TaskerRestartScheduler(void)
-{
-    if (_initialized)
-    {
-        TIMER_ON_BIT = 1;
-    }
 }
 
 unsigned char TaskerAddTask(void (*userTask)(void),
@@ -75,9 +44,6 @@ unsigned char TaskerAddTask(void (*userTask)(void),
         taskStatus = SCHEDULED;
     }
 
-    //add the task to the scheduler
-    TaskerHaltScheduler(); //halt the scheduler
-
     Tasks[numberTasks].taskPointer = *userTask;
     //I get only the first 2 bits - I don't need the IMMEDIATESTART bit
     Tasks[numberTasks].taskIsActive = taskStatus & 0x03;
@@ -88,8 +54,6 @@ unsigned char TaskerAddTask(void (*userTask)(void),
             _counterMs + ((taskStatus & 0x04) ? 0 : taskInterval);
 
     numberTasks++;
-
-    TaskerRestartScheduler(); //restart the scheduler
 
     return true;
 }
@@ -116,9 +80,6 @@ unsigned char TaskerModifyTask(void (*userTask)(void),
         oneTimeTask = NULL;
     }
 
-    //modify the task into the scheduler
-    TaskerHaltScheduler(); //halt the scheduler
-
     do
     {
         if (Tasks[tempI].taskPointer == *userTask)
@@ -136,8 +97,6 @@ unsigned char TaskerModifyTask(void (*userTask)(void),
     }
     while (tempI < numberTasks);
 
-    TaskerRestartScheduler(); //restart the scheduler
-
     return _done;
 }
 
@@ -151,8 +110,6 @@ unsigned char TaskerSetTask(void (*userTask)(void),
     {
         return false;
     }
-
-    TaskerHaltScheduler(); //halt the scheduler
 
     do
     {
@@ -181,8 +138,6 @@ unsigned char TaskerSetTask(void (*userTask)(void),
     }
     while (tempI < numberTasks);
 
-    TaskerRestartScheduler(); //restart the scheduler
-
     return true;
 }
 
@@ -194,8 +149,6 @@ unsigned char TaskerRemoveTask(void (*userTask)(void))
     {
         return false;
     }
-
-    TaskerHaltScheduler(); //halt the scheduler
 
     do
     {
@@ -230,8 +183,6 @@ unsigned char TaskerRemoveTask(void (*userTask)(void))
     }
     while (tempI < numberTasks);
 
-    TaskerRestartScheduler(); //restart the scheduler
-
     return true;
 }
 
@@ -246,10 +197,6 @@ tTaskStatus TaskerGetTaskStatus(void (*userTask)(void))
         return false;
     }
 
-
-    TaskerHaltScheduler(); //halt the scheduler
-    //look for the task
-
     do
     {
         if (Tasks[tempI].taskPointer == *userTask)
@@ -263,18 +210,11 @@ tTaskStatus TaskerGetTaskStatus(void (*userTask)(void))
 
     while (tempI < numberTasks);
 
-    TaskerRestartScheduler(); //restart the scheduler
-
     return tempJ; //return the task status
 }
 
 void TaskerTimerInterruptHandler(void)
 {
-    TIMER_HIGH_BYTE_REG = TIMER_HIGH_BYTE_VALUE;
-    TIMER_LOW_BYTE_REG = TIMER_LOW_BYTE_VALUE;
-
-    TIMER_INT_FLAG = 0;
-
     _counterMs++; //increment the ms counter
 }
 
@@ -282,9 +222,9 @@ void TaskerScheduler(void)
 {
     unsigned char tempI = 0, tempJ = 0;
 
-    while (true)
+    while (1)
     {
-        if (Tasks[tempI].taskIsActive > 0 && TIMER_ON_BIT == 1)
+        if (Tasks[tempI].taskIsActive > 0)
         { //the task is running
             //check if it's time to execute the task
             if ((long) (_counterMs - Tasks[tempI].plannedTask) >= 0)
@@ -332,13 +272,13 @@ void TaskerScheduler(void)
 
         tempI++;
 
-        if (tempI == numberTasks)
+        if (tempI >= numberTasks)
             tempI = 0;
     }
 }
 
-void TakerDelayMiliseconds(unsigned int delay)
+void TaskerDelayMiliseconds(unsigned int delay)
 {
     unsigned long newTime = _counterMs + delay;
-    while (_counterMs <= newTime);
+    while (_counterMs < newTime);
 }

@@ -16,24 +16,25 @@ extern "C"
 #include <xc.h>
 #include <math.h>
 #include <stdbool.h>
-#include "SPIDevice.h"
-#include "Tasker/Tasker.h"
 
 #ifdef MASTER_RFM23
-#define WirelessTurnSupplyON()          LATCbits.LATC2 = 0;
-#define WirelessTurnSupplyOFF()         LATCbits.LATC2 = 1;
-#define WirelessSelectChip()            LATBbits.LATB4 = 0;
-#define WirelessDeselectChip()          LATBbits.LATB4 = 1;
-#define WirelessShutdownMode()          LATBbits.LATB3 = 1;
-#define WirelessNormalMode()            LATBbits.LATB3 = 0;
+#include "../PIC18F/SPIDevice.h"
+#include "Tasker/Tasker.h"
+#define WirelessTurnSupplyON()          LATCbits.LATC2 = 0
+#define WirelessTurnSupplyOFF()         LATCbits.LATC2 = 1
+#define WirelessSelectChip()            LATBbits.LATB4 = 0
+#define WirelessDeselectChip()          LATBbits.LATB4 = 1
+#define WirelessShutdownMode()          LATBbits.LATB3 = 1
+#define WirelessNormalMode()            LATBbits.LATB3 = 0
 #endif
 
 #ifdef RECEIVER_RFM23
-#include "MainReceiver.h"
-#define WirelessSelectChip()            LATAbits.LATA3 = 0;
-#define WirelessDeselectChip()          LATAbits.LATA3 = 1;
-#define WirelessShutdownMode()          LATAbits.LATA2 = 1;
-#define WirelessNormalMode()            LATAbits.LATA2 = 0;
+#include "PIC18F/SPIDevice.h"
+#include "Common/Tasker/Tasker.h"
+#define WirelessSelectChip()            LATAbits.LATA3 = 0
+#define WirelessDeselectChip()          LATAbits.LATA3 = 1
+#define WirelessShutdownMode()          LATAbits.LATA2 = 1
+#define WirelessNormalMode()            LATAbits.LATA2 = 0
 #endif
 
 // This is the bit in the SPI address that marks it as a write
@@ -55,7 +56,7 @@ extern "C"
 // These values we set for FIFO thresholds are actually the same as the POR values
 #define RFM2X_TXFFAEM_THRESHOLD                         20
 #define RFM2X_TXFFAFULL_THRESHOLD                       63
-#define RFM2X_RXFFAFULL_THRESHOLD                       (63-8)
+#define RFM2X_RXFFAFULL_THRESHOLD                       (63-7)
 
 #define SUPPORTED_DEVICE_TYPE                           0x08
 #define SUPPORTED_DEVICE_VERSION                        0x06
@@ -434,13 +435,15 @@ typedef struct
     unsigned char PayloadLength;
     unsigned char Payload[32];
     unsigned char BatteryLevel[2];
-    unsigned char SignalStrength;
     unsigned char RTC[4];
+    unsigned char SignalStrength;
     unsigned char CRC[4];
 } tPackageFormat;
 
 extern volatile tPackageFormat RXPacket;
 extern volatile tPackageFormat TXPacket;
+extern volatile tInterruptStatus1 ITStatus1;
+extern volatile tInterruptStatus2 ITStatus2;
 
 extern volatile bool NewPacketReceived;
 

@@ -74,15 +74,15 @@ void RFM2xInterruptHandler(void)
 unsigned char RFM2xInit(void)
 {
     WirelessShutdownMode();
-    TakerDelayMiliseconds(20);
+    TaskerDelayMiliseconds(20);
     WirelessNormalMode();
-    TakerDelayMiliseconds(20);
+    TaskerDelayMiliseconds(20);
 
     /**Make a software reset*/
     RFM2xWriteByte(RFM2X_REG_07_OPERATING_MODE1, RFM2X_SWRES);
 
     /**Wait until chip is ready*/
-    TakerDelayMiliseconds(20);
+    TaskerDelayMiliseconds(20);
 
     /**Enable the necessary registers, put the module into ready mode*/
     RFM2xWriteByte(RFM2X_REG_05_INTERRUPT_ENABLE1, RFM2X_ENRXFFAFULL | RFM2X_ENPKSENT);
@@ -126,7 +126,7 @@ unsigned char RFM2xInit(void)
     //Preamble has 6 byte (12 nibbles)
     RFM2xWriteByte(RFM2X_REG_34_PREAMBLE_LENGTH, 0x0C);
     //Preamble must have at least 6 nible to be correct
-    RFM2xWriteByte(RFM2X_REG_35_PREAMBLE_DETECTION_CONTROL1, 0x62);
+    RFM2xWriteByte(RFM2X_REG_35_PREAMBLE_DETECTION_CONTROL1, 0x32);
     //Only use 1 sync word, in word 3
     RFM2xWriteByte(RFM2X_REG_36_SYNC3, 0x2D);
     RFM2xWriteByte(RFM2X_REG_37_SYNC2, 0xD4);
@@ -200,14 +200,14 @@ void RFM2xSendData(void)
 {
     RFM2xSetModeIdle();
     RFM2xResetTXFIFO();
-    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(TXPacket.Preamble[0]), sizeof (TXPacket));
+    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(TXPacket.Preamble[0]), RFM2X_FIFO_SIZE);
     RFM2xSetModeTX();
 }
 
 void RFM2xReceiveData(void)
 {
     RFM2xSetModeIdle();
-    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD - 7);
+    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD);
     RXPacket.SignalStrength = rssi;
     RFM2xResetRXFIFO();
 }
@@ -263,7 +263,7 @@ bool RFM2xSetFrequency(float centre, float afcPullInRange)
     }
     centre /= 10.0;
 
-    float integerPart = floor(centre);
+    float integerPart = (int) (centre);
     float fractionalPart = centre - integerPart;
 
     unsigned char fb = (unsigned char) integerPart - 24; // Range 0 to 23

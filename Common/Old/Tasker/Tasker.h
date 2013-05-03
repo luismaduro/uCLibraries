@@ -36,19 +36,9 @@
 /**Tasker version*/
 #define TASKER_VERSION 112
 /**Define here the maximum number of tasks to handle.*/
-#define MAXIMUM_TASKS                   5
+#define MAXIMUM_TASKS                   1
 /**Set your max interval here (max 2^32-1) - default 3600000 (1 hour)*/
 #define MAX_TASK_INTERVAL 3600000UL
-
-#define TIMER_ON_BIT                T0CONbits.TMR0ON
-#define TIMER_CON                   T0CONbits
-#define TIMER_INT_ENABLE            INTCONbits.TMR0IE
-#define TIMER_INT_PRIORITY          INTCON2bits.TMR0IP
-#define TIMER_INT_FLAG              INTCONbits.TMR0IF
-#define TIMER_HIGH_BYTE_REG         TMR0H
-#define TIMER_LOW_BYTE_REG          TMR0L
-#define TIMER_HIGH_BYTE_VALUE       0xF0
-#define TIMER_LOW_BYTE_VALUE        0x5E
 
 typedef enum
 {
@@ -146,15 +136,6 @@ unsigned char TaskerModifyTask(void (*userTask)(void),
  */
 tTaskStatus TaskerGetTaskStatus(void (*userTask)(void));
 /**
- * Stops the scheduler and freezes all the tasks preserving their current
- * intervals.
- */
-void TaskerHaltScheduler(void);
-/**
- * Restarts the scheduler resuming all the tasks that were running.
- */
-void TaskerRestartScheduler(void);
-/**
  * This funtion has to be called from the timer interrut routine.
  */
 void TaskerTimerInterruptHandler(void);
@@ -166,5 +147,5 @@ void TaskerScheduler(void);
 /**
  * Just a simple delay in miliseconds. Not related to the Tasker system.
  */
-void TakerDelayMiliseconds(unsigned int delay);
+void TaskerDelayMiliseconds(unsigned int delay);
 #endif
