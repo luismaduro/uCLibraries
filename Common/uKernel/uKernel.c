@@ -206,7 +206,7 @@ bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor)
  * @return True or False
  * @see @uKernelTaskStatus
  */
-uint8_t uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
+bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
                           uint32_t taskInterval,
                           uKernelTaskStatus tStatus)
 {

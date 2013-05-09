@@ -11,7 +11,8 @@
  *  the scheduler with a period and let the scheduler do the rest. There is no 
  *	priority and I am tring to keep it really simple due to the memory 
  *  limitations of micrcontrollers. The maximum number of task is 255 but I am
- *  sure that the memory will go out first. If anyone needs more tasks let me know.
+ *  sure that the memory will go out first. If anyone needs more tasks let me
+ *  know.
  */
 
 #ifndef UKERNEL_H
@@ -40,7 +41,7 @@ typedef enum
     SCHEDULED = 0x01, //0b00000001
     /**For a task that has to run only once.*/
     ONETIME = 0x02, //0b00000010
-    /**For a task that has to be executed once it has been added to the scheduler.*/
+    /**For a task that has to be executed once it has been added.*/
     IMMEDIATESTART = 0x05, //0b00000101
     /**For the task to be executed one time as soon as it is added.*/
     ONETIME_IMMEDIATESTART = 0x07, //0b00000111
@@ -77,7 +78,7 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
 bool uKernelRemoveTask(uKernelTaskDescriptor *userTaskDescriptor);
 bool uKernelPauseTask(uKernelTaskDescriptor *pTaskDescriptor);
 bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor);
-uint8_t uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
+bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
                                 uint32_t taskInterval,
                                 uKernelTaskStatus tStatus);
 void uKernelScheduler(void);
