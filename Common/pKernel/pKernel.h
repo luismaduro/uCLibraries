@@ -39,7 +39,7 @@ typedef void (*TaskBody)(void);
 typedef struct _TaskDescriptor
 {
     /**Timer of the task*/
-    unsigned long usElapse;
+    unsigned long usNext;
     /**Periodicity of the task*/
     unsigned long usPeriod;
     /**Function pointer on the task body*/
@@ -47,15 +47,16 @@ typedef struct _TaskDescriptor
     /**Pointer on the next structure task*/
     struct _TaskDescriptor *pTaskNext;
     /**Task Descriptor Structor*/
-} TaskDescriptor;
+} pKernelTaskDescriptor;
 
-extern unsigned long usTickCount;
+extern unsigned long _counterMs;
 
-void AddTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod, TaskBody pTask);
-void SuspendTask(TaskDescriptor *pTaskDescriptor);
-void ResumeTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod);
-void Scheduler(void);
-void DeleteAllTask(void);
+void pKernelAddTask(pKernelTaskDescriptor *pTaskDescriptor, TaskBody pTask, unsigned long usPeriod);
+void pKernelSuspendTask(pKernelTaskDescriptor *pTaskDescriptor);
+void pKernelResumeTask(pKernelTaskDescriptor *pTaskDescriptor, unsigned long usPeriod);
+void pKernelScheduler(void);
+void pKernelDeleteAllTask(void);
+void pKernelDelayMiliseconds(unsigned int delay);
 
 #endif
 

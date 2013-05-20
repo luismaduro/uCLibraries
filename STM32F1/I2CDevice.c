@@ -100,7 +100,7 @@ void I2CSendAddress(unsigned char Address, unsigned char I2C_Direction)
 }
 
 /**
- * Sends a byte througth the I2C bus.
+ * Sends a byte through the I2C bus.
  * @param data_out Data byte to be sent.
  * @return 0 if all went well !=0 if not.
  */
@@ -127,8 +127,8 @@ unsigned char I2CRead(void)
  */
 void I2CDeviceSetDeviceAddress(unsigned char address)
 {
-    deviceAddressRead = (address << 1) | 0x01;
-    deviceAddressWrite = (address << 1) & 0xFE;
+    deviceAddressRead = (address << 1);
+    deviceAddressWrite = (address << 1);
 }
 
 /**

@@ -220,7 +220,7 @@ void TaskerTimerInterruptHandler(void)
 
 void TaskerScheduler(void)
 {
-    unsigned char tempI = 0, tempJ = 0;
+    unsigned char tempI = 0;
 
     while (1)
     {
@@ -234,30 +234,7 @@ void TaskerScheduler(void)
                 if (Tasks[tempI].taskIsActive == ONETIME)
                 {
                     Tasks[tempI].taskPointer(); //call the task
-
-                    if ((tempI + 1) == numberTasks)
-                    {
-                        numberTasks--;
-                    }
-                    else if (numberTasks > 1)
-                    {
-                        for (tempJ = tempI; tempJ < numberTasks; tempJ++)
-                        {
-                            Tasks[tempJ].taskPointer =
-                                    Tasks[tempJ + 1].taskPointer;
-                            Tasks[tempJ].taskIsActive =
-                                    Tasks[tempJ + 1].taskIsActive;
-                            Tasks[tempJ].userTasksInterval =
-                                    Tasks[tempJ + 1].userTasksInterval;
-                            Tasks[tempJ].plannedTask =
-                                    Tasks[tempJ + 1].plannedTask;
-                        }
-                        numberTasks--;
-                    }
-                    else
-                    {
-                        numberTasks = 0;
-                    }
+                    Tasks[tempI].taskIsActive = PAUSED;
                 }
                 else
                 {

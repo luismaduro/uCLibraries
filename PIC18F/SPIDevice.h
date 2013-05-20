@@ -23,7 +23,8 @@
 #ifndef _SPIDEV_H_
 #define _SPIDEV_H_
 
-#include <xc.h>
+ //#include <xc.h>
+#include <p18cxxx.h>
 
 //------------MUST UNCOMENT ONE OF THE FOLLOWING--------//
 

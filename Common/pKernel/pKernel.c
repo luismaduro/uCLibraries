@@ -27,49 +27,25 @@
  *  customise for theirs owns applications. There are no
  *  priority between task like a round-robin task scheduling.
  */
-#include <p18cxxx.h>
+#include <xc.h>
 #include <stdio.h>
 #include <limits.h>
-#include "kernel.h"
+#include "pKernel.h"
 
 /**Pointer of the scheduler*/
-static TaskDescriptor *pTaskSchedule = NULL;
+pKernelTaskDescriptor *pTaskSchedule = NULL;
+static pKernelTaskDescriptor *pTaskFirst = NULL;
 /**Timer for the scheduler*/
-unsigned long usTickCount = 0;
-
-unsigned short TickGet(unsigned short usTickVal);
-
-/**
- * Return a delta of time
- * @param usTickVal Value of usTickCount when timer is started. To start timer,
- *                  call TickGet(0) with usTickVal=0 to set your timer variable
- *                  with the current usTickCount
- * @return Time elapsed since the timer starts
- */
-unsigned short TickGet(unsigned short usTickVal)
-{
-    unsigned long usTmpResult;
-
-    usTmpResult = usTickCount;
-
-    if (usTmpResult >= usTickVal)
-    {
-        return (usTmpResult - usTickVal);
-    }
-    else
-    {
-        return (ULONG_MAX - usTickVal + usTmpResult);
-    }
-}
+unsigned long _counterMs = 0;
 
 /**
  * Delete all task of the scheduler in the offing to reconfigure it. This
  * function call should be follow by AddTask() function to configure at least
  * one task, otherwise the scheduler will be blocked indefinitely with no task.
  */
-void DeleteAllTask(void)
+void pKernelDeleteAllTask(void)
 {
-    AddTask(NULL, 0, NULL);
+    pKernelAddTask(NULL, 0, NULL);
 }
 
 /**
@@ -78,10 +54,9 @@ void DeleteAllTask(void)
  * @param usPeriod          Periodicity of the task
  * @param pTask             Function pointer on the task body
  */
-void AddTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod, TaskBody pTask)
+void pKernelAddTask(pKernelTaskDescriptor *pTaskDescriptor, TaskBody pTask, unsigned long usPeriod)
 {
-    static TaskDescriptor *pTaskFirst = NULL;
-    TaskDescriptor *pTaskWork = NULL;
+    pKernelTaskDescriptor *pTaskWork = NULL;
 
     if (pTaskDescriptor != NULL)
     {
@@ -108,7 +83,7 @@ void AddTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod, TaskBody 
             pTaskDescriptor->pTaskNext = pTaskDescriptor; // The next task is itself because there is just one task in the circular linked list
         }
         // Common initialization for all tasks
-        pTaskDescriptor->usElapse = TickGet(0u); // Initialize the task timer with the current value of usTickCount
+        pTaskDescriptor->usNext = _counterMs + usPeriod; // Initialize the task timer with the current value of usTickCount
         pTaskDescriptor->usPeriod = usPeriod; // Set the periodicity of the task
         pTaskDescriptor->pTask = pTask; // Set the task pointer on the task body
     }
@@ -126,9 +101,10 @@ void AddTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod, TaskBody 
  * @param pTaskDescriptor   Descriptor of the task
  * @param usPeriod          Periodicity of the task
  */
-void ResumeTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod)
+void pKernelResumeTask(pKernelTaskDescriptor *pTaskDescriptor, unsigned long usPeriod)
 {
-    pTaskDescriptor->usElapse = TickGet(0u); // Initialize the task timer with the current value of usTickCount
+    // Initialize the task timer with the current value of usTickCount
+    pTaskDescriptor->usNext = _counterMs + usPeriod;
     pTaskDescriptor->usPeriod = usPeriod;
 }
 
@@ -136,7 +112,7 @@ void ResumeTask(TaskDescriptor *pTaskDescriptor, unsigned short usPeriod)
  * Suspend a task
  * @param pTaskDescriptor Descriptor of the task
  */
-void SuspendTask(TaskDescriptor *pTaskDescriptor)
+void pKernelSuspendTask(pKernelTaskDescriptor *pTaskDescriptor)
 {
     pTaskDescriptor->usPeriod = ULONG_MAX;
 }
@@ -144,17 +120,20 @@ void SuspendTask(TaskDescriptor *pTaskDescriptor)
 /**
  * Scheduling. This runs the kernel itself.
  */
-void Scheduler(void)
+void pKernelScheduler(void)
 {
     while (1)
     {
         if (pTaskSchedule != NULL)
         {
-            if ((pTaskSchedule->usPeriod != 0xFFFFu) && (TickGet(pTaskSchedule->usElapse) >= pTaskSchedule->usPeriod))
+            if (pTaskSchedule->usPeriod != ULONG_MAX)
             {
-                // Initialize the task timer with the current value of usTickCount
-                pTaskSchedule->usElapse = TickGet(0u);
-                pTaskSchedule->pTask(); // Call the task body
+                if ((long) (_counterMs - pTaskSchedule->usNext) >= 0)
+                {
+                    // Initialize the task timer with the current value of usTickCount
+                    pTaskSchedule->usNext = _counterMs + pTaskSchedule->usPeriod;
+                    pTaskSchedule->pTask(); // Call the task body
+                }
             }
             // If a task has called the function DeleteAllTask() and if no task are added, the pointer is null
             if (pTaskSchedule != NULL)
@@ -167,6 +146,15 @@ void Scheduler(void)
         SLEEP();
 #endif
     }
+}
+
+/**
+ * Just a simple delay in miliseconds. Not related to the Tasker system.
+ */
+void pKernelDelayMiliseconds(unsigned int delay)
+{
+    unsigned long newTime = _counterMs + delay;
+    while (_counterMs < newTime);
 }
 
 

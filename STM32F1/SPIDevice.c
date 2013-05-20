@@ -38,7 +38,7 @@ void SPIInit(void)
  */
 void SPIWrite(unsigned char data)
 {
-    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_BSY) == SET);
     SPI_I2S_SendData(SPI1, (uint16_t) data);
 }
 

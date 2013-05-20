@@ -52,15 +52,15 @@ extern unsigned char deviceAddressWrite;
 /**Configure the data pin associated with the I2C*/
 #define I2CSDAPIN           TRISCbits.TRISC4
 /**The bitwise define for the I2C control register 1 (i.e. _______bits)*/
-#define I2CCON1bits         SSPCON1bits
+#define I2CCON1bits         SSP1CON1bits
 /**The bitwise define for the I2C control register 2 (i.e. _______bits)*/
-#define I2CCON2bits         SSPCON2bits
+#define I2CCON2bits         SSP1CON2bits
 /**The bitwise define for the I2C status register (i.e. _______bits)*/
-#define I2CSTATbits         SSPSTATbits
+#define I2CSTATbits         SSP1STATbits
 /**The buffer of the I2C module*/
-#define I2CBUF              SSPBUF
+#define I2CBUF              SSP1BUF
 /**The register that controls the clock speed*/
-#define I2CBAUDREGISTER     SSPADD
+#define I2CBAUDREGISTER     SSP1ADD
 
 void I2CInit(void);
 void I2CStart(void);

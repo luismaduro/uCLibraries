@@ -30,7 +30,7 @@
 #include <p18cxxx.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "PIC18PicoKernel/kernel.h"
+#include "pKernel.h"
 
 TaskDescriptor tDescriptorTask1 = {0u, 0u, NULL, NULL};
 TaskDescriptor tDescriptorTask2 = {0u, 0u, NULL, NULL};
@@ -68,13 +68,13 @@ void main(void)
 {
     SystemInit();
 
-    AddTask(&tDescriptorTask1, 50, Task1);
-    AddTask(&tDescriptorTask2, 100, Task2);
-    AddTask(&tDescriptorTask3, 200, Task3);
-    AddTask(&tDescriptorTask4, 50, Task4);
-    AddTask(&tDescriptorTask5, 100, Task5);
-    AddTask(&tDescriptorTask6, 200, Task6);
-    Scheduler();
+    pKernelAddTask(&tDescriptorTask1, 50, Task1);
+    pKernelAddTask(&tDescriptorTask2, 100, Task2);
+    pKernelAddTask(&tDescriptorTask3, 200, Task3);
+    pKernelAddTask(&tDescriptorTask4, 50, Task4);
+    pKernelAddTask(&tDescriptorTask5, 100, Task5);
+    pKernelAddTask(&tDescriptorTask6, 200, Task6);
+    pKernelScheduler();
 }
 
 void SystemInit(void)
@@ -125,41 +125,41 @@ void SystemInit(void)
 void Task1(void)
 {
     LATCbits.LATC0 = 1;
-    SuspendTask(&tDescriptorTask1);
-    ResumeTask(&tDescriptorTask4, 50);
+    pKernelSuspendTask(&tDescriptorTask1);
+    pKernelResumeTask(&tDescriptorTask4, 50);
 }
 
 void Task2(void)
 {
     LATCbits.LATC1 = 1;
-    SuspendTask(&tDescriptorTask2);
-    ResumeTask(&tDescriptorTask5, 100);
+    pKernelSuspendTask(&tDescriptorTask2);
+    pKernelResumeTask(&tDescriptorTask5, 100);
 }
 
 void Task3(void)
 {
     LATCbits.LATC2 = 1;
-    SuspendTask(&tDescriptorTask3);
-    ResumeTask(&tDescriptorTask6, 200);
+    pKernelSuspendTask(&tDescriptorTask3);
+    pKernelResumeTask(&tDescriptorTask6, 200);
 }
 
 void Task4(void)
 {
     LATCbits.LATC0 = 0;
-    SuspendTask(&tDescriptorTask4);
-    ResumeTask(&tDescriptorTask1, 50);
+    pKernelSuspendTask(&tDescriptorTask4);
+    pKernelResumeTask(&tDescriptorTask1, 50);
 }
 
 void Task5(void)
 {
     LATCbits.LATC1 = 0;
-    SuspendTask(&tDescriptorTask5);
-    ResumeTask(&tDescriptorTask2, 100);
+    pKernelSuspendTask(&tDescriptorTask5);
+    pKernelResumeTask(&tDescriptorTask2, 100);
 }
 
 void Task6(void)
 {
     LATCbits.LATC2 = 0;
-    SuspendTask(&tDescriptorTask6);
-    ResumeTask(&tDescriptorTask3, 200);
+    pKernelSuspendTask(&tDescriptorTask6);
+    pKernelResumeTask(&tDescriptorTask3, 200);
 }
