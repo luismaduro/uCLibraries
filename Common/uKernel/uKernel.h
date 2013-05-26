@@ -23,7 +23,6 @@ extern "C"
 {
 #endif
 
-#include <xc.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -46,7 +45,7 @@ typedef enum
     /**For the task to be executed one time as soon as it is added.*/
     ONETIME_IMMEDIATESTART = 0x07, //0b00000111
     /**Error, task not found.*/
-    ERROR = 0xFF //0b11111111
+    UKERNEL_ERROR = 0xFF //0b11111111
 } uKernelTaskStatus;
 
 /**Function pointer on the task body.*/

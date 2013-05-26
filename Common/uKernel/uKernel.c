@@ -115,7 +115,7 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
         // Set the task pointer on the task body
         pTaskDescriptor->taskPointer = userTask;
         //I get only the first 2 bits - I don't need the IMMEDIATESTART bit
-        pTaskDescriptor->taskStatus = taskStatus & 0x03;
+        pTaskDescriptor->taskStatus = taskStatus & (SCHEDULED | ONETIME);
 
         numberTasks++;
 
@@ -250,7 +250,7 @@ uKernelTaskStatus uKernelGetTaskStatus(uKernelTaskDescriptor *pTaskDescriptor)
     if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
             || (pTaskDescriptor == NULL))
     {
-        return ERROR;
+        return UKERNEL_ERROR;
     }
 
     return pTaskDescriptor->taskStatus;
