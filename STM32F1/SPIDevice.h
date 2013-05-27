@@ -25,7 +25,6 @@
 
 #include <stm32f10x.h>
 
-void SPIInit(void);
 void SPIWrite(unsigned char data);
 unsigned char SPIRead(void);
 

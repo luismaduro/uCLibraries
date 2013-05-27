@@ -23,14 +23,6 @@
 #include "SPIDevice.h"
 
 /**
- * Initiates the MSSP module to work as an SPI master.
- */
-void SPIInit(void)
-{
-
-}
-
-/**
  * Hardware dependent funtion to write to SPI module. The module must be
  * configured by the user.
  * @param data Byte to be sent by the SPI module.
