@@ -440,10 +440,10 @@ typedef struct
     unsigned char CRC[4];
 } tPackageFormat;
 
-extern volatile tPackageFormat RXPacket;
-extern volatile tPackageFormat TXPacket;
-extern volatile tInterruptStatus1 ITStatus1;
-extern volatile tInterruptStatus2 ITStatus2;
+extern volatile tPackageFormat RFM2xRXPacket;
+extern volatile tPackageFormat RFM2xTXPacket;
+extern volatile tInterruptStatus1 RFM2xITStatus1;
+extern volatile tInterruptStatus2 RFM2xITStatus2;
 
 extern volatile bool NewPacketReceived;
 

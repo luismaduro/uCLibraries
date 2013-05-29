@@ -3,10 +3,10 @@
 volatile unsigned char _idleMode = RFM2X_XTON;
 volatile unsigned int _txGood = 0;
 volatile unsigned char rssi = 0;
-volatile tInterruptStatus1 ITStatus1;
-volatile tInterruptStatus2 ITStatus2;
-volatile tPackageFormat RXPacket;
-volatile tPackageFormat TXPacket;
+volatile tInterruptStatus1 RFM2xITStatus1;
+volatile tInterruptStatus2 RFM2xITStatus2;
+volatile tPackageFormat RFM2xRXPacket;
+volatile tPackageFormat RFM2xTXPacket;
 volatile bool NewPacketReceived;
 
 unsigned char RFM2xReadByte(unsigned char reg)
@@ -49,23 +49,18 @@ void RFM2xBurstWriteByte(unsigned char reg, unsigned char *src, unsigned char le
 
 void RFM2xInterruptHandler(void)
 {
-    ITStatus1.IRQReg = RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
-    ITStatus2.IRQReg = RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
+    RFM2xITStatus1.IRQReg = RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
+    RFM2xITStatus2.IRQReg = RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
 
-    if (ITStatus1.bits.PacketSentInterrupt)
+    if (RFM2xITStatus1.bits.PacketSentInterrupt)
     {
-#ifdef MASTER_RFM23
-        RFM2xSetModeStandby();
-#endif
-#ifdef RECEIVER_RFM23
         RFM2xSetModeRX();
-#endif
     }
-    if (ITStatus1.bits.RXFIFOAlmostFull)
+    if (RFM2xITStatus1.bits.RXFIFOAlmostFull)
     {
         RFM2xReceiveData();
     }
-    if (ITStatus2.bits.SyncDetected)
+    if (RFM2xITStatus2.bits.SyncDetected)
     {
         rssi = RFM2xReadRSSI();
     }
@@ -200,15 +195,15 @@ void RFM2xSendData(void)
 {
     RFM2xSetModeIdle();
     RFM2xResetTXFIFO();
-    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(TXPacket.Preamble[0]), RFM2X_FIFO_SIZE);
+    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RFM2xTXPacket.Preamble[0]), RFM2X_FIFO_SIZE);
     RFM2xSetModeTX();
 }
 
 void RFM2xReceiveData(void)
 {
     RFM2xSetModeIdle();
-    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD);
-    RXPacket.SignalStrength = rssi;
+    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RFM2xRXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD);
+    RFM2xRXPacket.SignalStrength = rssi;
     RFM2xResetRXFIFO();
 }
 
