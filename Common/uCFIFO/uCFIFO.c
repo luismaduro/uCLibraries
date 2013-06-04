@@ -8,15 +8,15 @@
    be re-initialized or cleared.
 
    Example Usage:
-      volatile unsigned char fifo_buf[128];
+      unsigned char fifo_buf[128];
       FIFO fifo;
-      FIFOinit(&fifo, 128, &fifo_buf[0]);
+      FIFOInit(&fifo, 128, &fifo_buf[0]);
 
  ************************************************************************/
 
 #include "uCFIFO.h"
 
-void FIFOInit(FIFO *f, unsigned int size, unsigned char *data)
+void uFIFOInit(uFIFO *f, unsigned int size, unsigned char *data)
 {
     f->size = size;
     f->data = data;
@@ -26,17 +26,17 @@ void FIFOInit(FIFO *f, unsigned int size, unsigned char *data)
     f->used = 0;
 }
 
-bool FIFOisFull(FIFO *f)
+bool FIFOisFull(uFIFO *f)
 {
     return (f->used >= f->size);
 }
 
-bool FIFOisEmpty(FIFO *f)
+bool FIFOisEmpty(uFIFO *f)
 {
     return (f->used == 0);
 }
 
-unsigned char FIFOGet(FIFO *f)
+unsigned char FIFOGet(uFIFO *f)
 {
     unsigned char c;
     
@@ -55,7 +55,7 @@ unsigned char FIFOGet(FIFO *f)
     }
 }
 
-void FIFOPut(FIFO *f, unsigned char c)
+void FIFOPut(uFIFO *f, unsigned char c)
 {
     if (f->used >= f->size)
         f->status = FIFO_OVERFLOW;
@@ -67,17 +67,17 @@ void FIFOPut(FIFO *f, unsigned char c)
     }
 }
 
-unsigned char FIFOPeek(FIFO *f)
+unsigned char FIFOPeek(uFIFO *f)
 {
     return f->data[f->getIndex];
 }
 
-unsigned int FIFOSpaceOcupied(FIFO *f)
+unsigned int FIFOSpaceOcupied(uFIFO *f)
 {
     return f->used;
 }
 
-void FIFOClear(FIFO *f)
+void FIFOClear(uFIFO *f)
 {
     f->status = FIFO_GOOD;
     f->putIndex = 0;
@@ -85,7 +85,7 @@ void FIFOClear(FIFO *f)
     f->used = 0;
 }
 
-tFIFOStatus FIFOStatus(FIFO *f)
+tFIFOStatus FIFOStatus(uFIFO *f)
 {
     return f->status;
 }

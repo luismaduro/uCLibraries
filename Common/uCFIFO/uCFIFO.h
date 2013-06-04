@@ -62,17 +62,17 @@ typedef struct
     volatile unsigned int putIndex;
     volatile unsigned int getIndex;
     volatile unsigned int used;
-} FIFO;
+} uFIFO;
 
 /* functions */
-void FIFOInit(FIFO *f, unsigned int size, unsigned char *data);
-bool FIFOisFull(FIFO *f);
-bool FIFOisEmpty(FIFO *f);
-unsigned char FIFOGet(FIFO *f);
-void FIFOPut(FIFO *f, unsigned char c);
-unsigned char FIFOPeek(FIFO *f);
-unsigned int FIFOSpaceOcupied(FIFO *f);
-void FIFOClear(FIFO *f);
-tFIFOStatus FIFOStatus(FIFO *f);
+void uFIFOInit(uFIFO *f, unsigned int size, unsigned char *data);
+bool uFIFOisFull(uFIFO *f);
+bool uFIFOisEmpty(uFIFO *f);
+unsigned char uFIFOGet(uFIFO *f);
+void uFIFOPut(uFIFO *f, unsigned char c);
+unsigned char uFIFOPeek(uFIFO *f);
+unsigned int uFIFOSpaceOcupied(uFIFO *f);
+void uFIFOClear(uFIFO *f);
+tFIFOStatus uFIFOStatus(uFIFO *f);
 
 #endif // _FIFO_H_
