@@ -430,7 +430,7 @@ typedef struct
     unsigned char DestinationID[4];
     unsigned char SourceID[4];
     unsigned char TransmissionCodeID;
-    unsigned char SendTriesNumber;
+    unsigned char SequenceNumber;
     unsigned char PacketInfo;
     unsigned char PayloadLength;
     unsigned char Payload[32];
