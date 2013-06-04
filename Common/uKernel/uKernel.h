@@ -35,15 +35,15 @@ extern "C"
 typedef enum
 {
     /**For a task that doesn't have to start immediately.*/
-    PAUSED = 0x00, //0b00000000
+    UKERNEL_PAUSED = 0x00, //0b00000000
     /**For a normal task that has to start after its scheduling*/
-    SCHEDULED = 0x01, //0b00000001
+    UKERNEL_SCHEDULED = 0x01, //0b00000001
     /**For a task that has to run only once.*/
-    ONETIME = 0x02, //0b00000010
+    UKERNEL_ONETIME = 0x02, //0b00000010
     /**For a task that has to be executed once it has been added.*/
-    IMMEDIATESTART = 0x05, //0b00000101
+    UKERNEL_IMMEDIATESTART = 0x05, //0b00000101
     /**For the task to be executed one time as soon as it is added.*/
-    ONETIME_IMMEDIATESTART = 0x07, //0b00000111
+    UKERNEL_ONETIME_IMMEDIATESTART = 0x07, //0b00000111
     /**Error, task not found.*/
     UKERNEL_ERROR = 0xFF //0b11111111
 } uKernelTaskStatus;
