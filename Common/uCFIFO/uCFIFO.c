@@ -26,58 +26,73 @@ void uFIFOInit(uFIFO *f, unsigned int size, unsigned char *data)
     f->used = 0;
 }
 
-bool FIFOisFull(uFIFO *f)
+bool uFIFOisFull(uFIFO *f)
 {
     return (f->used >= f->size);
 }
 
-bool FIFOisEmpty(uFIFO *f)
+bool uFIFOisEmpty(uFIFO *f)
 {
     return (f->used == 0);
 }
 
-unsigned char FIFOGet(uFIFO *f)
+unsigned char uFIFOGet(uFIFO *f)
 {
     unsigned char c;
-    
-    if (f->used > 0)
+
+    if (f->used == 0)
     {
-        c = f->data[f->getIndex];
-        f->getIndex = (f->getIndex + 1) % f->size;
-        f->used--;
-        
-        return c;
+        f->status = FIFO_UNDERFLOW;
+
+        return 0;
     }
     else
     {
-        f->status = FIFO_UNDERFLOW;
-        return 0;
+        f->status = FIFO_GOOD;
+
+        c = f->data[f->getIndex];
+
+        if (f->getIndex == 0xFFFF)
+            f->getIndex = 0;
+        else
+            f->getIndex++;
+
+        f->used--;
+
+        return c;
     }
 }
 
-void FIFOPut(uFIFO *f, unsigned char c)
+void uFIFOPut(uFIFO *f, unsigned char c)
 {
     if (f->used >= f->size)
         f->status = FIFO_OVERFLOW;
     else
     {
+        f->status = FIFO_GOOD;
+
         f->data[f->putIndex] = c;
-        f->putIndex = (f->putIndex + 1) % f->size;
+
+        if (f->putIndex == 0xFFFF)
+            f->putIndex = 0;
+        else
+            f->putIndex++;
+
         f->used++;
     }
 }
 
-unsigned char FIFOPeek(uFIFO *f)
+unsigned char uFIFOPeek(uFIFO *f)
 {
     return f->data[f->getIndex];
 }
 
-unsigned int FIFOSpaceOcupied(uFIFO *f)
+unsigned int uFIFOSpaceOcupied(uFIFO *f)
 {
     return f->used;
 }
 
-void FIFOClear(uFIFO *f)
+void uFIFOClear(uFIFO *f)
 {
     f->status = FIFO_GOOD;
     f->putIndex = 0;
@@ -85,7 +100,7 @@ void FIFOClear(uFIFO *f)
     f->used = 0;
 }
 
-tFIFOStatus FIFOStatus(uFIFO *f)
+tFIFOStatus uFIFOStatus(uFIFO *f)
 {
     return f->status;
 }

@@ -56,12 +56,12 @@ typedef enum
 /* typedefs */
 typedef struct
 {
-    volatile unsigned int size;
-    volatile unsigned char *data;
-    volatile unsigned char status;
-    volatile unsigned int putIndex;
-    volatile unsigned int getIndex;
-    volatile unsigned int used;
+    unsigned char *data;
+    tFIFOStatus status;
+    unsigned int size;
+    unsigned int putIndex;
+    unsigned int getIndex;
+    unsigned int used;
 } uFIFO;
 
 /* functions */
