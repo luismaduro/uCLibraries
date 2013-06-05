@@ -149,6 +149,8 @@ unsigned char I2CWrite(unsigned char data_out)
                 return ( 0);
         }
     }
+
+    return -2;
 }
 
 /**
