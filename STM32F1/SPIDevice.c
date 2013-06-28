@@ -28,12 +28,19 @@
  * @param data Byte to be sent by the SPI module.
  * @return Returns 0 if all went well, !=0 otherwise.
  */
-void SPIWrite(unsigned char data)
+unsigned char SPIWrite(unsigned char data)
 {
-	/*!< Loop while DR register in not emplty */
-	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
-	/*!< Send byte through the SPI1 peripheral */
-	SPI_I2S_SendData(SPI1, data);
+    /*!< Loop while DR register in not emplty */
+    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+
+    /*!< Send byte through the SPI1 peripheral */
+    SPI_I2S_SendData(SPI1, data);
+
+    /*!< Wait to receive a byte */
+    while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
+
+    /*!< Return the byte read from the SPI bus */
+    return SPI_I2S_ReceiveData(SPI1);
 }
 
 /**
@@ -43,14 +50,7 @@ void SPIWrite(unsigned char data)
  */
 unsigned char SPIRead(void)
 {
-  /*!< Loop while DR register in not emplty */
-  while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
-  /*!< Send byte through the SPI1 peripheral */
-  SPI_I2S_SendData(SPI1, 0xAA);
-  /*!< Wait to receive a byte */
-  while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
-  /*!< Return the byte read from the SPI bus */
-  return SPI_I2S_ReceiveData(SPI1);
+    return (SPIWrite(0x00));
 }
 
 /**

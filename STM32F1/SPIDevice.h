@@ -25,7 +25,7 @@
 
 #include <stm32f10x.h>
 
-void SPIWrite(unsigned char data);
+unsigned char SPIWrite(unsigned char data);
 unsigned char SPIRead(void);
 
 unsigned char SPIDeviceReadBit(unsigned char address,
