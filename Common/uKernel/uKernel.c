@@ -115,7 +115,7 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
         // Set the task pointer on the task body
         pTaskDescriptor->taskPointer = userTask;
         //I get only the first 2 bits - I don't need the IMMEDIATESTART bit
-        pTaskDescriptor->taskStatus = taskStatus & (UKERNEL_SCHEDULED | UKERNEL_ONETIME);
+        pTaskDescriptor->taskStatus = taskStatus & 0x03;
 
         numberTasks++;
 
@@ -294,9 +294,6 @@ void uKernelScheduler(void)
                 pTaskSchedule = pTaskSchedule->pTaskNext;
             }
         }
-#ifdef USE_SLEEP
-        SLEEP();
-#endif
     }
 }
 
@@ -334,8 +331,6 @@ unsigned char uKernelSetTask(uKernelTaskDescriptor *pTaskDescriptor,
                     _counterMs + taskInterval;
         }
     }
-
-
-
+    
     return true;
 }
