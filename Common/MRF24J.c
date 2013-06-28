@@ -1,12 +1,13 @@
-#include <p18cxxx.h>
+
 #include "MRF24J.h"
-#include "SPIDevice.h"
-#include <delays.h>
 
 unsigned char MRF24J40ReadShort(unsigned char address);
 unsigned char MRF24J40ReadLong(unsigned int address);
 void MRF24J40WriteShort(unsigned char address, unsigned char data);
 void MRF24J40WriteLong(unsigned int address, unsigned char data);
+
+unsigned short panID = 0;
+unsigned short ownAirAddress = 0;
 
 unsigned char MRF24J40ReadShort(unsigned char address)
 {
@@ -16,10 +17,10 @@ unsigned char MRF24J40ReadShort(unsigned char address)
     address <<= 1; /* Shift into the right position */
     address &= ~0x01; /* Clear write bit */
 
-    MIWI_SELECT();
+    RadioSelect();
     SPIWrite(address);
     data = SPIRead();
-    MIWI_DESELECT();
+    RadioDeselect();
 
     return data;
 }
@@ -36,11 +37,11 @@ unsigned char MRF24J40ReadLong(unsigned int address)
     msb = (unsigned char) ((address & 0xFF00) >> 8); //Get the 8 msb and shift it into position
     lsb = (unsigned char) (address & 0x00FF); //Get the 8 lsb
 
-    MIWI_SELECT();
+    RadioSelect();
     SPIWrite(msb);
     SPIWrite(lsb);
     data = SPIRead();
-    MIWI_DESELECT();
+    RadioDeselect();
 
     return data;
 }
@@ -51,10 +52,10 @@ void MRF24J40WriteShort(unsigned char address, unsigned char data)
     address <<= 1; /* Shift into the right position */
     address |= 0x01; /* Set R/W bit to write */
 
-    MIWI_SELECT();
+    RadioSelect();
     SPIWrite(address);
     SPIWrite(data);
-    MIWI_DESELECT();
+    RadioDeselect();
 }
 
 void MRF24J40WriteLong(unsigned int address, unsigned char data)
@@ -69,19 +70,16 @@ void MRF24J40WriteLong(unsigned int address, unsigned char data)
     msb = (unsigned char) ((address & 0xFF00) >> 8);
     lsb = (unsigned char) (address & 0x00FF);
 
-    MIWI_SELECT();
+    RadioSelect();
     SPIWrite(msb);
     SPIWrite(lsb);
     SPIWrite(data);
-    MIWI_DESELECT();
+    RadioDeselect();
 }
 
 void MRF24J40Reset(void)
 {
-    MIWI_RESET_LOW();
-    Delay1KTCYx(1);
-    MIWI_RESET_HIGH();
-    Delay1KTCYx(1); // from manual
+    RadioHardwareReset();
 }
 
 unsigned int MRF24J40GetPanID(void)
@@ -94,6 +92,7 @@ void MRF24J40SetPanID(unsigned int panid)
 {
     MRF24J40WriteShort(MRF_PANIDH, panid >> 8);
     MRF24J40WriteShort(MRF_PANIDL, panid & 0xff);
+    panID = panid;
 }
 
 void MRF24J40ShortAddressWrite(unsigned int address)
@@ -132,34 +131,32 @@ void MRF24J40LongAddressRead(unsigned char * address)
  * Simple send 16, with acks, not much of anything.. assumes src16 and local pan only.
  * @param data
  */
-void MRF24J40SendPacket(unsigned int dest, unsigned int len, char* packet)
+void MRF24J40SendPacket(unsigned int dest, unsigned int len, unsigned char* packet)
 {
     int i = 0, q = 0;
-    unsigned int panid = MRF24J40GetPanID();
-    unsigned int src16 = MRF24J40ShortAddressRead();
 
     MRF24J40WriteLong(i++, 11); // header length
     MRF24J40WriteLong(i++, 11 + len);
 
     // 0 | pan compression | ack | no security | no data pending | data frame[3 bits]
-    MRF24J40WriteLong(i++, 0b01100001); // first byte of Frame Control
+    MRF24J40WriteLong(i++, 0x61); // first byte of Frame Control
 
     // 16 bit source, 802.15.4 (2003), 16 bit dest
-    MRF24J40WriteLong(i++, 0b10001000); // second byte of frame control
+    MRF24J40WriteLong(i++, 0x88); // second byte of frame control
 
     MRF24J40WriteLong(i++, 1); // sequence number 1
 
-    MRF24J40WriteLong(i++, panid & 0xff); // dest panid
-    MRF24J40WriteLong(i++, panid >> 8);
+    MRF24J40WriteLong(i++, panID & 0xff); // dest panid
+    MRF24J40WriteLong(i++, panID >> 8);
 
     MRF24J40WriteLong(i++, dest & 0xff); // dest16 low
     MRF24J40WriteLong(i++, dest >> 8); // dest16 high
 
-    MRF24J40WriteLong(i++, panid & 0xff); // dest panid
-    MRF24J40WriteLong(i++, panid >> 8);
+    MRF24J40WriteLong(i++, panID & 0xff); // dest panid
+    MRF24J40WriteLong(i++, panID >> 8);
 
-    MRF24J40WriteLong(i++, src16 & 0xff); // src16 low
-    MRF24J40WriteLong(i++, src16 >> 8); // src16 high
+    MRF24J40WriteLong(i++, ownAirAddress & 0xff); // src16 low
+    MRF24J40WriteLong(i++, ownAirAddress >> 8); // src16 high
 
     for (q = 0; q < len; q++)
     {
@@ -167,16 +164,15 @@ void MRF24J40SendPacket(unsigned int dest, unsigned int len, char* packet)
     }
 
     // ack on, and go!
-    MRF24J40WriteShort(MRF_TXNCON, 0b00000101);
+    MRF24J40WriteShort(MRF_TXNCON, 0x05);
 }
 
-unsigned char MRF24J40ReceivePacket(char* packet)
+unsigned char MRF24J40ReceivePacket(unsigned char* packet)
 {
-    unsigned char interruptWasEnabled = HOST_INTERRUPT_ENABLE;
     unsigned char frameLength = 0;
-    unsigned char header[12] = {0};
+//     unsigned char header[12] = {0};
     unsigned char i = 0x00;
-    unsigned char lqi = 0, rssi = 0;
+//     unsigned char lqi = 0, rssi = 0;
 
     // We got a packet.
     // Disable host microcontroller interrupt.
@@ -184,35 +180,24 @@ unsigned char MRF24J40ReceivePacket(char* packet)
     // Disable receiving packets off air, set RXDECINV = 1
     MRF24J40RXDisable();
 
-    if (interruptWasEnabled)
-    {
-        HOST_INTERRUPT_ENABLE = 0;
-    }
-
     frameLength = MRF24J40ReadLong(MRF_RXFIFO);
 
-    for (i = 0; i < 12; i++)
-        header[i] = MRF24J40ReadLong(MRF_RXFIFO + i);
+//     for (i = 0; i < 12; i++)
+//         header[i] = MRF24J40ReadLong(MRF_RXFIFO + i);
 
     for (i = 12; i < frameLength - 1; i++)
     {
         packet[i - 12] = MRF24J40ReadLong(MRF_RXFIFO + i);
     }
 
-    lqi = MRF24J40ReadLong(MRF_RXFIFO + frameLength + 1);
-    rssi = MRF24J40ReadLong(MRF_RXFIFO + frameLength + 2);
+//     lqi = MRF24J40ReadLong(MRF_RXFIFO + frameLength + 1);
+//     rssi = MRF24J40ReadLong(MRF_RXFIFO + frameLength + 2);
 
     // Flush rx fifo
     MRF24J40RXFlush();
 
     // Enable receiving packets off air, set RXDECINV = 0
     MRF24J40RXEnable();
-
-    // Enable host microcontroller interrupt.
-    if (interruptWasEnabled)
-    {
-        HOST_INTERRUPT_ENABLE = 1;
-    }
 
     return frameLength;
 }
@@ -221,8 +206,8 @@ void MRF24J40SetInterrupts(void)
 {
     // interrupts for rx and tx normal complete
 
-    MRF24J40WriteShort(MRF_INTCON, 0b11110110); //rx int and tx int
-    MRF24J40WriteLong(MRF_SLPCON0, 0b00000010); //set int rising edge and sleep clock enable
+    MRF24J40WriteShort(MRF_INTCON, 0xF6); //rx int and tx int
+    MRF24J40WriteLong(MRF_SLPCON0, 0x02); //set int rising edge and sleep clock enable
 }
 
 unsigned char MRF24J40GetInterrupts(void)
@@ -246,7 +231,7 @@ unsigned char MRF24J40GetChannel(void)
 
 void MRF24J40SetPower(unsigned char power)
 {
-    MRF24J40WriteLong(MRF_RFCON3, (power << 3) & 0b11111000);
+    MRF24J40WriteLong(MRF_RFCON3, (power << 3) & 0xF8);
 }
 
 void MRF24J40Init(unsigned char channel, unsigned char power, unsigned int pan, unsigned int short_address)
@@ -259,19 +244,19 @@ void MRF24J40Init(unsigned char channel, unsigned char power, unsigned int pan, 
     MRF24J40Reset();
 
     // wait for mrf to be in receive mode
-    while (MRF24J40ReadLong(MRF_RFSTATE) & 0xa0 != 0xa0);
+    while ((MRF24J40ReadLong(MRF_RFSTATE) & 0xA0) != 0xA0);
 
     MRF24J40RXFlush();
 
     // Setup Sleep - Enable Immediate Wake-up mode, wake pin polarity to active high
-    MIWI_WAKE_LOW();
+    RadioPutToSleep();
     MRF24J40WriteShort(MRF_RXFLUSH, 0x60);
     MRF24J40WriteShort(MRF_WAKECON, 0x80);
 
     //Perform a power management reset
     MRF24J40WriteShort(MRF_SOFTRST, 0x40);
 
-    MIWI_WAKE_HIGH();
+    RadioWake();
 
     MRF24J40WriteLong(MRF_TESTMODE, 0x0f); //enable PA/LNA
 
@@ -301,17 +286,18 @@ void MRF24J40Init(unsigned char channel, unsigned char power, unsigned int pan, 
 
     MRF24J40SetPanID(pan);
     MRF24J40ShortAddressWrite(short_address);
+    ownAirAddress = short_address;
 
     // wait for mrf to be in receive mode
-    while (MRF24J40ReadLong(MRF_RFSTATE) & 0xa0 != 0xa0);
+    while ((MRF24J40ReadLong(MRF_RFSTATE) & 0xA0) != 0xA0);
 
     MRF24J40WriteShort(MRF_RFCTL, 0x04); // Reset RF state machine.
     MRF24J40WriteShort(MRF_RFCTL, 0x00); // part 2
 
-    Delay1KTCYx(1); // delay at least 192usec
+    DelayMiliSeconds(1); // delay at least 192usec
 }
 
-void MRF24J40SetPromiscuous(boolean enabled)
+void MRF24J40SetPromiscuous(bool enabled)
 {
     if (enabled == true)
     {
