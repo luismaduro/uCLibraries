@@ -44,35 +44,26 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* includes */
 #include <stdbool.h>
-#include <stdint.h>
-
-typedef enum
-{
-    FIFO_GOOD = 0x00,
-    FIFO_OVERFLOW = 0x01,
-    FIFO_UNDERFLOW = 0x02
-} tFIFOStatus;
 
 /* typedefs */
 typedef struct
 {
-    unsigned char *data;
-    tFIFOStatus status;
-    unsigned int size;
-    unsigned int putIndex;
-    unsigned int getIndex;
-    unsigned int used;
-} uFIFO;
+    unsigned char *bufferPointer;
+    unsigned int Head;
+    unsigned int Tail;
+    unsigned int Size;
+    unsigned int SpaceOcupied;
+} tFIFO;
 
 /* functions */
-void uFIFOInit(uFIFO *f, unsigned int size, unsigned char *data);
-bool uFIFOisFull(uFIFO *f);
-bool uFIFOisEmpty(uFIFO *f);
-unsigned char uFIFOGet(uFIFO *f);
-void uFIFOPut(uFIFO *f, unsigned char c);
-unsigned char uFIFOPeek(uFIFO *f);
-unsigned int uFIFOSpaceOcupied(uFIFO *f);
-void uFIFOClear(uFIFO *f);
-tFIFOStatus uFIFOStatus(uFIFO *f);
+void uFIFOInit(tFIFO * f, unsigned char *buf, unsigned int size);
+unsigned int uFIFOGet(tFIFO * f, unsigned char *buf, unsigned int nbytes);
+unsigned int uFIFOPut(tFIFO * f, unsigned char *buf, unsigned int nbytes);
+
+bool uFIFOisFull(tFIFO *f);
+bool uFIFOisEmpty(tFIFO *f);
+unsigned char uFIFOPeek(tFIFO *f);
+unsigned int uFIFOSpaceOcupied(tFIFO *f);
+void uFIFOClear(tFIFO *f);
 
 #endif // _FIFO_H_
