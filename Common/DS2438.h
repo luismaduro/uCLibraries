@@ -10,7 +10,6 @@
 
 #include <stdbool.h>
 #include "DS2482.h"
-#include "uwn_common.h"
 
 /** @cond IGNORE*/
 #define DS2438_PAGE_0           0x00
@@ -55,11 +54,11 @@ typedef union
         unsigned char : 1;
     } Bits; /*!< Bits of the configuration register.*/
 
-} DS2438_Typedef; /*!< Varable to configure the DS2438. */
+} tDS2438Config; /*!< Varable to configure the DS2438. */
 
-unsigned char DS2438Configure(tLaseredROMCode device, DS2438_Typedef Config);
+unsigned char DS2438Configure(tLaseredROMCode device, tDS2438Config Config);
 unsigned char DS2438GetData(tLaseredROMCode *device, float *temperature,
-                            float *voltage, float *current);
+                            float *voltage, float *current, float *energy);
 unsigned char DS2438IssueConvertions(tLaseredROMCode *device);
 
 #endif
