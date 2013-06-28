@@ -62,12 +62,16 @@ extern unsigned char deviceAddressWrite;
 /**The register that controls the clock speed*/
 #define I2CBAUDREGISTER     SSPADD
 
+#define  I2C_Direction_Transmitter      0x00
+#define  I2C_Direction_Receiver         0x01
+
 void I2CInit(void);
 void I2CStart(void);
 void I2CRestart(void);
 void I2CStop(void);
 void I2CAck(void);
 void I2CNotAck(void);
+void I2CSendAddress(unsigned char Address, unsigned char I2C_Direction);
 unsigned char I2CWrite(unsigned char data_out);
 unsigned char I2CRead(void);
 void I2CDeviceSetDeviceAddress(unsigned char address);

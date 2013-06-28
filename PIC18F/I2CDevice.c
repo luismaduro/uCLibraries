@@ -40,26 +40,6 @@ unsigned char deviceAddressRead;
 unsigned char deviceAddressWrite;
 
 /**
- * Initiates the module to work as an I2C master.
- */
-void I2CInit(void)
-{
-    I2CSCLPIN = 1;
-    I2CSDAPIN = 1;
-
-    I2CBAUDREGISTER = I2CBAUDVALUE;
-
-    I2CSTATbits.SMP = 0;
-    I2CSTATbits.CKE = 0;
-
-    I2CCON1bits.WCOL = 0;
-    I2CCON1bits.SSPOV = 0;
-    I2CCON1bits.SSPEN = 1;
-    I2CCON1bits.CKP = 0;
-    I2CCON1bits.SSPM = 0b1000;
-}
-
-/**
  * Sends a start condition to the I2C bus.
  * @warning Hardware specific!
  */
@@ -109,6 +89,19 @@ void I2CNotAck(void)
     I2CCON2bits.ACKDT = 1;
     I2CCON2bits.ACKEN = 1;
     while (I2CCON2bits.ACKEN);
+}
+
+/**
+ * Send the address of the slave through the bus.
+ * @param address Address of the slave.
+ */
+void I2CSendAddress(unsigned char Address, unsigned char I2C_Direction)
+{
+    I2CDeviceSetDeviceAddress(Address);
+    if (I2C_Direction == I2C_Direction_Receiver)
+        I2CWrite(deviceAddressRead);
+    else if (I2C_Direction == I2C_Direction_Transmitter)
+        I2CWrite(deviceAddressWrite);
 }
 
 /**

@@ -138,7 +138,7 @@ void I2CDeviceSetDeviceAddress(unsigned char address)
  * @param data Buffer to store read data in
  */
 void I2CDeviceReadBytes(unsigned char address,
-                        unsigned char length,
+                        unsigned int length,
                         unsigned char *data)
 {
     I2CStart();
@@ -169,7 +169,7 @@ void I2CDeviceReadBytes(unsigned char address,
  * @param data Buffer to copy new data from
  */
 void I2CDeviceWriteBytes(unsigned char address,
-                         unsigned char length,
+                         unsigned int length,
                          unsigned char *data)
 {
     I2CStart();

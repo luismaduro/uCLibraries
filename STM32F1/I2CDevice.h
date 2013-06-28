@@ -56,7 +56,7 @@ unsigned char I2CDeviceReadBits(unsigned char address,
                                 unsigned char length);
 unsigned char I2CDeviceReadByte(unsigned char address);
 void I2CDeviceReadBytes(unsigned char address,
-                        unsigned char length,
+                        unsigned int length,
                         unsigned char *data);
 void I2CDeviceWriteBit(unsigned char address,
                        unsigned char _bit,
@@ -68,7 +68,7 @@ void I2CDeviceWriteBits(unsigned char address,
 void I2CDeviceWriteByte(unsigned char address,
                         unsigned char value);
 void I2CDeviceWriteBytes(unsigned char address,
-                         unsigned char length,
+                         unsigned int length,
                          unsigned char *data);
 
 #endif /* _I2CDEV_H_ */
