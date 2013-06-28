@@ -1,10 +1,10 @@
 /**
  *  @file       I2CMasterSlave.c
- *  @author     Based on the work done by Micael Santos on EduBot L
- *  @author     Modified by Luis Maduro
- *  @version    1.00
- *  @date       May 2012
- *  @brief      Library to interface I2C Master - Slave devices.
+ *  @author     Luis Maduro
+ *  @version    2.00
+ *  @date       June 2013
+ *  @brief      Library to interface I2C Master - Slave devices. Based on the the
+ *              AN734 from Microchip.
  *
  *  Copyright (C) 2012  Luis Maduro
  *
@@ -22,24 +22,21 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef __18CXX
-#include <p18cxxx.h>
-#elif defined __dsPIC33F__
-#include <p33Fxxxx.h>
-#endif
-
+#include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <i2c.h>
 #include "I2CMasterSlave.h"
 
-//xpto[ROWS][COL]
-unsigned char RXDataBuffer[10][4];
-unsigned char TXDataBuffer[10][4];
 unsigned char *RXDataPtr;
 unsigned char *TXDataPtr;
-struct FlagType Flag;
-unsigned char x = 0;
+unsigned char *RXDataPtrOriginal;
+unsigned char *TXDataPtrOriginal;
+unsigned int RXBufferSize;
+unsigned int TXBufferSize;
+unsigned int RXBufferIndex;
+unsigned int TXBufferIndex;
+
+FlagType Flag;
 
 /**
  * This funtion configures the I2C module to the specified parameters.
@@ -49,9 +46,11 @@ unsigned char x = 0;
  *                If the device is configured in master mode this value is a "don't
  *                care".
  */
-void Configure_I2C_Module(DEVICE_TYPE role, I2C_SPEED speed, unsigned char address)
+void ConfigureI2CModule(DEVICE_TYPE role, I2C_SPEED speed, unsigned char address,
+                        unsigned char *RXBuffer, unsigned int RXBSize,
+                        unsigned char *TXBuffer, unsigned int TXBSize)
 {
-#ifdef __18CXX
+    I2CCON1bits.SSPEN = 0;
     /**
      * The formula used to calculate the I2C clock based on the crystal frequency
      * is present on the page 172 on the PIC18F4520 datasheet.
@@ -77,178 +76,69 @@ void Configure_I2C_Module(DEVICE_TYPE role, I2C_SPEED speed, unsigned char addre
 
     if (role == DEVICE_MASTER) //If the device role is master
     {
+        I2CSTATbits.CKE = 0;
+
+        I2CCON1bits.WCOL = 0;
+        I2CCON1bits.SSPOV = 0;
+        I2CCON1bits.CKP = 0;
+        I2CCON1bits.SSPM = 0b1000;
+        I2C_CLOCK_OR_ADDRESS = 8;
+
         if (speed == I2C_SPEED_100KHZ) // and speed is 100kHz then configure
         {
-            OpenI2C(MASTER,
-                    SLEW_OFF);
-
-            I2C_CLOCK_OR_ADDRESS = (unsigned char) ((SYSTEM_CLOCK / (4 * 100000)) - 4);
+            I2CSTATbits.SMP = 0;
         }
         else if (speed == I2C_SPEED_400KHZ) // and speed is 400kHz then configure
         {
-            OpenI2C(MASTER,
-                    SLEW_ON);
-            I2C_CLOCK_OR_ADDRESS = (unsigned char) ((SYSTEM_CLOCK / (4 * 400000)) - 4);
+            I2CSTATbits.SMP = 1;
         }
         else if (speed == I2C_SPEED_1MHZ) // and speed is 1MHz then configure
         {
-            OpenI2C(MASTER,
-                    SLEW_OFF);
-
-            I2C_CLOCK_OR_ADDRESS = (unsigned char) ((SYSTEM_CLOCK / (4 * 1000000)) - 4);
+            I2CSTATbits.SMP = 0;
         }
+
+        I2C_INTERRUPT_FLAG = 0; //Clear the I2C interrut flag.
+        I2C_INTERRUPT_PRIORITY = 0; //Set the I2C interrupt priority to high.
+        I2C_INTERRUPT_ENABLE = 0; //Enable the I2C interrupt.
+        I2CCON1bits.SSPEN = 1;
     }
     else if (role == DEVICE_SLAVE) //if the device role is slave
     {
-        if (speed == I2C_SPEED_100KHZ) // and speed is 400kHz then configure
+        I2CSTATbits.CKE = 0;
+
+        I2CCON1bits.WCOL = 0;
+        I2CCON1bits.SSPOV = 0;
+        I2CCON1bits.CKP = 0;
+        I2CCON1bits.SSPM = 0b0110;
+        I2CCON2bits.SEN = 1;
+
+        if (speed == I2C_SPEED_100KHZ) // and speed is 100kHz then configure
         {
-            OpenI2C(SLAVE_7,
-                    SLEW_OFF);
+            I2CSTATbits.SMP = 0;
         }
         else if (speed == I2C_SPEED_400KHZ) // and speed is 400kHz then configure
         {
-            OpenI2C(SLAVE_7,
-                    SLEW_ON);
+            I2CSTATbits.SMP = 1;
         }
         else if (speed == I2C_SPEED_1MHZ) // and speed is 1MHz then configure
         {
-            OpenI2C(SLAVE_7,
-                    SLEW_OFF);
+            I2CSTATbits.SMP = 0;
         }
 
-        I2C_CLOCK_POLARITY = 1; //SCK Release Control bit, realeases the clock line.
+        I2CCON1bits.CKP = 1; //SCK Release Control bit, realeases the clock line.
 
         I2C_CLOCK_OR_ADDRESS = (address << 1); // Sets the slave address to the specified address.
 
         I2C_INTERRUPT_FLAG = 0; //Clear the I2C interrut flag.
         I2C_INTERRUPT_PRIORITY = 1; //Set the I2C interrupt priority to high.
         I2C_INTERRUPT_ENABLE = 1; //Enable the I2C interrupt.
-    }
-#endif
-
-#if defined(__dsPIC33F__)
-
-    /**
-     * The formula used to calculate the I2C clock based on the crystal frequency
-     * is present on the page 172 on the PIC18F4520 datasheet.
-     * The value of the crystal used is DEFINED on the "I2CMasterSlave.h"
-     * header file.
-     *
-     * In slave mode the LSB must be zero, like: 0b 1011 0110
-     *                                                       ^
-     *                                                       |
-     *
-     * Also in slave mode, the default priority of the interrupt is high, and
-     * will be activated by default. The apropriate code must be written on the
-     * interrupts funtions to deal with the interrupts of I2C. You can change
-     * the interrupt priotity bellow in the respective bit.
-     */
-
-    /** The formula is:
-     *                              FOSC
-     *                  SSPADD = ---------- - 4
-     *                            4*speed
-     */
-
-
-    if (role == DEVICE_MASTER) //If the device role is master
-    {
-        /*
-        if (speed == I2C_SPEED_100KHZ) // and speed is 100kHz then configure
-        {
-            I2C_SSPCON = 0x8040; //Enable I2C1 module, enable clock stretching
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_CLOCK_OR_ADDRESS = (unsigned int) ((((1 / 100000L) - 130E-9) *
-                    INSTRUCTIONS_CLOCK) - 2);
-        }
-        else if (speed == I2C_SPEED_400KHZ) // and speed is 400kHz then configure
-        {
-            I2C_SSPCON = 0x8040; //Enable I2C1 module, enable clock stretching
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_CLOCK_OR_ADDRESS = (unsigned int) ((((1 / 100000L) - 130E-9) *
-                    INSTRUCTIONS_CLOCK) - 2);
-        }
-        else if (speed == I2C_SPEED_1MHZ) // and speed is 1MHz then configure
-        {
-            I2C_SSPCON = 0x8040; //Enable I2C1 module, enable clock stretching
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_CLOCK_OR_ADDRESS = (unsigned int) ((((1 / 100000L) - 130E-9) *
-                    INSTRUCTIONS_CLOCK) - 2);
-        }
-         */
-    }
-    else if (role == DEVICE_SLAVE) //if the device role is slave
-    {
-        if (speed == I2C_SPEED_100KHZ) // and speed is 400kHz then configure
-        {
-            OpenI2C1(I2C1_ON &
-                     I2C1_IDLE_CON &
-                     I2C1_CLK_REL &
-                     I2C1_IPMI_DIS &
-                     I2C1_7BIT_ADD &
-                     I2C1_SLW_DIS &
-                     I2C1_SM_DIS &
-                     I2C1_GCALL_EN &
-                     I2C1_STR_EN &
-                     I2C1_ACK &
-                     I2C1_ACK_EN &
-                     I2C1_RCV_EN &
-                     I2C1_STOP_EN &
-                     I2C1_RESTART_EN &
-                     I2C1_START_EN,
-                     0);
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_ADDRESS = (address);
-        }
-        else if (speed == I2C_SPEED_400KHZ) // and speed is 400kHz then configure
-        {
-            OpenI2C1(I2C1_ON &
-                     I2C1_IDLE_CON &
-                     I2C1_CLK_REL &
-                     I2C1_IPMI_DIS &
-                     I2C1_7BIT_ADD &
-                     I2C1_SLW_EN &
-                     I2C1_SM_DIS &
-                     I2C1_GCALL_EN &
-                     I2C1_STR_EN &
-                     I2C1_ACK &
-                     I2C1_ACK_EN &
-                     I2C1_RCV_EN &
-                     I2C1_STOP_EN &
-                     I2C1_RESTART_EN &
-                     I2C1_START_EN,
-                     0);
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_ADDRESS = (address);
-        }
-        else if (speed == I2C_SPEED_1MHZ) // and speed is 1MHz then configure
-        {
-            OpenI2C1(I2C1_ON &
-                     I2C1_IDLE_CON &
-                     I2C1_CLK_HLD &
-                     I2C1_IPMI_DIS &
-                     I2C1_7BIT_ADD &
-                     I2C1_SLW_DIS &
-                     I2C1_SM_DIS &
-                     I2C1_GCALL_EN &
-                     I2C1_STR_EN &
-                     I2C1_ACK &
-                     I2C1_ACK_EN &
-                     I2C1_RCV_EN &
-                     I2C1_STOP_EN &
-                     I2C1_RESTART_EN &
-                     I2C1_START_EN,
-                     0);
-            I2C_ADDRESS_MASKING = 0x0000;
-            I2C_ADDRESS = (address);
-        }
-
-        ConfigIntI2C1(MI2C1_INT_OFF & SI2C1_INT_ON & SI2C1_INT_PRI_7);
-        IEC1bits.SI2C1IE = 1;
-        IFS1bits.SI2C1IF = 0;
+        I2CCON1bits.SSPEN = 1;
     }
 
-#endif
+    RXDataPtrOriginal = RXBuffer;
+    TXDataPtrOriginal = TXBuffer;
+    RXBufferSize = RXBSize;
+    TXBufferSize = TXBSize;
 }
 
 /**
@@ -257,147 +147,149 @@ void Configure_I2C_Module(DEVICE_TYPE role, I2C_SPEED speed, unsigned char addre
  * @remarks This funtion clears all the necessary flags and ajusts the
  * configurations as needed.
  */
-void I2C_Slave_Parse_Interrupt(void)
+void I2CSlaveParseInterrupt(void)
 {
-    unsigned char dummy = 0;
+    volatile unsigned char dummy = 0;
+    volatile unsigned char I2cState;
 
-#if defined(__18CXX)
-
-    if (I2C_RECEIVE_OVERFLOW == 1)
+    /* have we just received a valid slave address? */
+    if (I2CSTATbits.DA == MSSP_DA_ADDRESS)
     {
-        I2C_RECEIVE_OVERFLOW = 0;
-        dummy = I2C_BUFFER; //dummy read
-        return;
+        /* reset I2C state */
+        I2cState = I2C_ADDRESS_IN;
     }
-        //Address matched
-    else if ((I2C_READ_NOT_WRITE == 0) && (I2C_DATA_NOT_ADDRESS == 0))
+
+    switch (I2cState)
     {
-        dummy = I2C_BUFFER; //dummy read
-        Flag.AddrFlag = 1; //next byte will the address to the data
-        Flag.DataFlag = 0;
-    }
-//check for data
-    else if ((I2C_READ_NOT_WRITE == 0) && (I2C_DATA_NOT_ADDRESS == 1)) 
-    {
-        if (Flag.AddrFlag)
-        {
-            x = 0;
-            Flag.AddrFlag = 0;
-            Flag.DataFlag = 1; //next byte is data
-            RXDataPtr = &RXDataBuffer[I2C_BUFFER][x];
-            TXDataPtr = &TXDataBuffer[I2C_BUFFER][x];
-
-            I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        }
-        else if (Flag.DataFlag)
-        {
-            *RXDataPtr = (unsigned char) I2C_BUFFER; // store data into RAM
-
-            if (x < 4)
-            {
-                x++;
-                RXDataPtr++;
-                Flag.AddrFlag = 0; //next byte
-                Flag.DataFlag = 1;
-            }
-            else
-            {
-                x = 0;
-                RXDataPtr = &RXDataBuffer[0][0];
-                Flag.AddrFlag = 0; //end of tx
-                Flag.DataFlag = 0;
-            }
-
-            I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-
-        }
-    }
-    else if ((I2C_READ_NOT_WRITE == 1) && (I2C_DATA_NOT_ADDRESS == 0))
-    {
+    case I2C_ADDRESS_IN:
+        /* first clear the buffer */
         dummy = I2C_BUFFER;
-        I2C_BUFFER = *TXDataPtr++; //Read data from RAM & send data to I2C master device
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_BUFFER_FULL); //Wait till all
-        I2C_BUFFER = *TXDataPtr++;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_BUFFER_FULL); //Wait till all
-        I2C_BUFFER = *TXDataPtr++;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_BUFFER_FULL); //Wait till all
-        I2C_BUFFER = *TXDataPtr;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_BUFFER_FULL); //Wait till all
-    }
-    I2C_INTERRUPT_FLAG = 0; //clear I2C1 Slave interrupt flag
-#endif
 
-#if defined(__dsPIC33F__)
-
-    if (I2C_RECEIVE_OVERFLOW == 1)
-    {
-        I2C_RECEIVE_OVERFLOW = 0;
-        dummy = I2C_RX_BUFFER; //dummy read
-        return;
-    }
-
-    else if ((I2C_READ_NOT_WRITE == 0) && (I2C_DATA_NOT_ADDRESS == 0)) //Address matched
-    {
-        dummy = I2C_RX_BUFFER; //dummy read
-        Flag.AddrFlag = 1; //next byte will the address to the data
-        Flag.DataFlag = 0;
-    }
-
-    else if ((I2C_READ_NOT_WRITE == 0) && (I2C_DATA_NOT_ADDRESS == 1)) //check for data
-    {
-        if (Flag.AddrFlag)
+        /* check what the master wants to do */
+        if (I2CSTATbits.RW == MSSP_RW_READ)
         {
-            x = 0;
-            Flag.AddrFlag = 0;
-            Flag.DataFlag = 1; //next byte is data
-            RXDataPtr = &RXDataBuffer[I2C_RX_BUFFER][x];
-            TXDataPtr = &TXDataBuffer[I2C_RX_BUFFER][x];
-
-            I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        }
-        else if (Flag.DataFlag)
-        {
-            *RXDataPtr = (unsigned char) I2C_RX_BUFFER; // store data into RAM
-
-            if (x < 4)
+            /* master wants to read data so get byte from
+               circular buffer and write it to SSPBUF */
+            I2CCON1bits.WCOL = 0;
+            do
             {
-                x++;
-                RXDataPtr++;
-                Flag.AddrFlag = 0; //next byte
-                Flag.DataFlag = 1;
+                I2C_BUFFER = *TXDataPtr; //Read data from RAM & send data to I2C master device
+            }
+            while (I2CCON1bits.WCOL);
+
+            if (TXBufferIndex < TXBufferSize)
+            {
+                TXBufferIndex++;
+                TXDataPtr++;
+                I2cState = I2C_DATA_OUT;
             }
             else
             {
-                x = 0;
-                RXDataPtr = &RXDataBuffer[0][0];
-                Flag.AddrFlag = 0; //end of tx
-                Flag.DataFlag = 0;
+                /* oops, nothing to send */
+                I2cState = I2C_DUMMY_OUT;
+                /* put 0xFF into SSPBUF to prevent SDA getting stuck low */
+                I2C_BUFFER = 0xFF;
             }
 
-            I2C_CLOCK_POLARITY = 1; //Release SCL1 line
+            /* release SCL */
+            I2CCON1bits.CKP = 1;
 
         }
+        else
+        {
+            /* master wants to write data */
+            I2cState = I2C_DATA_IN;
+            Flag.AddrFlag = 1; //next byte will the address to the data
+            Flag.DataFlag = 0;
+            /* release SCL */
+            I2CCON1bits.CKP = 1;
+        }
+        break;
+
+    case I2C_DATA_IN:
+        /* check SSPBUFF has valid data */
+        if (I2CSTATbits.BF)
+        {
+            if (Flag.AddrFlag)
+            {
+                Flag.AddrFlag = 0;
+                Flag.DataFlag = 1; //next byte is data
+                dummy = I2C_BUFFER;
+                RXDataPtr = RXDataPtrOriginal + dummy;
+                TXDataPtr = TXDataPtrOriginal + dummy;
+                RXBufferIndex = dummy;
+                TXBufferIndex = dummy;
+            }
+            else if (Flag.DataFlag)
+            {
+                *RXDataPtr = (unsigned char) I2C_BUFFER; // store data into RAM
+
+                if (RXBufferIndex < RXBufferSize)
+                {
+                    RXBufferIndex++;
+                    RXDataPtr++;
+                    Flag.AddrFlag = 0; //next byte
+                    Flag.DataFlag = 1;
+                }
+                else
+                {
+                    /* oh dear, an overflow. Ignore rest of incomming data */
+                    I2cState = I2C_DATA_DISCARD;
+                }
+            }
+            /* release SCL */
+            I2CCON1bits.CKP = 1;
+        }
+        break;
+
+    case I2C_DATA_OUT:
+        /* Ensure buffer is empty and SCL is disabled */
+        if (!I2CSTATbits.BF && !I2CCON1bits.CKP)
+        {
+            I2CCON1bits.WCOL = 0;
+            do
+            {
+                I2C_BUFFER = *TXDataPtr; //Read data from RAM & send data to I2C master device
+            }
+            while (I2CCON1bits.WCOL);
+
+            if (TXBufferIndex < TXBufferSize)
+            {
+                TXBufferIndex++;
+                TXDataPtr++;
+                I2cState = I2C_DATA_OUT;
+            }
+            else
+            {
+                /* oops, nothing to send */
+                I2cState = I2C_DUMMY_OUT;
+                /* put 0xFF into SSPBUF to prevent SDA getting stuck low */
+                I2C_BUFFER = 0xFF;
+            }
+            /* release SCL */
+            I2CCON1bits.CKP = 1;
+        }
+        break;
+
+    case I2C_DATA_DISCARD:
+        /* just read SSPBUF to clear the interrupt flag and discard data */
+        dummy = I2C_BUFFER;
+        /* release SCL */
+        I2CCON1bits.CKP = 1;
+        break;
+
+    case I2C_DUMMY_OUT:
+        /* Ensure buffer is empty and SCL is disabled */
+        if (!I2CSTATbits.BF && !I2CCON1bits.CKP)
+        {
+            /* put 0xFF into SSPBUF to prevent SDA getting stuck low */
+            I2C_BUFFER = 0xFF;
+            /* release SCL */
+            I2CCON1bits.CKP = 1;
+        }
+        break;
+
     }
-    else if ((I2C_READ_NOT_WRITE == 1) && (I2C_DATA_NOT_ADDRESS == 0))
-    {
-        dummy = I2C_RX_BUFFER;
-        I2C_RX_BUFFER = *TXDataPtr++; //Read data from RAM & send data to I2C master device
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_RX_BUFFER_FULL); //Wait till all
-        I2C_RX_BUFFER = *TXDataPtr++;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_RX_BUFFER_FULL); //Wait till all
-        I2C_RX_BUFFER = *TXDataPtr++;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_RX_BUFFER_FULL); //Wait till all
-        I2C_RX_BUFFER = *TXDataPtr;
-        I2C_CLOCK_POLARITY = 1; //Release SCL1 line
-        while (I2C_RX_BUFFER_FULL); //Wait till all
-    }
-    I2C_INTERRUPT_FLAG = 0; //clear I2C1 Slave interrupt flag
-#endif
+
+    I2C_INTERRUPT_FLAG = 0;
 }
