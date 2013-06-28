@@ -33,7 +33,7 @@ along with this program.	If not, see <http://www.gnu.org/licenses/>.
 
 /** Device Addresses (7 bit) **/
 #define MPU9150_ADD_AD0_LOW		0x68
-#define MPU9150_ADD_AD0_HIGH						0x69
+#define MPU9150_ADD_AD0_HIGH	0x69
 #define MPU9150_ADD_DEFAULT		MPU9150_ADD_AD0_LOW
 #define MPU9150_ADD_MAG			0x0c
 
@@ -376,8 +376,6 @@ along with this program.	If not, see <http://www.gnu.org/licenses/>.
 #define MPU9150_MAG_I2C_DISABLE	0x01
 
 void MPU9150Init(void);
-
-void MPU9150InitLib(uint8_t address);
 
 bool MPU9150TestConnection(void);
 
