@@ -521,6 +521,7 @@ typedef struct
 #define RCC_APB2Periph_TIM9              ((uint32_t)0x00080000)
 #define RCC_APB2Periph_TIM10             ((uint32_t)0x00100000)
 #define RCC_APB2Periph_TIM11             ((uint32_t)0x00200000)
+#define RCC_APB2Periph_ALL               ((uint32_t)0x003FFFFD)
 
 #define IS_RCC_APB2_PERIPH(PERIPH) ((((PERIPH) & 0xFFC00002) == 0x00) && ((PERIPH) != 0x00))
 /**
@@ -556,6 +557,7 @@ typedef struct
 #define RCC_APB1Periph_PWR               ((uint32_t)0x10000000)
 #define RCC_APB1Periph_DAC               ((uint32_t)0x20000000)
 #define RCC_APB1Periph_CEC               ((uint32_t)0x40000000)
+#define RCC_APB1Periph_ALL               ((uint32_t)0x7EFEC9FF)
  
 #define IS_RCC_APB1_PERIPH(PERIPH) ((((PERIPH) & 0x81013600) == 0x00) && ((PERIPH) != 0x00))
 
