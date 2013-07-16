@@ -294,7 +294,7 @@ void MRF24J40Init(unsigned char channel, unsigned char power, unsigned int pan, 
     MRF24J40WriteShort(MRF_RFCTL, 0x04); // Reset RF state machine.
     MRF24J40WriteShort(MRF_RFCTL, 0x00); // part 2
 
-    DelayMiliSeconds(1); // delay at least 192usec
+    UWN_DelayMiliSeconds(1); // delay at least 192usec
 }
 
 void MRF24J40SetPromiscuous(bool enabled)

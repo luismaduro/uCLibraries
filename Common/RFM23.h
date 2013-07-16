@@ -29,8 +29,8 @@ extern "C"
 #endif
 
 #ifdef RECEIVER_RFM23
-#include "PIC18F/SPIDevice.h"
-#include "Common/Tasker/Tasker.h"
+#include "SPIDevice.h"
+#include "Tasker/Tasker.h"
 #define WirelessSelectChip()            LATAbits.LATA3 = 0
 #define WirelessDeselectChip()          LATAbits.LATA3 = 1
 #define WirelessShutdownMode()          LATAbits.LATA2 = 1

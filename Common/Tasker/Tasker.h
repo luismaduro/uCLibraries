@@ -36,7 +36,7 @@
 /**Tasker version*/
 #define TASKER_VERSION 112
 /**Define here the maximum number of tasks to handle.*/
-#define MAXIMUM_TASKS                   10
+#define MAXIMUM_TASKS                   1
 /**Set your max interval here (max 2^32-1) - default 3600000 (1 hour)*/
 #define MAX_TASK_INTERVAL 3600000UL
 
