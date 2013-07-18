@@ -482,6 +482,7 @@ typedef struct
 #ifndef STM32F10X_CL
  #define RCC_AHBPeriph_FSMC              ((uint32_t)0x00000100)
  #define RCC_AHBPeriph_SDIO              ((uint32_t)0x00000400)
+ #define RCC_AHBPeriph_ALL							 ((uint32_t)0x00000557)
  #define IS_RCC_AHB_PERIPH(PERIPH) ((((PERIPH) & 0xFFFFFAA8) == 0x00) && ((PERIPH) != 0x00))
 #else
  #define RCC_AHBPeriph_OTG_FS            ((uint32_t)0x00001000)
