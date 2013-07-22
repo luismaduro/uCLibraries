@@ -5,15 +5,15 @@ uint8_t buffer[16];
 
 void MPU9150Init(void)
 {
-    uKernelDelayMiliseconds(250);
-    I2CDeviceSetDeviceAddress(MPU9150_ADD_DEFAULT);
+    uKernelDelayMiliseconds(500);
     MPU9150SetPowerManagement1((1 << 7));
-    uKernelDelayMiliseconds(250);
+    uKernelDelayMiliseconds(500);
     MPU9150SetPowerManagement1(0x09);
     uKernelDelayMiliseconds(500);
     MPU9150SetGyroConfig(3 << 3);
-    uKernelDelayMiliseconds(250);
+    uKernelDelayMiliseconds(500);
     MPU9150SetAccelConfig(3 << 3);
+    uKernelDelayMiliseconds(500);
 }
 
 bool MPU9150TestConnection(void)
