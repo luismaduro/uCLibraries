@@ -1,17 +1,17 @@
 #include "RFM23.h"
 
-volatile unsigned char _idleMode = RFM2X_XTON;
-volatile unsigned int _txGood = 0;
-volatile unsigned char rssi = 0;
-volatile tInterruptStatus1 RFM2xITStatus1;
-volatile tInterruptStatus2 RFM2xITStatus2;
-volatile tPackageFormat RFM2xRXPacket;
-volatile tPackageFormat RFM2xTXPacket;
-volatile bool NewPacketReceived;
+uint8_t _idleMode = RFM2X_XTON;
+uint16_t _txGood = 0;
+uint8_t rssi = 0;
+tInterruptStatus1 RFM2xITStatus1;
+tInterruptStatus2 RFM2xITStatus2;
+tPackageFormat RFM2xRXPacket;
+tPackageFormat RFM2xTXPacket;
+bool NewPacketReceived;
 
-unsigned char RFM2xReadByte(unsigned char reg)
+uint8_t RFM2xReadByte(uint8_t reg)
 {
-    unsigned char val;
+    uint8_t val;
 
     WirelessSelectChip();
     SPIWrite(reg & ~RFM2X_SPI_WRITE_MASK);
@@ -21,7 +21,7 @@ unsigned char RFM2xReadByte(unsigned char reg)
     return val;
 }
 
-void RFM2xWriteByte(unsigned char reg, unsigned char val)
+void RFM2xWriteByte(uint8_t reg, uint8_t val)
 {
     WirelessSelectChip();
     SPIWrite(reg | RFM2X_SPI_WRITE_MASK);
@@ -29,7 +29,7 @@ void RFM2xWriteByte(unsigned char reg, unsigned char val)
     WirelessDeselectChip();
 }
 
-void RFM2xBurstReadByte(unsigned char reg, unsigned char *dest, unsigned char len)
+void RFM2xBurstReadByte(uint8_t reg, uint8_t *dest, uint8_t len)
 {
     WirelessSelectChip();
     SPIWrite(reg & ~RFM2X_SPI_WRITE_MASK);
@@ -38,7 +38,7 @@ void RFM2xBurstReadByte(unsigned char reg, unsigned char *dest, unsigned char le
     WirelessDeselectChip();
 }
 
-void RFM2xBurstWriteByte(unsigned char reg, unsigned char *src, unsigned char len)
+void RFM2xBurstWriteByte(uint8_t reg, uint8_t *src, uint8_t len)
 {
     WirelessSelectChip();
     SPIWrite(reg | RFM2X_SPI_WRITE_MASK);
@@ -66,7 +66,7 @@ void RFM2xInterruptHandler(void)
     }
 }
 
-unsigned char RFM2xInit(void)
+uint8_t RFM2xInit(void)
 {
     WirelessShutdownMode();
     TaskerDelayMiliseconds(20);
@@ -157,12 +157,12 @@ unsigned char RFM2xInit(void)
     return 0;
 }
 
-unsigned char RFM2xStatusRead(void)
+uint8_t RFM2xStatusRead(void)
 {
     return RFM2xReadByte(RFM2X_REG_02_DEVICE_STATUS);
 }
 
-void RFM2xSetMode(unsigned char mode)
+void RFM2xSetMode(uint8_t mode)
 {
     RFM2xWriteByte(RFM2X_REG_07_OPERATING_MODE1, mode);
 }
@@ -195,14 +195,14 @@ void RFM2xSendData(void)
 {
     RFM2xSetModeIdle();
     RFM2xResetTXFIFO();
-    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RFM2xTXPacket.Preamble[0]), RFM2X_FIFO_SIZE);
+    RFM2xBurstWriteByte(RFM2X_REG_7F_FIFO_ACCESS, (uint8_t *) &(RFM2xTXPacket.Preamble[0]), RFM2X_FIFO_SIZE);
     RFM2xSetModeTX();
 }
 
 void RFM2xReceiveData(void)
 {
     RFM2xSetModeIdle();
-    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (unsigned char *) &(RFM2xRXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD);
+    RFM2xBurstReadByte(RFM2X_REG_7F_FIFO_ACCESS, (uint8_t *) &(RFM2xRXPacket.CommandID), RFM2X_RXFFAFULL_THRESHOLD);
     RFM2xRXPacket.SignalStrength = rssi;
     RFM2xResetRXFIFO();
 }
@@ -225,7 +225,7 @@ void RFM2xResetAllFIFO(void)
     RFM2xWriteByte(RFM2X_REG_08_OPERATING_MODE2, 0x00);
 }
 
-unsigned char RFM2xReadRSSI(void)
+uint8_t RFM2xReadRSSI(void)
 {
     return RFM2xReadByte(RFM2X_REG_26_RSSI);
 }
@@ -236,8 +236,8 @@ unsigned char RFM2xReadRSSI(void)
 
 bool RFM2xSetFrequency(float centre, float afcPullInRange)
 {
-    unsigned char fbsel = RFM2X_SBSEL;
-    unsigned char afclimiter;
+    uint8_t fbsel = RFM2X_SBSEL;
+    uint8_t afclimiter;
 
     if (centre < 240.0 || centre > 960.0) // 930.0 for early silicon
         return false;
@@ -248,20 +248,20 @@ bool RFM2xSetFrequency(float centre, float afcPullInRange)
             return false;
         centre /= 2;
         fbsel |= RFM2X_HBSEL;
-        afclimiter = (unsigned char) (afcPullInRange * 1000000.0 / 1250.0);
+        afclimiter = (uint8_t) (afcPullInRange * 1000000.0 / 1250.0);
     }
     else
     {
         if (afcPullInRange < 0.0 || afcPullInRange > 0.159375)
             return false;
-        afclimiter = (unsigned char) (afcPullInRange * 1000000.0 / 625.0);
+        afclimiter = (uint8_t) (afcPullInRange * 1000000.0 / 625.0);
     }
     centre /= 10.0;
 
     float integerPart = (int) (centre);
     float fractionalPart = centre - integerPart;
 
-    unsigned char fb = (unsigned char) integerPart - 24; // Range 0 to 23
+    uint8_t fb = (uint8_t) integerPart - 24; // Range 0 to 23
     fbsel |= fb;
     unsigned int fc = (unsigned int) (fractionalPart * 64000);
     RFM2xWriteByte(RFM2X_REG_73_FREQUENCY_OFFSET1, 0); // REVISIT

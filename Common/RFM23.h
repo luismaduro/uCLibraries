@@ -16,21 +16,20 @@ extern "C"
 #include <xc.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef MASTER_RFM23
 #include "../PIC18F/SPIDevice.h"
 #include "Tasker/Tasker.h"
-#define WirelessTurnSupplyON()          LATCbits.LATC2 = 0
-#define WirelessTurnSupplyOFF()         LATCbits.LATC2 = 1
-#define WirelessSelectChip()            LATBbits.LATB4 = 0
-#define WirelessDeselectChip()          LATBbits.LATB4 = 1
-#define WirelessShutdownMode()          LATBbits.LATB3 = 1
-#define WirelessNormalMode()            LATBbits.LATB3 = 0
+#define WirelessSelectChip()    (LATBbits.LATB4 = 0)
+#define WirelessDeselectChip()  (LATBbits.LATB4 = 1)
+#define WirelessShutdownMode()  (LATBbits.LATB3 = 1)
+#define WirelessNormalMode()    (LATBbits.LATB3 = 0)
 #endif
 
 #ifdef RECEIVER_RFM23
 #include "SPIDevice.h"
-#include "Tasker/Tasker.h"
+#include "uKernel/uKernel.h"
 #define WirelessSelectChip()            LATAbits.LATA3 = 0
 #define WirelessDeselectChip()          LATAbits.LATA3 = 1
 #define WirelessShutdownMode()          LATAbits.LATA2 = 1
@@ -393,16 +392,16 @@ typedef union
 
     struct
     {
-        unsigned char CRCError : 1;
-        unsigned char ValidPacketReceived : 1;
-        unsigned char PacketSentInterrupt : 1;
-        unsigned char ExternalInterrupt : 1;
-        unsigned char RXFIFOAlmostFull : 1;
-        unsigned char TXFIFOAlmostEmpty : 1;
-        unsigned char TXFIFOAlmostFull : 1;
-        unsigned char FIFOUnderflowOverflowError : 1;
+        uint8_t CRCError : 1;
+        uint8_t ValidPacketReceived : 1;
+        uint8_t PacketSentInterrupt : 1;
+        uint8_t ExternalInterrupt : 1;
+        uint8_t RXFIFOAlmostFull : 1;
+        uint8_t TXFIFOAlmostEmpty : 1;
+        uint8_t TXFIFOAlmostFull : 1;
+        uint8_t FIFOUnderflowOverflowError : 1;
     } bits;
-    unsigned char IRQReg;
+    uint8_t IRQReg;
 } tInterruptStatus1;
 
 typedef union
@@ -410,51 +409,51 @@ typedef union
 
     struct
     {
-        unsigned char PowerONReset : 1;
-        unsigned char ChipReady : 1;
-        unsigned char LowBatteryDetect : 1;
-        unsigned char WakeUpTimer : 1;
-        unsigned char RSSI : 1;
-        unsigned char InvalidPreambleDetected : 1;
-        unsigned char ValidPreambleDetected : 1;
-        unsigned char SyncDetected : 1;
+        uint8_t PowerONReset : 1;
+        uint8_t ChipReady : 1;
+        uint8_t LowBatteryDetect : 1;
+        uint8_t WakeUpTimer : 1;
+        uint8_t RSSI : 1;
+        uint8_t InvalidPreambleDetected : 1;
+        uint8_t ValidPreambleDetected : 1;
+        uint8_t SyncDetected : 1;
     } bits;
-    unsigned char IRQReg;
+    uint8_t IRQReg;
 } tInterruptStatus2;
 
 typedef struct
 {
-    unsigned char Preamble[6];
-    unsigned char SyncWord[2];
-    unsigned char CommandID;
-    unsigned char DestinationID[4];
-    unsigned char SourceID[4];
-    unsigned char TransmissionCodeID;
-    unsigned char SequenceNumber;
-    unsigned char PacketInfo;
-    unsigned char PayloadLength;
-    unsigned char Payload[32];
-    unsigned char BatteryLevel[2];
-    unsigned char RTC[4];
-    unsigned char SignalStrength;
-    unsigned char CRC[4];
+    uint8_t Preamble[6];
+    uint8_t SyncWord[2];
+    uint8_t CommandID;
+    uint8_t DestinationID[4];
+    uint8_t SourceID[4];
+    uint8_t TransmissionCodeID;
+    uint8_t SequenceNumber;
+    uint8_t PacketInfo;
+    uint8_t PayloadLength;
+    uint8_t Payload[32];
+    uint8_t BatteryLevel[2];
+    uint8_t RTC[4];
+    uint8_t SignalStrength;
+    uint8_t CRC[4];
 } tPackageFormat;
 
-extern volatile tPackageFormat RFM2xRXPacket;
-extern volatile tPackageFormat RFM2xTXPacket;
-extern volatile tInterruptStatus1 RFM2xITStatus1;
-extern volatile tInterruptStatus2 RFM2xITStatus2;
+extern tPackageFormat RFM2xRXPacket;
+extern tPackageFormat RFM2xTXPacket;
+extern tInterruptStatus1 RFM2xITStatus1;
+extern tInterruptStatus2 RFM2xITStatus2;
 
-extern volatile bool NewPacketReceived;
+extern bool NewPacketReceived;
 
-unsigned char RFM2xReadByte(unsigned char reg);
-void RFM2xWriteByte(unsigned char reg, unsigned char val);
-void RFM2xBurstReadByte(unsigned char reg, unsigned char *dest, unsigned char len);
-void RFM2xBurstWriteByte(unsigned char reg, unsigned char *src, unsigned char len);
+uint8_t RFM2xReadByte(uint8_t reg);
+void RFM2xWriteByte(uint8_t reg, uint8_t val);
+void RFM2xBurstReadByte(uint8_t reg, uint8_t *dest, uint8_t len);
+void RFM2xBurstWriteByte(uint8_t reg, uint8_t *src, uint8_t len);
 void RFM2xInterruptHandler(void);
-unsigned char RFM2xInit(void);
-unsigned char RFM2xStatusRead(void);
-void RFM2xSetMode(unsigned char mode);
+uint8_t RFM2xInit(void);
+uint8_t RFM2xStatusRead(void);
+void RFM2xSetMode(uint8_t mode);
 void RFM2xSetModeStandby(void);
 void RFM2xSetModeIdle(void);
 void RFM2xSetModeRX(void);
@@ -464,7 +463,7 @@ void RFM2xReceiveData(void);
 void RFM2xResetRXFIFO(void);
 void RFM2xResetTXFIFO(void);
 void RFM2xResetAllFIFO(void);
-unsigned char RFM2xReadRSSI(void);
+uint8_t RFM2xReadRSSI(void);
 bool RFM2xSetFrequency(float centre, float afcPullInRange);
 #ifdef	__cplusplus
 }
