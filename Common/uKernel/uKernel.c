@@ -13,7 +13,7 @@
  *  limitations of micrcontrollers. The maximum number of task is 255 but I am
  *  sure that the memory will go out first. If anyone needs more tasks let me know.
  */
- 
+
 #include "uKernel.h"
 
 uint8_t _initialized;
@@ -185,9 +185,9 @@ bool uKernelPauseTask(uKernelTaskDescriptor *pTaskDescriptor)
  * @param pTaskDescriptor Descriptor of the task to be resumed.
  * @return Return true if all went well, false otherwise.
  */
-bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor)
+bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor, uKernelTaskStatus taskStatus)
 {
-    return (uKernelSetTask(pTaskDescriptor, NULL, UKERNEL_SCHEDULED));
+    return (uKernelSetTask(pTaskDescriptor, NULL, taskStatus));
 }
 
 /**
@@ -207,8 +207,8 @@ bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor)
  * @see @uKernelTaskStatus
  */
 bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
-                          uint32_t taskInterval,
-                          uKernelTaskStatus tStatus)
+                       uint32_t taskInterval,
+                       uKernelTaskStatus tStatus)
 {
     if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
             || (pTaskDescriptor == NULL))
@@ -331,6 +331,6 @@ unsigned char uKernelSetTask(uKernelTaskDescriptor *pTaskDescriptor,
                     _counterMs + taskInterval;
         }
     }
-    
+
     return true;
 }

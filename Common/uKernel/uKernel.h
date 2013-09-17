@@ -76,7 +76,8 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
                     uKernelTaskStatus taskStatus);
 bool uKernelRemoveTask(uKernelTaskDescriptor *userTaskDescriptor);
 bool uKernelPauseTask(uKernelTaskDescriptor *pTaskDescriptor);
-bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor);
+bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor,
+                       uKernelTaskStatus taskStatus);
 bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
                                 uint32_t taskInterval,
                                 uKernelTaskStatus tStatus);
