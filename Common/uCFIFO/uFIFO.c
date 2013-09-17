@@ -9,87 +9,81 @@
 
    Example Usage:
       unsigned char fifo_buf[128];
-      FIFO fifo;
-      FIFOInit(&fifo, 128, &fifo_buf[0]);
+      tFIFO fifo;
+      FIFOInit(&fifo,&fifo_buf[0], 128);
 
  ************************************************************************/
 
 #include "uFIFO.h"
 
-//This initializes the FIFO structure with the given buffer and size
-
-void uFIFOInit(tFIFO *f, unsigned char *buf, unsigned int size)
+void uFIFOInit(tFIFO *f, uint8_t *data, uint8_t size)
 {
-    f->Head = 0;
-    f->Tail = 0;
     f->Size = size;
-    f->SpaceOcupied = 0;
-    f->bufferPointer = buf;
+    f->DataPtr = data;
+    f->Status = UFIFO_GOOD;
+    f->PutIndex = 0;
+    f->GetIndex = 0;
+    f->Used = 0;
 }
 
-//This reads nbytes bytes from the FIFO
-//The number of bytes read is returned
-
-unsigned int uFIFOGet(tFIFO * f, unsigned char *buf, unsigned int nbytes)
+bool uFIFOisFull(tFIFO* f)
 {
-    unsigned int i;
-
-    for (i = 0; i < nbytes; i++)
-    {
-        if (f->Tail != f->Head)
-        {
-            //see if any data is available
-            *buf = f->bufferPointer[f->Tail]; //grab a byte from the buffer
-
-            f->Tail++; //increment the tail
-
-            if (f->Tail == f->Size)
-            {
-                //check for wrap-around
-                f->Tail = 0;
-            }
-
-            f->SpaceOcupied--;
-        }
-        else
-        {
-            return i; //number of bytes read
-        }
-    }
-
-    return nbytes;
+    return (f->Used >= f->Size);
 }
 
-//This writes up to nbytes bytes to the FIFO
-//If the head runs in to the tail, not all bytes are written
-//The number of bytes written is returned
-
-unsigned int uFIFOPut(tFIFO * f, unsigned char *buf, unsigned int nbytes)
+bool uFIFOisEmpty(tFIFO* f)
 {
-    unsigned int i;
+    return (f->Used == 0);
+}
 
-    for (i = 0; i < nbytes; i++)
+uint8_t uFIFOGet(tFIFO* f)
+{
+    uint8_t c;
+    if (f->Used > 0)
     {
-        //first check to see if there is space in the buffer
-        if (f->Head + 1 == f->Tail)
-        {
-            return i; //no more room
-        }
-        else
-        {
-            f->bufferPointer[f->Head] = *buf++;
-
-            f->Head++; //increment the head
-
-            if (f->Head == f->Size && f->Tail != 0)
-            {
-                //check for wrap-around
-                f->Head = 0;
-            }
-
-            f->SpaceOcupied++;
-        }
+        c = f->DataPtr[f->GetIndex];
+        f->GetIndex = (f->GetIndex + 1) % f->Size;
+        f->Used--;
+        return c;
     }
+    else
+    {
+        f->Status = UFIFO_UNDERFLOW;
+        return 0;
+    }
+}
 
-    return nbytes;
+void uFIFOPut(tFIFO* f, uint8_t c)
+{
+    if (f->Used >= f->Size)
+        f->Status = UFIFO_OVERFLOW;
+    else
+    {
+        f->DataPtr[f->PutIndex] = c;
+        f->PutIndex = (f->PutIndex + 1) % f->Size;
+        f->Used++;
+    }
+}
+
+uint8_t uFIFOPeek(tFIFO* f)
+{
+    return f->DataPtr[f->GetIndex];
+}
+
+uint8_t uFIFOBytesInQueue(tFIFO* f)
+{
+    return f->Used;
+}
+
+void uFIFOClear(tFIFO* f)
+{
+    f->Status = UFIFO_GOOD;
+    f->PutIndex = 0;
+    f->GetIndex = 0;
+    f->Used = 0;
+}
+
+tFIFOStatus uFIFOStatus(tFIFO* f)
+{
+    return f->Status;
 }

@@ -42,28 +42,38 @@ USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _FIFO_H_
 #define _FIFO_H_
 
+
 /* includes */
+#include <stdint.h>
 #include <stdbool.h>
+
+typedef enum
+{
+    UFIFO_GOOD,
+    UFIFO_OVERFLOW,
+    UFIFO_UNDERFLOW
+} tFIFOStatus;
 
 /* typedefs */
 typedef struct
 {
-    unsigned char *bufferPointer;
-    unsigned int Head;
-    unsigned int Tail;
-    unsigned int Size;
-    unsigned int SpaceOcupied;
+    volatile uint8_t Size;
+    volatile uint8_t *DataPtr;
+    volatile tFIFOStatus Status;
+    volatile uint8_t PutIndex;
+    volatile uint8_t GetIndex;
+    volatile uint8_t Used;
 } tFIFO;
 
 /* functions */
-void uFIFOInit(tFIFO * f, unsigned char *buf, unsigned int size);
-unsigned int uFIFOGet(tFIFO * f, unsigned char *buf, unsigned int nbytes);
-unsigned int uFIFOPut(tFIFO * f, unsigned char *buf, unsigned int nbytes);
-
-bool uFIFOisFull(tFIFO *f);
-bool uFIFOisEmpty(tFIFO *f);
-unsigned char uFIFOPeek(tFIFO *f);
-unsigned int uFIFOSpaceOcupied(tFIFO *f);
-void uFIFOClear(tFIFO *f);
+void uFIFOInit(tFIFO *f, uint8_t *data, uint8_t size);
+bool uFIFOisFull(tFIFO* f);
+bool uFIFOisEmpty(tFIFO* f);
+uint8_t uFIFOGet(tFIFO* f);
+void uFIFOPut(tFIFO* f, uint8_t c);
+uint8_t uFIFOPeek(tFIFO* f);
+uint8_t uFIFOBytesInQueue(tFIFO* f);
+void uFIFOClear(tFIFO* f);
+tFIFOStatus uFIFOStatus(tFIFO* f);
 
 #endif // _FIFO_H_
