@@ -32,10 +32,10 @@
 //#define SPI_CLOCK_FOSC_64
 
 /**Defines the SPI clock speed to Fosc/16*/
-//#define SPI_CLOCK_FOSC_16
+#define SPI_CLOCK_FOSC_16
 
 /**Defines the SPI clock speed to Fosc/4*/
-#define SPI_CLOCK_FOSC_4
+//#define SPI_CLOCK_FOSC_4
 //------------------------------------------------------//
 
 #ifdef SPI_CLOCK_FOSC_64

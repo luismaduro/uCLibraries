@@ -27,10 +27,6 @@
  */
 void SPIInit(void)
 {
-//    SPISCKPIN = 0; // define clock pin as output
-//    SPISDIPIN = 1; // define SDI pin as input
-//    SPISDOPIN = 0; // define SDO pin as output
-
     SPISTATbits.SMP = 0; //sampled at middle of data output time
     SPISTATbits.CKE = 1; //data changes on clock transition from active to idle
 
