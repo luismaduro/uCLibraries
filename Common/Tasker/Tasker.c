@@ -6,26 +6,27 @@
 //include required libraries
 #include "Tasker.h"
 
-volatile unsigned long _counterMs = 0;
-volatile unsigned char _initialized = 0;
-volatile unsigned char numberTasks;
+volatile uint32_t _counterMs = 0;
+volatile uint8_t _initialized = 0;
+volatile uint8_t numberTasks;
 
 TaskerCore Tasks[MAXIMUM_TASKS];
 
 void TaskerSetTimer();
-unsigned char TaskerSetTask(void (*)(void),
-                            unsigned char,
-                            unsigned long taskInterval);
+uint8_t TaskerSetTask(void (*)(void),
+                      uint8_t,
+                      uint32_t taskInterval);
 
 void TaskerBegin(void)
 {
     _initialized = true;
     numberTasks = 0;
+    _counterMs = 0;
 }
 
-unsigned char TaskerAddTask(void (*userTask)(void),
-                            unsigned long taskInterval,
-                            tTaskStatus taskStatus)
+uint8_t TaskerAddTask(void (*userTask)(void),
+                      uint32_t taskInterval,
+                      tTaskStatus taskStatus)
 {
     if ((_initialized == false) || (numberTasks == MAXIMUM_TASKS))
     {
@@ -58,22 +59,22 @@ unsigned char TaskerAddTask(void (*userTask)(void),
     return true;
 }
 
-unsigned char TaskerPauseTask(void (*userTask)(void))
+uint8_t TaskerPauseTask(void (*userTask)(void))
 {
     return (TaskerSetTask(userTask, PAUSED, NULL));
 }
 
-unsigned char TaskerResumeTask(void (*userTask)(void))
+uint8_t TaskerResumeTask(void (*userTask)(void))
 {
     return (TaskerSetTask(userTask, SCHEDULED, NULL));
 }
 
-unsigned char TaskerModifyTask(void (*userTask)(void),
-                               unsigned long taskInterval,
-                               tTaskStatus oneTimeTask)
+uint8_t TaskerModifyTask(void (*userTask)(void),
+                         uint32_t taskInterval,
+                         tTaskStatus oneTimeTask)
 {
-    unsigned char tempI = 0;
-    unsigned char _done = 1;
+    uint8_t tempI = 0;
+    uint8_t _done = 1;
 
     if ((oneTimeTask < SCHEDULED) && (oneTimeTask > ONETIME))
     {
@@ -100,11 +101,11 @@ unsigned char TaskerModifyTask(void (*userTask)(void),
     return _done;
 }
 
-unsigned char TaskerSetTask(void (*userTask)(void),
-                            unsigned char tempStatus,
-                            unsigned long taskInterval)
+uint8_t TaskerSetTask(void (*userTask)(void),
+                      uint8_t tempStatus,
+                      uint32_t taskInterval)
 {
-    unsigned char tempI = 0;
+    uint8_t tempI = 0;
 
     if ((_initialized == 0) || (numberTasks == 0))
     {
@@ -141,9 +142,9 @@ unsigned char TaskerSetTask(void (*userTask)(void),
     return true;
 }
 
-unsigned char TaskerRemoveTask(void (*userTask)(void))
+uint8_t TaskerRemoveTask(void (*userTask)(void))
 {
-    unsigned char tempI = 0, tempJ;
+    uint8_t tempI = 0, tempJ;
 
     if ((_initialized == 0) || (numberTasks == 0))
     {
@@ -189,8 +190,8 @@ unsigned char TaskerRemoveTask(void (*userTask)(void))
 tTaskStatus TaskerGetTaskStatus(void (*userTask)(void))
 {
     //return 255 if the task was not found (almost impossible)
-    unsigned char tempJ = ERROR;
-    unsigned char tempI = 0;
+    uint8_t tempJ = ERROR;
+    uint8_t tempI = 0;
 
     if ((_initialized == false) || (numberTasks == 0))
     {
@@ -220,7 +221,7 @@ void TaskerTimerInterruptHandler(void)
 
 void TaskerScheduler(void)
 {
-    unsigned char tempI = 0;
+    uint8_t tempI = 0;
 
     while (1)
     {
@@ -254,8 +255,8 @@ void TaskerScheduler(void)
     }
 }
 
-void TaskerDelayMiliseconds(unsigned int delay)
+void TaskerDelayMiliseconds(uint16_t delay)
 {
-    unsigned long newTime = _counterMs + delay;
+    uint32_t newTime = _counterMs + delay;
     while (_counterMs < newTime);
 }

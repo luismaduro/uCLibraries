@@ -31,12 +31,13 @@
 
 #include <xc.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdbool.h>
 
 /**Tasker version*/
 #define TASKER_VERSION 112
 /**Define here the maximum number of tasks to handle.*/
-#define MAXIMUM_TASKS                   1
+//#define MAXIMUM_TASKS                   1
 /**Set your max interval here (max 2^32-1) - default 3600000 (1 hour)*/
 #define MAX_TASK_INTERVAL 3600000UL
 
@@ -59,11 +60,11 @@ typedef struct
     /**Used to store the pointers to user's tasks*/
     void (*taskPointer)(void);
     /**Used to store the interval between each task's run*/
-    volatile unsigned long userTasksInterval;
+    volatile uint32_t userTasksInterval;
     /**Used to store the next time a task will have to be executed*/
-    volatile unsigned long plannedTask;
+    volatile uint32_t plannedTask;
     /**Used to store the status of the tasks*/
-    volatile unsigned char taskIsActive;
+    volatile uint8_t taskIsActive;
 } TaskerCore;
 
 
@@ -86,27 +87,27 @@ void TaskerBegin(void);
  *                   has been added to the scheduler.
  * @return Return true if all went well, false otherwise.
  */
-unsigned char TaskerAddTask(void (*userTask)(void),
-                            unsigned long taskInterval,
+uint8_t TaskerAddTask(void (*userTask)(void),
+                            uint32_t taskInterval,
                             tTaskStatus taskStatus);
 /**
  * This funtion is used to remove the task from the scheduler.
  * @param userTask Routine to be removed.
  * @return Return true if all went well, false otherwise.
  */
-unsigned char TaskerRemoveTask(void (*userTask)(void));
+uint8_t TaskerRemoveTask(void (*userTask)(void));
 /**
  * This funtion is used to pause the task on the scheduler.
  * @param userTask Routine to be paused.
  * @return Return true if all went well, false otherwise.
  */
-unsigned char TaskerPauseTask(void (*userTask)(void));
+uint8_t TaskerPauseTask(void (*userTask)(void));
 /**
  * This funtion is used to restart a funtion that has been paused.
  * @param userTask Routine to be restarted.
  * @return Return true if all went well, false otherwise.
  */
-unsigned char TaskerResumeTask(void (*userTask)(void));
+uint8_t TaskerResumeTask(void (*userTask)(void));
 /**
  * This funtion is used to modify a task properties, for example the running
  * interval or the type of scheduling, i.e., PAUSED, SCHEDULED, ONETIME or
@@ -122,8 +123,8 @@ unsigned char TaskerResumeTask(void (*userTask)(void));
  *                   has been added to the scheduler.
  * @return Return true if all went well, false otherwise.
  */
-unsigned char TaskerModifyTask(void (*userTask)(void),
-                               unsigned long taskInterval,
+uint8_t TaskerModifyTask(void (*userTask)(void),
+                               uint32_t taskInterval,
                                tTaskStatus oneTimeTask);
 /**
  * Funtion to check if a task is running.
@@ -147,5 +148,5 @@ void TaskerScheduler(void);
 /**
  * Just a simple delay in miliseconds. Not related to the Tasker system.
  */
-void TaskerDelayMiliseconds(unsigned int delay);
+void TaskerDelayMiliseconds(uint16_t delay);
 #endif
