@@ -18,7 +18,7 @@
 
 uint8_t _initialized;
 uint32_t _counterMs;
-uint8_t numberTasks;
+uint8_t _numberTasks;
 uKernelTaskDescriptor *pTaskSchedule;
 static uKernelTaskDescriptor *pTaskFirst = NULL;
 
@@ -35,7 +35,7 @@ void uKernelInit(void)
 {
     _initialized = true;
     _counterMs = 0;
-    numberTasks = 0;
+    _numberTasks = 0;
     pTaskSchedule = NULL;
 }
 
@@ -57,13 +57,13 @@ void uKernelInit(void)
  * @see @uKernelTaskStatus
  */
 bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
-                    TaskBody userTask,
+                    void (*userTask)(void),
                     uint32_t taskInterval,
                     uKernelTaskStatus taskStatus)
 {
     uKernelTaskDescriptor *pTaskWork = NULL;
 
-    if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
+    if ((_initialized == false) || (_numberTasks == MAX_TASKS_NUMBER)
             || (userTask == NULL))
     {
         return false;
@@ -75,9 +75,9 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
     }
 
     //check if taskStatus is valid, if not schedule
-    if (taskStatus > UKERNEL_ONETIME_IMMEDIATESTART)
+    if (taskStatus > uKernel_ONETIME_IMMEDIATESTART)
     {
-        taskStatus = UKERNEL_SCHEDULED;
+        taskStatus = uKernel_SCHEDULED;
     }
 
     if (pTaskDescriptor != NULL)
@@ -117,7 +117,7 @@ bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
         //I get only the first 2 bits - I don't need the IMMEDIATESTART bit
         pTaskDescriptor->taskStatus = taskStatus & 0x03;
 
-        numberTasks++;
+        _numberTasks++;
 
         return true;
     }
@@ -141,7 +141,7 @@ bool uKernelRemoveTask(uKernelTaskDescriptor *pTaskDescriptor)
 {
     uKernelTaskDescriptor *pTaskCurr = NULL;
 
-    if ((_initialized == false) || (numberTasks == 0) ||
+    if ((_initialized == false) || (_numberTasks == 0) ||
             pTaskDescriptor == NULL)
     {
         return false;
@@ -165,7 +165,7 @@ bool uKernelRemoveTask(uKernelTaskDescriptor *pTaskDescriptor)
         pTaskCurr->pTaskNext = pTaskDescriptor->pTaskNext;
     }
 
-    numberTasks--;
+    _numberTasks--;
 
     return true;
 }
@@ -177,7 +177,7 @@ bool uKernelRemoveTask(uKernelTaskDescriptor *pTaskDescriptor)
  */
 bool uKernelPauseTask(uKernelTaskDescriptor *pTaskDescriptor)
 {
-    return (uKernelSetTask(pTaskDescriptor, NULL, UKERNEL_PAUSED));
+    return (uKernelSetTask(pTaskDescriptor, NULL, uKernel_PAUSED));
 }
 
 /**
@@ -210,13 +210,13 @@ bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
                        uint32_t taskInterval,
                        uKernelTaskStatus tStatus)
 {
-    if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
+    if ((_initialized == false) || (_numberTasks == MAX_TASKS_NUMBER)
             || (pTaskDescriptor == NULL))
     {
         return false;
     }
 
-    if (tStatus > UKERNEL_ONETIME_IMMEDIATESTART)
+    if (tStatus > uKernel_ONETIME_IMMEDIATESTART)
     {
         return false;
     }
@@ -224,7 +224,7 @@ bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
     pTaskDescriptor->userTasksInterval = taskInterval;
     pTaskDescriptor->taskStatus = tStatus;
 
-    if (tStatus == UKERNEL_SCHEDULED || tStatus == UKERNEL_ONETIME)
+    if (tStatus == uKernel_SCHEDULED || tStatus == uKernel_ONETIME)
     {
         pTaskDescriptor->plannedTask = _counterMs + taskInterval;
     }
@@ -247,10 +247,10 @@ bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
  */
 uKernelTaskStatus uKernelGetTaskStatus(uKernelTaskDescriptor *pTaskDescriptor)
 {
-    if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
+    if ((_initialized == false) || (_numberTasks == MAX_TASKS_NUMBER)
             || (pTaskDescriptor == NULL))
     {
-        return UKERNEL_ERROR;
+        return uKernel_ERROR;
     }
 
     return pTaskDescriptor->taskStatus;
@@ -263,18 +263,18 @@ void uKernelScheduler(void)
 {
     while (1)
     {
-        if (pTaskSchedule != NULL && numberTasks != 0)
+        if (pTaskSchedule != NULL && _numberTasks != 0)
         {
             //the task is running
-            if (pTaskSchedule->taskStatus > UKERNEL_PAUSED)
+            if (pTaskSchedule->taskStatus > uKernel_PAUSED)
             {
                 //this trick overrun the overflow of _counterMs
                 if ((long) (_counterMs - pTaskSchedule->plannedTask) >= 0)
                 {
-                    if (pTaskSchedule->taskStatus & UKERNEL_ONETIME)
+                    if (pTaskSchedule->taskStatus & uKernel_ONETIME)
                     {
                         pTaskSchedule->taskPointer(); //call the task
-                        pTaskSchedule->taskStatus = UKERNEL_PAUSED; //pause the task
+                        pTaskSchedule->taskStatus = uKernel_PAUSED; //pause the task
                     }
                     else
                     {
@@ -310,7 +310,7 @@ unsigned char uKernelSetTask(uKernelTaskDescriptor *pTaskDescriptor,
                              uint32_t taskInterval,
                              uKernelTaskStatus tStatus)
 {
-    if ((_initialized == false) || (numberTasks == MAX_TASKS_NUMBER)
+    if ((_initialized == false) || (_numberTasks == MAX_TASKS_NUMBER)
             || (pTaskDescriptor == NULL))
     {
         return false;
@@ -318,7 +318,7 @@ unsigned char uKernelSetTask(uKernelTaskDescriptor *pTaskDescriptor,
 
     pTaskDescriptor->taskStatus = tStatus;
 
-    if (tStatus == UKERNEL_SCHEDULED)
+    if (tStatus == uKernel_SCHEDULED)
     {
         if (taskInterval == NULL)
         {

@@ -69,15 +69,15 @@ void RFM2xInterruptHandler(void)
 uint8_t RFM2xInit(void)
 {
     WirelessShutdownMode();
-    TaskerDelayMiliseconds(20);
+    uKernelDelayMiliseconds(20);
     WirelessNormalMode();
-    TaskerDelayMiliseconds(20);
+    uKernelDelayMiliseconds(20);
 
     /**Make a software reset*/
     RFM2xWriteByte(RFM2X_REG_07_OPERATING_MODE1, RFM2X_SWRES);
 
     /**Wait until chip is ready*/
-    TaskerDelayMiliseconds(20);
+    uKernelDelayMiliseconds(20);
 
     /**Enable the necessary registers, put the module into ready mode*/
     RFM2xWriteByte(RFM2X_REG_05_INTERRUPT_ENABLE1, RFM2X_ENRXFFAFULL | RFM2X_ENPKSENT);

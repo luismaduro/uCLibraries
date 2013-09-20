@@ -19,7 +19,7 @@ extern "C"
 
 #ifdef MASTER_RFM23
 #include "SPIDevice.h"
-#include "Tasker.h"
+#include "uKernel.h"
 #define WirelessTurnSupplyON()          LATCbits.LATC2 = 0
 #define WirelessTurnSupplyOFF()         LATCbits.LATC2 = 1
 #define WirelessSelectChip()            LATBbits.LATB4 = 0

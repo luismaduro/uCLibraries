@@ -23,6 +23,7 @@ extern "C"
 {
 #endif
 
+#include <xc.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -35,17 +36,17 @@ extern "C"
 typedef enum
 {
     /**For a task that doesn't have to start immediately.*/
-    UKERNEL_PAUSED = 0x00, //0b00000000
+    uKernel_PAUSED = 0x00, //0b00000000
     /**For a normal task that has to start after its scheduling*/
-    UKERNEL_SCHEDULED = 0x01, //0b00000001
+    uKernel_SCHEDULED = 0x01, //0b00000001
     /**For a task that has to run only once.*/
-    UKERNEL_ONETIME = 0x02, //0b00000010
+    uKernel_ONETIME = 0x02, //0b00000010
     /**For a task that has to be executed once it has been added.*/
-    UKERNEL_IMMEDIATESTART = 0x05, //0b00000101
+    uKernel_IMMEDIATESTART = 0x05, //0b00000101
     /**For the task to be executed one time as soon as it is added.*/
-    UKERNEL_ONETIME_IMMEDIATESTART = 0x07, //0b00000111
+    uKernel_ONETIME_IMMEDIATESTART = 0x07, //0b00000111
     /**Error, task not found.*/
-    UKERNEL_ERROR = 0xFF //0b11111111
+    uKernel_ERROR = 0xFF //0b11111111
 } uKernelTaskStatus;
 
 /**Function pointer on the task body.*/
@@ -67,7 +68,7 @@ typedef struct _uKernelTaskDescriptor
     struct _uKernelTaskDescriptor *pTaskNext;
 } uKernelTaskDescriptor;
 
-extern uint32_t __counterMs;
+extern uint32_t _counterMs;
 
 void uKernelInit(void);
 bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
@@ -79,8 +80,8 @@ bool uKernelPauseTask(uKernelTaskDescriptor *pTaskDescriptor);
 bool uKernelResumeTask(uKernelTaskDescriptor *pTaskDescriptor,
                        uKernelTaskStatus taskStatus);
 bool uKernelModifyTask(uKernelTaskDescriptor *pTaskDescriptor,
-                                uint32_t taskInterval,
-                                uKernelTaskStatus tStatus);
+                       uint32_t taskInterval,
+                       uKernelTaskStatus tStatus);
 void uKernelScheduler(void);
 void uKernelDelayMiliseconds(unsigned int delay);
 
