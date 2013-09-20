@@ -67,7 +67,7 @@ typedef struct _uKernelTaskDescriptor
     struct _uKernelTaskDescriptor *pTaskNext;
 } uKernelTaskDescriptor;
 
-extern uint32_t _counterMs;
+extern uint32_t __counterMs;
 
 void uKernelInit(void);
 bool uKernelAddTask(uKernelTaskDescriptor *pTaskDescriptor,
