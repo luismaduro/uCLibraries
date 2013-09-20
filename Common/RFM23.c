@@ -1,13 +1,13 @@
 #include "RFM23.h"
 
-uint8_t _idleMode = RFM2X_XTON;
-uint16_t _txGood = 0;
-uint8_t rssi = 0;
-tInterruptStatus1 RFM2xITStatus1;
-tInterruptStatus2 RFM2xITStatus2;
-tPackageFormat RFM2xRXPacket;
-tPackageFormat RFM2xTXPacket;
-bool NewPacketReceived;
+volatile uint8_t _idleMode = RFM2X_XTON;
+volatile uint16_t _txGood = 0;
+volatile uint8_t rssi = 0;
+volatile tInterruptStatus1 RFM2xITStatus1;
+volatile tInterruptStatus2 RFM2xITStatus2;
+volatile tPackageFormat RFM2xRXPacket;
+volatile tPackageFormat RFM2xTXPacket;
+volatile bool NewPacketReceived;
 
 uint8_t RFM2xReadByte(uint8_t reg)
 {
@@ -49,8 +49,8 @@ void RFM2xBurstWriteByte(uint8_t reg, uint8_t *src, uint8_t len)
 
 void RFM2xInterruptHandler(void)
 {
-    RFM2xITStatus1.IRQReg = RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
-    RFM2xITStatus2.IRQReg = RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
+    RFM2xITStatus1.byte = RFM2xReadByte(RFM2X_REG_03_INTERRUPT_STATUS1);
+    RFM2xITStatus2.byte = RFM2xReadByte(RFM2X_REG_04_INTERRUPT_STATUS2);
 
     if (RFM2xITStatus1.bits.PacketSentInterrupt)
     {
@@ -77,7 +77,7 @@ uint8_t RFM2xInit(void)
     RFM2xWriteByte(RFM2X_REG_07_OPERATING_MODE1, RFM2X_SWRES);
 
     /**Wait until chip is ready*/
-    TaskerDelayMiliseconds(100);
+    TaskerDelayMiliseconds(20);
 
     /**Enable the necessary registers, put the module into ready mode*/
     RFM2xWriteByte(RFM2X_REG_05_INTERRUPT_ENABLE1, RFM2X_ENRXFFAFULL | RFM2X_ENPKSENT);
@@ -263,7 +263,7 @@ bool RFM2xSetFrequency(float centre, float afcPullInRange)
 
     uint8_t fb = (uint8_t) integerPart - 24; // Range 0 to 23
     fbsel |= fb;
-    unsigned int fc = (unsigned int) (fractionalPart * 64000);
+    uint16_t fc = (uint16_t) (fractionalPart * 64000);
     RFM2xWriteByte(RFM2X_REG_73_FREQUENCY_OFFSET1, 0); // REVISIT
     RFM2xWriteByte(RFM2X_REG_74_FREQUENCY_OFFSET2, 0);
     RFM2xWriteByte(RFM2X_REG_75_FREQUENCY_BAND_SELECT, fbsel);

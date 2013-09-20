@@ -16,20 +16,21 @@ extern "C"
 #include <xc.h>
 #include <math.h>
 #include <stdbool.h>
-#include <stdint.h>
 
 #ifdef MASTER_RFM23
-#include "../PIC18F/SPIDevice.h"
-#include "Tasker/Tasker.h"
-#define WirelessSelectChip()    (LATBbits.LATB4 = 0)
-#define WirelessDeselectChip()  (LATBbits.LATB4 = 1)
-#define WirelessShutdownMode()  (LATBbits.LATB3 = 1)
-#define WirelessNormalMode()    (LATBbits.LATB3 = 0)
+#include "SPIDevice.h"
+#include "Tasker.h"
+#define WirelessTurnSupplyON()          LATCbits.LATC2 = 0
+#define WirelessTurnSupplyOFF()         LATCbits.LATC2 = 1
+#define WirelessSelectChip()            LATBbits.LATB4 = 0
+#define WirelessDeselectChip()          LATBbits.LATB4 = 1
+#define WirelessShutdownMode()          LATBbits.LATB3 = 1
+#define WirelessNormalMode()            LATBbits.LATB3 = 0
 #endif
 
 #ifdef RECEIVER_RFM23
 #include "SPIDevice.h"
-#include "uKernel/uKernel.h"
+#include "Tasker.h"
 #define WirelessSelectChip()            LATAbits.LATA3 = 0
 #define WirelessDeselectChip()          LATAbits.LATA3 = 1
 #define WirelessShutdownMode()          LATAbits.LATA2 = 1
@@ -401,7 +402,7 @@ typedef union
         uint8_t TXFIFOAlmostFull : 1;
         uint8_t FIFOUnderflowOverflowError : 1;
     } bits;
-    uint8_t IRQReg;
+    uint8_t byte;
 } tInterruptStatus1;
 
 typedef union
@@ -418,7 +419,7 @@ typedef union
         uint8_t ValidPreambleDetected : 1;
         uint8_t SyncDetected : 1;
     } bits;
-    uint8_t IRQReg;
+    uint8_t byte;
 } tInterruptStatus2;
 
 typedef struct
@@ -439,12 +440,12 @@ typedef struct
     uint8_t CRC[4];
 } tPackageFormat;
 
-extern tPackageFormat RFM2xRXPacket;
-extern tPackageFormat RFM2xTXPacket;
-extern tInterruptStatus1 RFM2xITStatus1;
-extern tInterruptStatus2 RFM2xITStatus2;
+extern volatile tPackageFormat RFM2xRXPacket;
+extern volatile tPackageFormat RFM2xTXPacket;
+extern volatile tInterruptStatus1 RFM2xITStatus1;
+extern volatile tInterruptStatus2 RFM2xITStatus2;
 
-extern bool NewPacketReceived;
+extern volatile bool NewPacketReceived;
 
 uint8_t RFM2xReadByte(uint8_t reg);
 void RFM2xWriteByte(uint8_t reg, uint8_t val);
