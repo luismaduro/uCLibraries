@@ -8,7 +8,7 @@
 
 volatile uint32_t _counterMs = 0;
 volatile uint8_t _initialized = 0;
-volatile uint8_t numberTasks;
+volatile uint8_t _numberTasks;
 
 TaskerCore Tasks[MAXIMUM_TASKS];
 
@@ -20,7 +20,7 @@ uint8_t TaskerSetTask(void (*)(void),
 void TaskerBegin(void)
 {
     _initialized = true;
-    numberTasks = 0;
+    _numberTasks = 0;
     _counterMs = 0;
 }
 
@@ -28,7 +28,7 @@ uint8_t TaskerAddTask(void (*userTask)(void),
                       uint32_t taskInterval,
                       tTaskStatus taskStatus)
 {
-    if ((_initialized == false) || (numberTasks == MAXIMUM_TASKS))
+    if ((_initialized == false) || (_numberTasks == MAXIMUM_TASKS))
     {
         //max number of allowed tasks reached
         return false;
@@ -45,16 +45,16 @@ uint8_t TaskerAddTask(void (*userTask)(void),
         taskStatus = SCHEDULED;
     }
 
-    Tasks[numberTasks].taskPointer = *userTask;
+    Tasks[_numberTasks].taskPointer = *userTask;
     //I get only the first 2 bits - I don't need the IMMEDIATESTART bit
-    Tasks[numberTasks].taskIsActive = taskStatus & 0x03;
-    Tasks[numberTasks].userTasksInterval = taskInterval;
+    Tasks[_numberTasks].taskIsActive = taskStatus & 0x03;
+    Tasks[_numberTasks].userTasksInterval = taskInterval;
     //no wait if the user wants the task up and running once added...
     //...otherwise we wait for the interval before to run the task
-    Tasks[numberTasks].plannedTask =
+    Tasks[_numberTasks].plannedTask =
             _counterMs + ((taskStatus & 0x04) ? 0 : taskInterval);
 
-    numberTasks++;
+    _numberTasks++;
 
     return true;
 }
@@ -96,7 +96,7 @@ uint8_t TaskerModifyTask(void (*userTask)(void),
         }
         tempI++;
     }
-    while (tempI < numberTasks);
+    while (tempI < _numberTasks);
 
     return _done;
 }
@@ -107,7 +107,7 @@ uint8_t TaskerSetTask(void (*userTask)(void),
 {
     uint8_t tempI = 0;
 
-    if ((_initialized == 0) || (numberTasks == 0))
+    if ((_initialized == 0) || (_numberTasks == 0))
     {
         return false;
     }
@@ -137,7 +137,7 @@ uint8_t TaskerSetTask(void (*userTask)(void),
             tempI++;
         }
     }
-    while (tempI < numberTasks);
+    while (tempI < _numberTasks);
 
     return true;
 }
@@ -146,7 +146,7 @@ uint8_t TaskerRemoveTask(void (*userTask)(void))
 {
     uint8_t tempI = 0, tempJ;
 
-    if ((_initialized == 0) || (numberTasks == 0))
+    if ((_initialized == 0) || (_numberTasks == 0))
     {
         return false;
     }
@@ -155,13 +155,13 @@ uint8_t TaskerRemoveTask(void (*userTask)(void))
     {
         if (Tasks[tempI].taskPointer == *userTask)
         {
-            if ((tempI + 1) == numberTasks)
+            if ((tempI + 1) == _numberTasks)
             {
-                numberTasks--;
+                _numberTasks--;
             }
-            else if (numberTasks > 1)
+            else if (_numberTasks > 1)
             {
-                for (tempJ = tempI; tempJ < numberTasks; tempJ++)
+                for (tempJ = tempI; tempJ < _numberTasks; tempJ++)
                 {
                     Tasks[tempJ].taskPointer = Tasks[tempJ + 1].taskPointer;
                     Tasks[tempJ].taskIsActive = Tasks[tempJ + 1].taskIsActive;
@@ -169,11 +169,11 @@ uint8_t TaskerRemoveTask(void (*userTask)(void))
                             Tasks[tempJ + 1].userTasksInterval;
                     Tasks[tempJ].plannedTask = Tasks[tempJ + 1].plannedTask;
                 }
-                numberTasks--;
+                _numberTasks--;
             }
             else
             {
-                numberTasks = 0;
+                _numberTasks = 0;
             }
             break;
         }
@@ -182,7 +182,7 @@ uint8_t TaskerRemoveTask(void (*userTask)(void))
             tempI++;
         }
     }
-    while (tempI < numberTasks);
+    while (tempI < _numberTasks);
 
     return true;
 }
@@ -193,7 +193,7 @@ tTaskStatus TaskerGetTaskStatus(void (*userTask)(void))
     uint8_t tempJ = ERROR;
     uint8_t tempI = 0;
 
-    if ((_initialized == false) || (numberTasks == 0))
+    if ((_initialized == false) || (_numberTasks == 0))
     {
         return false;
     }
@@ -209,7 +209,7 @@ tTaskStatus TaskerGetTaskStatus(void (*userTask)(void))
         tempI++;
     }
 
-    while (tempI < numberTasks);
+    while (tempI < _numberTasks);
 
     return tempJ; //return the task status
 }
@@ -250,7 +250,7 @@ void TaskerScheduler(void)
 
         tempI++;
 
-        if (tempI >= numberTasks)
+        if (tempI >= _numberTasks)
             tempI = 0;
     }
 }

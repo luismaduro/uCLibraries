@@ -67,6 +67,8 @@ typedef struct
     volatile uint8_t taskIsActive;
 } TaskerCore;
 
+extern volatile uint32_t _counterMs;
+
 
 /**
  * This funtion as to be called before doing anything with the tasker. It
